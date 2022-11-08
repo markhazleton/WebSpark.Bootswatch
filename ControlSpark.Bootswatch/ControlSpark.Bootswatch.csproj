@@ -22,18 +22,79 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Content Include="favicon.ico" />
+	  <None Remove="wwwroot\style\mom\css\bootstrap.min.css" />
+	  <None Remove="wwwroot\style\mom\img\background.jpg" />
+	  <None Remove="wwwroot\style\mom\img\bg-kitchen-jars.jpg" />
+	  <None Remove="wwwroot\style\mom\js\site.js" />
+	  <None Remove="wwwroot\style\texecon\css\bootstrap.min.css" />
+	  <None Remove="wwwroot\style\texecon\css\site.css" />
+	  <None Remove="wwwroot\style\texecon\img\background.jpg" />
+	  <None Remove="wwwroot\style\texecon\img\bg-kitchen-jars.jpg" />
+	  <None Remove="wwwroot\style\texecon\js\site.js" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Include="..\ControlSpark.png">
+	  <Content Include="favicon.ico" />
+	  <EmbeddedResource Include="wwwroot\style\mom\css\bootstrap.min.css">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="wwwroot\style\mom\img\background.jpg">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="wwwroot\style\mom\img\bg-kitchen-jars.jpg">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="wwwroot\style\mom\js\site.js">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <Resource Include="wwwroot\style\texecon\css\bootstrap.min.css">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Resource>
+	  <EmbeddedResource Include="wwwroot\style\texecon\css\site.css">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="wwwroot\style\texecon\img\background.jpg">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="wwwroot\style\texecon\img\bg-kitchen-jars.jpg">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="wwwroot\style\texecon\js\site.js">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="..\ControlSpark.png">
 	    <Pack>True</Pack>
 	    <PackagePath>\</PackagePath>
-	  </None>
+	  </EmbeddedResource>
 	  <None Include="..\README.md">
 	    <Pack>True</Pack>
 	    <PackagePath>\</PackagePath>
 	  </None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.AspNetCore.Mvc.RazorPages" Version="2.2.5" />
 	</ItemGroup>
 
 	<ItemGroup>

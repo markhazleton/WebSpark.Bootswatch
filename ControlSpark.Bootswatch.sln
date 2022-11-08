@@ -5,6 +5,8 @@ VisualStudioVersion = 17.3.32811.315
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControlSpark.Bootswatch", "ControlSpark.Bootswatch\ControlSpark.Bootswatch.csproj", "{45A07A67-C5F3-412A-90AD-3FE1A4B4E867}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlSpark.Bootswatch.Demo", "ControlSpark.Bootswatch.Demo\ControlSpark.Bootswatch.Demo.csproj", "{984D81F1-703E-4476-9104-0FB94657F695}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{45A07A67-C5F3-412A-90AD-3FE1A4B4E867}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45A07A67-C5F3-412A-90AD-3FE1A4B4E867}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45A07A67-C5F3-412A-90AD-3FE1A4B4E867}.Release|Any CPU.Build.0 = Release|Any CPU
+		{984D81F1-703E-4476-9104-0FB94657F695}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{984D81F1-703E-4476-9104-0FB94657F695}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{984D81F1-703E-4476-9104-0FB94657F695}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{984D81F1-703E-4476-9104-0FB94657F695}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

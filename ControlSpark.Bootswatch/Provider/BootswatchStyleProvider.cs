@@ -29,7 +29,23 @@ public class BootswatchStyleProvider : IStyleProvider
     /// <returns></returns>
     public static List<StyleModel> GetSiteStyles()
     {
-        var siteStyle = new List<StyleModel>();
+        var siteStyle = new List<StyleModel>
+            {
+                new StyleModel()
+                {
+                    name = "mom",
+                    css = "/style/mom/css/bootstrap.min.css",
+                    cssMin = "/style/mom/css/bootstrap.min.css",
+                    cssCdn = "/style/mom/css/bootstrap.min.css"
+                },
+            new StyleModel()
+                {
+                    name = "texecon",
+                    css = "/style/texecon/css/bootstrap.min.css",
+                    cssMin = "/style/texecon/css/bootstrap.min.css",
+                    cssCdn = "/style/texecon/css/bootstrap.min.css"
+                }
+            };
         try
         {
             var myClient = new HttpClient();

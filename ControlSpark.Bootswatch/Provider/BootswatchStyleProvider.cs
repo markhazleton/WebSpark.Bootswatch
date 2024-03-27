@@ -30,22 +30,32 @@ public class BootswatchStyleProvider : IStyleProvider
     public static List<StyleModel> GetSiteStyles()
     {
         var siteStyle = new List<StyleModel>
+        {
+            new()
             {
-                new StyleModel()
-                {
-                    name = "mom",
-                    css = "/style/mom/css/bootstrap.min.css",
-                    cssMin = "/style/mom/css/bootstrap.min.css",
-                    cssCdn = "/style/mom/css/bootstrap.min.css"
-                },
-            new StyleModel()
-                {
-                    name = "texecon",
-                    css = "/style/texecon/css/bootstrap.min.css",
-                    cssMin = "/style/texecon/css/bootstrap.min.css",
-                    cssCdn = "/style/texecon/css/bootstrap.min.css"
-                }
-            };
+                name = "mom",
+                css = "/lib/bootstrap/css/bootstrap.min.css",
+                cssMin = "/lib/bootstrap/css/bootstrap.min.css",
+                cssCdn = "/lib/bootstrap/css/bootstrap.min.css",
+                scss = "/lib/bootstrap/scss/bootstrap.scss",
+                scssVariables = "/lib/bootstrap/scss/_variables.scss",
+                less = "/lib/bootstrap/less/bootstrap.less",
+                lessVariables = "/lib/bootstrap/less/variables.less",
+                description = "The default Bootstrap theme for mom",
+            },
+            new()
+            {
+                name = "texecon",
+                css = "/lib/bootstrap/css/bootstrap.min.css",
+                cssMin = "/lib/bootstrap/css/bootstrap.min.css",
+                cssCdn = "/lib/bootstrap/css/bootstrap.min.css",
+                scss = "/lib/bootstrap/scss/bootstrap.scss",
+                scssVariables = "/lib/bootstrap/scss/_variables.scss",
+                less = "/lib/bootstrap/less/bootstrap.less",
+                lessVariables = "/lib/bootstrap/less/variables.less",
+                description = "The default Bootstrap theme for texecon",
+            }
+        };
         try
         {
             var myClient = new HttpClient();

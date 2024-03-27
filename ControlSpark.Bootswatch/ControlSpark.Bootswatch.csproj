@@ -22,18 +22,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Remove="wwwroot\style\mom\css\bootstrap.min.css" />
-	  <None Remove="wwwroot\style\mom\img\background.jpg" />
-	  <None Remove="wwwroot\style\mom\img\bg-kitchen-jars.jpg" />
-	  <None Remove="wwwroot\style\mom\js\site.js" />
-	  <None Remove="wwwroot\style\texecon\css\bootstrap.min.css" />
-	  <None Remove="wwwroot\style\texecon\css\site.css" />
-	  <None Remove="wwwroot\style\texecon\img\background.jpg" />
-	  <None Remove="wwwroot\style\texecon\img\bg-kitchen-jars.jpg" />
-	  <None Remove="wwwroot\style\texecon\js\site.js" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <Content Include="favicon.ico" />
 	  <EmbeddedResource Include="wwwroot\style\mom\css\bootstrap.min.css">
 	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>

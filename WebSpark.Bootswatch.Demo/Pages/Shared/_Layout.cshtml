@@ -2,7 +2,7 @@
 @using WebSpark.Bootswatch.Model
 @inject StyleCache StyleCache
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="@(Context.Request.Cookies["color-mode"] ?? "light")">
 
 <head>
     <meta charset="utf-8" />
@@ -36,16 +36,22 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Components">Components</a>
+                            <a class="nav-link text-dark" asp-area=""
+                                asp-page="/WebSparkBootswatch">WebSpark.Bootswatch</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/GridSystem">Grid System</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/CardLayout">Cards & Layout</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/FormsControls">Forms & Controls</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Bootstrap
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" asp-area="" asp-page="/Components">Components</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-page="/Accordion">Accordion</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-page="/GridSystem">Grid System</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-page="/CardLayout">Cards & Layout</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-page="/FormsControls">Forms & Controls</a>
+                                </li>
+                            </ul>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>

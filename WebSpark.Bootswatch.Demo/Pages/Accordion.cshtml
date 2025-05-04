@@ -1,0 +1,439 @@
+@page
+@model WebSpark.Bootswatch.Demo.Pages.AccordionModel
+@{
+    ViewData["Title"] = "Bootstrap 5 Accordion";
+}
+
+<div class="container py-4">
+    <header class="pb-3 mb-4 border-bottom">
+        <h1 class="display-4">Bootstrap 5 Accordion</h1>
+        <p class="lead">A demonstration of Bootstrap 5 accordions featuring the top ten things every NuGet package
+            should have.</p>
+    </header>
+
+    <section class="mb-5">
+        <h2 class="border-bottom pb-2 mb-4">Top Ten NuGet Package Essentials</h2>
+
+        <div class="accordion" id="nugetEssentialsAccordion">
+            <!-- Item 1 -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading1">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1"
+                        aria-expanded="true" aria-controls="collapse1">
+                        1. Semantic Versioning (SemVer)
+                    </button>
+                </h2>
+                <div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="heading1"
+                    data-bs-parent="#nugetEssentialsAccordion">
+                    <div class="accordion-body">
+                        <strong>Format: Major.Minor.Patch[-prerelease]</strong>
+                        <p>Use semantic versioning to clearly indicate the type of changes in each release:</p>
+                        <ul>
+                            <li><strong>Major:</strong> Breaking changes</li>
+                            <li><strong>Minor:</strong> New features, backwards compatible</li>
+                            <li><strong>Patch:</strong> Bug fixes, backwards compatible</li>
+                            <li><strong>Prerelease:</strong> Unstable versions (e.g., -alpha, -beta, -rc)</li>
+                        </ul>
+                        <p>Publish non-stable packages as pre-release to avoid breaking users' builds with
+                            work-in-progress code.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading2">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                        2. Include a README File
+                    </button>
+                </h2>
+                <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2"
+                    data-bs-parent="#nugetEssentialsAccordion">
+                    <div class="accordion-body">
+                        <p>Provide a markdown (.md) file that includes:</p>
+                        <ul>
+                            <li>An overview of what your package does</li>
+                            <li>How to get started (installation instructions)</li>
+                            <li>Basic usage examples</li>
+                            <li>Common scenarios and code samples</li>
+                        </ul>
+                        <p>This README is displayed on nuget.org and greatly improves the experience for new users
+                            exploring your package.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading3">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+                        3. Include a License File or Expression
+                    </button>
+                </h2>
+                <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading3"
+                    data-bs-parent="#nugetEssentialsAccordion">
+                    <div class="accordion-body">
+                        <p>Specify a valid license by:</p>
+                        <ul>
+                            <li>Using an SPDX license expression (e.g., <code>MIT</code>, <code>Apache-2.0</code>)</li>
+                            <li>OR providing a path to a license file within the package</li>
+                        </ul>
+                        <div class="alert alert-warning">
+                            <strong>Warning!</strong> A project without a license defaults to exclusive copyright. Avoid
+                            the deprecated <code>LicenseUrl</code> property.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading4">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                        4. Provide a Descriptive Package Description
+                    </button>
+                </h2>
+                <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4"
+                    data-bs-parent="#nugetEssentialsAccordion">
+                    <div class="accordion-body">
+                        <p>Include a concise yet informative description (up to 4000 characters) that clearly states
+                            what the package is for.</p>
+                        <p>This is a primary field for discoverability in NuGet search. For private packages, consider
+                            linking to an internal wiki for detailed information.</p>
+                        <div class="card border-info mb-3">
+                            <div class="card-header">Pro Tip</div>
+                            <div class="card-body">
+                                <p class="card-text">A good description answers the question: "What problem does this
+                                    package solve for the user?"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 5 -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading5">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
+                        5. Include Relevant Tags
+                    </button>
+                </h2>
+                <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="heading5"
+                    data-bs-parent="#nugetEssentialsAccordion">
+                    <div class="accordion-body">
+                        <p>Add a space-delimited list of keywords or tags that describe your package.</p>
+                        <p>Tags are used in NuGet's search algorithm and help users find your package. Examples might
+                            include:</p>
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                            <span class="badge bg-primary">logging</span>
+                            <span class="badge bg-primary">database</span>
+                            <span class="badge bg-primary">orm</span>
+                            <span class="badge bg-primary">json</span>
+                            <span class="badge bg-primary">serialization</span>
+                            <span class="badge bg-primary">api-client</span>
+                            <span class="badge bg-primary">blazor</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 6 -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading6">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapse6" aria-expanded="false" aria-controls="collapse6">
+                        6. Include a Package Icon
+                    </button>
+                </h2>
+                <div id="collapse6" class="accordion-collapse collapse" aria-labelledby="heading6"
+                    data-bs-parent="#nugetEssentialsAccordion">
+                    <div class="accordion-body">
+                        <p>Provide an image file to visually differentiate your package on nuget.org and in Visual
+                            Studio's NuGet Package Manager.</p>
+                        <ul>
+                            <li>JPEG or PNG format</li>
+                            <li>128x128 pixels recommended</li>
+                            <li>Maximum 1 MB file size</li>
+                        </ul>
+                        <div class="alert alert-danger">
+                            <strong>Important!</strong> Avoid the deprecated <code>IconUrl</code> property.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 7 -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading7">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapse7" aria-expanded="false" aria-controls="collapse7">
+                        7. Include PDBs and Source Link
+                    </button>
+                </h2>
+                <div id="collapse7" class="accordion-collapse collapse" aria-labelledby="heading7"
+                    data-bs-parent="#nugetEssentialsAccordion">
+                    <div class="accordion-body">
+                        <p>Supply PDB files to make exception reports more informative by providing file and line
+                            numbers.</p>
+                        <p>Consider setting up Source Link to add source control metadata, allowing consumers to step
+                            into your code while debugging.</p>
+                        <div class="card border-secondary mb-3">
+                            <div class="card-header">Configuration Example</div>
+                            <div class="card-body">
+                                <pre><code>&lt;PropertyGroup&gt;
+    &lt;IncludeSymbols&gt;true&lt;/IncludeSymbols&gt;
+    &lt;SymbolPackageFormat&gt;snupkg&lt;/SymbolPackageFormat&gt;
+    &lt;PublishRepositoryUrl&gt;true&lt;/PublishRepositoryUrl&gt;
+    &lt;EmbedUntrackedSources&gt;true&lt;/EmbedUntrackedSources&gt;
+&lt;/PropertyGroup&gt;</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 8 -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading8">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapse8" aria-expanded="false" aria-controls="collapse8">
+                        8. Generate XML Documentation File
+                    </button>
+                </h2>
+                <div id="collapse8" class="accordion-collapse collapse" aria-labelledby="heading8"
+                    data-bs-parent="#nugetEssentialsAccordion">
+                    <div class="accordion-body">
+                        <p>Include the XML documentation file (often generated from XML comments in your code) in the
+                            package.</p>
+                        <p>This provides API documentation for users and enables IntelliSense descriptions in Visual
+                            Studio.</p>
+                        <div class="card border-secondary mb-3">
+                            <div class="card-header">Configuration Example</div>
+                            <div class="card-body">
+                                <pre><code>&lt;PropertyGroup&gt;
+    &lt;GenerateDocumentationFile&gt;true&lt;/GenerateDocumentationFile&gt;
+    &lt;NoWarn&gt;$(NoWarn);1591&lt;/NoWarn&gt;
+&lt;/PropertyGroup&gt;</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 9 -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading9">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapse9" aria-expanded="false" aria-controls="collapse9">
+                        9. Specify Supported Target Frameworks
+                    </button>
+                </h2>
+                <div id="collapse9" class="accordion-collapse collapse" aria-labelledby="heading9"
+                    data-bs-parent="#nugetEssentialsAccordion">
+                    <div class="accordion-body">
+                        <p>Define the .NET frameworks your package supports. For general-purpose libraries, consider
+                            including a <code>netstandard2.0</code> target to maximize compatibility across modern
+                            platforms.</p>
+                        <p>Example target framework moniker (TFM) combinations:</p>
+                        <ul>
+                            <li><code>netstandard2.0;netstandard2.1</code></li>
+                            <li><code>netstandard2.0;net6.0;net7.0;net8.0</code></li>
+                            <li><code>net6.0-windows;net7.0-windows</code> (for Windows-specific packages)</li>
+                        </ul>
+                        <div class="alert alert-info">
+                            <strong>Note:</strong> Multi-targeting allows you to provide optimized assemblies for each
+                            framework while supporting a wide range of platforms.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 10 -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading10">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapse10" aria-expanded="false" aria-controls="collapse10">
+                        10. Sign Your Package
+                    </button>
+                </h2>
+                <div id="collapse10" class="accordion-collapse collapse" aria-labelledby="heading10"
+                    data-bs-parent="#nugetEssentialsAccordion">
+                    <div class="accordion-body">
+                        <p>Add a digital signature to your package. Package signing helps ensure the integrity and
+                            authenticity of the package, providing users with assurance that it hasn't been tampered
+                            with since publishing.</p>
+                        <p>There are two types of signing:</p>
+                        <ul>
+                            <li><strong>Author signing:</strong> Certifies package origin and integrity</li>
+                            <li><strong>Repository signing:</strong> Applied by the repository (e.g., nuget.org)</li>
+                        </ul>
+                        <div class="card border-secondary mb-3">
+                            <div class="card-header">Configuration Example</div>
+                            <div class="card-body">
+                                <pre><code>&lt;PropertyGroup&gt;
+    &lt;SignAssembly&gt;true&lt;/SignAssembly&gt;
+    &lt;AssemblyOriginatorKeyFile&gt;YourKeyFile.snk&lt;/AssemblyOriginatorKeyFile&gt;
+&lt;/PropertyGroup&gt;</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Additional Examples Section -->
+    <section class="mb-5">
+        <h2 class="border-bottom pb-2 mb-4">Additional Accordion Examples</h2>
+
+        <!-- Flush Accordion Example -->
+        <h3 class="mt-4 mb-3">Flush Accordion (No Border)</h3>
+        <div class="accordion accordion-flush" id="flushAccordionExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        How to install a NuGet package
+                    </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+                    data-bs-parent="#flushAccordionExample">
+                    <div class="accordion-body">
+                        <p>Install NuGet packages using any of these methods:</p>
+                        <ul>
+                            <li>Package Manager Console: <code>Install-Package PackageName -Version 1.0.0</code></li>
+                            <li>.NET CLI: <code>dotnet add package PackageName --version 1.0.0</code></li>
+                            <li>Visual Studio Package Manager UI: Right-click on project → Manage NuGet Packages</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                        How to create a NuGet package
+                    </button>
+                </h2>
+                <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
+                    data-bs-parent="#flushAccordionExample">
+                    <div class="accordion-body">
+                        <p>Create a NuGet package by:</p>
+                        <ol>
+                            <li>Configure package properties in your .csproj file</li>
+                            <li>Use <code>dotnet pack</code> to build the package</li>
+                            <li>Test the package locally before publishing</li>
+                            <li>Publish to nuget.org or a private feed</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                        How to publish a NuGet package
+                    </button>
+                </h2>
+                <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree"
+                    data-bs-parent="#flushAccordionExample">
+                    <div class="accordion-body">
+                        <p>Publish your NuGet package to nuget.org:</p>
+                        <ol>
+                            <li>Create an account on nuget.org and get an API key</li>
+                            <li>Push your package using:
+                                <code>dotnet nuget push YourPackage.1.0.0.nupkg --api-key YOUR_API_KEY --source https://api.nuget.org/v3/index.json</code>
+                            </li>
+                            <li>Wait for the package to be indexed (usually within minutes)</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nested Accordions Example -->
+        <h3 class="mt-4 mb-3">Nested Accordions</h3>
+        <div class="accordion" id="nestedAccordionExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="nested-headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#nested-collapseOne" aria-expanded="true" aria-controls="nested-collapseOne">
+                        NuGet Package Management Best Practices
+                    </button>
+                </h2>
+                <div id="nested-collapseOne" class="accordion-collapse collapse show"
+                    aria-labelledby="nested-headingOne" data-bs-parent="#nestedAccordionExample">
+                    <div class="accordion-body">
+                        <p>Managing your NuGet packages effectively is essential for a successful .NET project.</p>
+
+                        <!-- Nested accordion inside -->
+                        <div class="accordion" id="nestedAccordionInner">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="inner-headingOne">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#inner-collapseOne" aria-expanded="false"
+                                        aria-controls="inner-collapseOne">
+                                        Dependency Management
+                                    </button>
+                                </h2>
+                                <div id="inner-collapseOne" class="accordion-collapse collapse"
+                                    aria-labelledby="inner-headingOne" data-bs-parent="#nestedAccordionInner">
+                                    <div class="accordion-body">
+                                        <ul>
+                                            <li>Specify version ranges appropriately</li>
+                                            <li>Use <code>central package management</code> for large solutions</li>
+                                            <li>Regularly update dependencies to get security fixes</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="inner-headingTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#inner-collapseTwo" aria-expanded="false"
+                                        aria-controls="inner-collapseTwo">
+                                        Package Restore
+                                    </button>
+                                </h2>
+                                <div id="inner-collapseTwo" class="accordion-collapse collapse"
+                                    aria-labelledby="inner-headingTwo" data-bs-parent="#nestedAccordionInner">
+                                    <div class="accordion-body">
+                                        <ul>
+                                            <li>Use package restore in CI/CD pipelines</li>
+                                            <li>Consider using a private feed for proprietary packages</li>
+                                            <li>Cache packages locally when possible</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="nested-headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#nested-collapseTwo" aria-expanded="false" aria-controls="nested-collapseTwo">
+                        NuGet Security Considerations
+                    </button>
+                </h2>
+                <div id="nested-collapseTwo" class="accordion-collapse collapse" aria-labelledby="nested-headingTwo"
+                    data-bs-parent="#nestedAccordionExample">
+                    <div class="accordion-body">
+                        <p>Security is critical when working with NuGet packages:</p>
+                        <ul>
+                            <li>Use signed packages when possible</li>
+                            <li>Verify package sources and authors</li>
+                            <li>Scan packages for vulnerabilities using tools like NuGet Auditor</li>
+                            <li>Keep dependencies up to date to incorporate security fixes</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

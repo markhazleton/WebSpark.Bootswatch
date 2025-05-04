@@ -7,21 +7,32 @@
     var currentStyle = Context.Request.Cookies["bootswatch-theme"] ?? "default";
 }
 
-<div class="dropdown">
-    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="themeDropdown"
-        data-bs-toggle="dropdown" aria-expanded="false">
-        Theme
-    </button>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="themeDropdown">
-        @foreach (var style in styles)
-        {
-            <li>
-                <a class="dropdown-item @(style.name == currentStyle ? "active" : "")" href="#" data-theme="@style.name"
-                    data-theme-url="@style.cssCdn">
-                    @style.name
-                </a>
-            </li>
-        }
-    </ul>
+<div class="d-flex align-items-center">
+    <!-- Color Mode Toggle -->
+    <div class="me-2">
+        <button class="btn btn-sm btn-outline-secondary" id="color-mode-toggle" type="button"
+            aria-label="Toggle color mode">
+            <i class="color-mode-icon"></i>
+            <span class="color-mode-text"></span>
+        </button>
+    </div>
+
+    <!-- Theme Dropdown -->
+    <div class="dropdown">
+        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="themeDropdown"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            Theme
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="themeDropdown">
+            @foreach (var style in styles)
+            {
+                <li>
+                    <a class="dropdown-item @(style.name == currentStyle ? "active" : "")" href="#" data-theme="@style.name"
+                        data-theme-url="@style.cssCdn">
+                        @style.name
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
 </div>
-        

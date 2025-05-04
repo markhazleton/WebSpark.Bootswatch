@@ -3,6 +3,7 @@ using WebSpark.Bootswatch.Provider;
 using WebSpark.Bootswatch.Model;
 using WebSpark.HttpClientUtility.RequestResult;
 using WebSpark.Bootswatch.Demo.Services;
+using Microsoft.Extensions.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 

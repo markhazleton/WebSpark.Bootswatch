@@ -1,0 +1,670 @@
+@page
+@model WebSpark.Bootswatch.Demo.Pages.WebSparkBootswatchModel
+@using WebSpark.Bootswatch.Demo.Services
+@using WebSpark.Bootswatch.Model
+@using System.Linq
+@inject StyleCache StyleCache
+@{
+    ViewData["Title"] = "WebSpark.Bootswatch Documentation";
+}
+
+<div class="container py-4">
+    <header class="pb-3 mb-4 border-bottom">
+        <h1 class="display-4">WebSpark.Bootswatch</h1>
+        <p class="lead">A .NET Razor Class Library that integrates Bootswatch themes into ASP.NET Core applications.</p>
+    </header>
+
+    <div class="row">
+        <!-- Left sidebar with navigation -->
+        <div class="col-md-3 mb-4">
+            <div class="sticky-top pt-3">
+                <nav class="nav flex-column">
+                    <a class="nav-link" href="#overview">Overview</a>
+                    <a class="nav-link" href="#installation">Installation</a>
+                    <a class="nav-link" href="#setup">Basic Setup</a>
+                    <a class="nav-link" href="#usage">Usage</a>
+                    <a class="nav-link" href="#theme-switching">Theme Switching</a>
+                    <a class="nav-link" href="#available-themes">Available Themes</a>
+                    <a class="nav-link" href="#advanced">Advanced Configuration</a>
+                    <a class="nav-link" href="#caching">Caching</a>
+                    <a class="nav-link" href="#troubleshooting">Troubleshooting</a>
+                    <a class="nav-link" href="#best-practices">Best Practices</a>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Main content area -->
+        <div class="col-md-9">
+            <!-- Overview Section -->
+            <section id="overview" class="mb-5">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="mb-0">Overview</h2>
+                    </div>
+                    <div class="card-body">
+                        <p>WebSpark.Bootswatch is a .NET Razor Class Library that integrates <a
+                                href="https://bootswatch.com/" target="_blank">Bootswatch</a> themes into ASP.NET Core
+                            applications. This library allows you to easily switch between multiple Bootstrap themes at
+                            runtime.</p>
+
+                        <div class="alert alert-info">
+                            <strong>Last Updated:</strong> May 4, 2025
+                        </div>
+
+                        <div class="mb-3">
+                            <a href="https://www.nuget.org/packages/WebSpark.Bootswatch/" class="btn btn-primary"
+                                target="_blank">NuGet Package</a>
+                            <a href="https://github.com/markhazleton/WebSpark.Bootswatch"
+                                class="btn btn-outline-secondary" target="_blank">GitHub Repository</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Installation Section -->
+            <section id="installation" class="mb-5">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="mb-0">Installation</h2>
+                    </div>
+                    <div class="card-body">
+                        <h4>Prerequisites</h4>
+                        <p>Before installing WebSpark.Bootswatch, ensure you have:</p>
+                        <ul>
+                            <li>.NET SDK 8.0 or later</li>
+                            <li>An ASP.NET Core web application (MVC or Razor Pages)</li>
+                            <li>Basic understanding of Bootstrap framework</li>
+                        </ul>
+
+                        <h4>Installation Options</h4>
+
+                        <div class="card mb-3">
+                            <div class="card-header">Via NuGet Package Manager</div>
+                            <div class="card-body">
+                                <pre><code>Install-Package WebSpark.Bootswatch</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="card mb-3">
+                            <div class="card-header">Via .NET CLI</div>
+                            <div class="card-body">
+                                <pre><code>dotnet add package WebSpark.Bootswatch</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="card mb-3">
+                            <div class="card-header">Via Project Reference</div>
+                            <div class="card-body">
+                                <pre><code>&lt;ItemGroup&gt;
+  &lt;ProjectReference Include="..\WebSpark.Bootswatch\WebSpark.Bootswatch.csproj" /&gt;
+&lt;/ItemGroup&gt;</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Basic Setup Section -->
+            <section id="setup" class="mb-5">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="mb-0">Basic Setup</h2>
+                    </div>
+                    <div class="card-body">
+                        <h4>1. Register Services</h4>
+                        <p>Add the necessary using statements at the top of your <code>Program.cs</code> file:</p>
+                        <pre><code>using WebSpark.Bootswatch;
+using WebSpark.Bootswatch.Provider;
+using WebSpark.Bootswatch.Model;</code></pre>
+
+                        <p>Register Bootswatch services in the dependency injection container:</p>
+                        <pre><code>var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container
+builder.Services.AddRazorPages(); // or AddControllersWithViews() for MVC
+
+// Register Bootswatch services
+builder.Services.AddBootswatchStyles();
+
+var app = builder.Build();</code></pre>
+
+                        <h4>2. Configure Middleware</h4>
+                        <p>Configure the HTTP request pipeline to use Bootswatch static files:</p>
+                        <pre><code>// Configure middleware
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Error");
+    app.UseHsts();
+}
+
+app.UseHttpsRedirection();
+
+// Register Bootswatch static files middleware BEFORE standard static files
+app.UseBootswatchStaticFiles();
+
+// Standard static files middleware
+app.UseStaticFiles();
+
+app.UseRouting();
+app.UseAuthorization();
+app.MapRazorPages(); // or MapControllerRoute() for MVC
+
+app.Run();</code></pre>
+
+                        <div class="alert alert-warning">
+                            <strong>Important:</strong> <code>app.UseBootswatchStaticFiles()</code> must be called
+                            before <code>app.UseStaticFiles()</code> to ensure proper serving of embedded static files.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Usage Section -->
+            <section id="usage" class="mb-5">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="mb-0">Usage</h2>
+                    </div>
+                    <div class="card-body">
+                        <h4>Including Styles in Layout</h4>
+                        <p>Add the following to your <code>_Layout.cshtml</code> file:</p>
+                        <pre><code>@@inject WebSpark.Bootswatch.Model.IStyleProvider StyleProvider
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="utf-8" /&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+    &lt;title&gt;@@ViewData["Title"]&lt;/title&gt;
+    
+    &lt;!-- Reference the current Bootswatch theme --&gt;
+    &lt;link rel="stylesheet" href="@@StyleProvider.GetCurrentStyleUrl()" /&gt;
+    
+    &lt;!-- Your other CSS references --&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- Your layout content --&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Theme Switching Section -->
+            <section id="theme-switching" class="mb-5">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="mb-0">Theme Switching Implementation</h2>
+                    </div>
+                    <div class="card-body">
+                        <h4>1. Update Layout for Dynamic Themes</h4>
+                        <p>Modify your <code>_Layout.cshtml</code> file to dynamically load the selected theme:</p>
+                        <pre><code>@@using WebSpark.Bootswatch.Demo.Services
+@@using WebSpark.Bootswatch.Model
+@@inject StyleCache StyleCache
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="utf-8" /&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+    &lt;title&gt;@@ViewData["Title"] - WebSpark.Bootswatch.Demo&lt;/title&gt;
+
+    @@{
+        var themeName = Context.Request.Cookies["bootswatch-theme"] ?? "default";
+        var themeUrl = themeName == "default" ?
+                "/lib/bootstrap/dist/css/bootstrap.min.css" :
+                StyleCache.GetStyle(themeName)?.cssCdn ?? "/lib/bootstrap/dist/css/bootstrap.min.css";
+    }
+
+    &lt;link id="theme-stylesheet" rel="stylesheet" href="@@themeUrl" /&gt;
+    &lt;link rel="stylesheet" href="~/css/site.css" asp-append-version="true" /&gt;
+    &lt;link rel="stylesheet" href="~/WebSpark.Bootswatch.Demo.styles.css" asp-append-version="true" /&gt;
+&lt;/head&gt;</code></pre>
+
+                        <h4>2. Create Theme Switcher Component</h4>
+                        <p>Create a <code>_ThemeSwitcher.cshtml</code> partial view in your Pages/Shared folder:</p>
+                        <pre><code>@@using WebSpark.Bootswatch.Demo.Services
+@@inject StyleCache StyleCache
+
+&lt;div class="dropdown theme-switcher"&gt;
+    &lt;button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"&gt;
+        Theme
+    &lt;/button&gt;
+    &lt;ul class="dropdown-menu"&gt;
+        &lt;li&gt;&lt;a class="dropdown-item" href="#" onclick="setTheme('default')"&gt;Default&lt;/a&gt;&lt;/li&gt;
+        @@foreach (var styleItem in StyleCache.GetAllStyles())
+        {
+            &lt;li&gt;&lt;a class="dropdown-item" href="#" onclick="setTheme('@@styleItem.name')"&gt;@@styleItem.name&lt;/a&gt;&lt;/li&gt;
+        }
+    &lt;/ul&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+    function setTheme(themeName) {
+        // Set cookie to remember theme choice
+        document.cookie = "bootswatch-theme=" + themeName + "; path=/; max-age=31536000"; // 1 year expiry
+        
+        // Update CSS link
+        var themeUrl = themeName === 'default' 
+            ? '/lib/bootstrap/dist/css/bootstrap.min.css' 
+            : '@@StyleCache.GetAllStyles().FirstOrDefault()?.cssCdn'.replace('@@StyleCache.GetAllStyles().FirstOrDefault()?.name', themeName);
+        
+        document.getElementById('theme-stylesheet').href = themeUrl;
+        
+        return false;
+    }
+&lt;/script&gt;</code></pre>
+
+                        <h4>3. Switching Themes</h4>
+                        <h5>Option 1: Via Controller</h5>
+                        <pre><code>[HttpGet("SetTheme/{name}")]
+public IActionResult SetTheme(string name)
+{
+    // Access the IStyleProvider to change the theme
+    var styleProvider = HttpContext.RequestServices.GetRequiredService&lt;IStyleProvider&gt;();
+    styleProvider.SetCurrentStyle(name);
+    
+    // Redirect back to the previous page
+    return Redirect(Request.Headers["Referer"].ToString());
+}</code></pre>
+
+                        <h5>Option 2: Via Razor Page</h5>
+                        <pre><code>public class IndexModel : PageModel
+{
+    private readonly IStyleProvider _styleProvider;
+
+    public IndexModel(IStyleProvider styleProvider)
+    {
+        _styleProvider = styleProvider;
+    }
+    
+    public IActionResult OnPostChangeTheme(string themeName)
+    {
+        _styleProvider.SetCurrentStyle(themeName);
+        return RedirectToPage();
+    }
+}</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Available Themes Section -->
+            <section id="available-themes" class="mb-5">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="mb-0">Available Themes</h2>
+                    </div>
+                    <div class="card-body">
+                        <p>WebSpark.Bootswatch includes all standard Bootswatch themes plus some custom themes:</p>
+
+                        <div class="row row-cols-1 row-cols-md-4 g-4">
+                            <div class="col">
+                                <div class="badge bg-primary p-2 w-100">Default Bootstrap</div>
+                            </div>
+                            <div class="col">
+                                <div class="badge bg-primary p-2 w-100">Cerulean</div>
+                            </div>
+                            <div class="col">
+                                <div class="badge bg-primary p-2 w-100">Cosmo</div>
+                            </div>
+                            <div class="col">
+                                <div class="badge bg-primary p-2 w-100">Cyborg</div>
+                            </div>
+                            <div class="col">
+                                <div class="badge bg-primary p-2 w-100">Darkly</div>
+                            </div>
+                            <div class="col">
+                                <div class="badge bg-primary p-2 w-100">Flatly</div>
+                            </div>
+                            <div class="col">
+                                <div class="badge bg-primary p-2 w-100">Journal</div>
+                            </div>
+                            <div class="col">
+                                <div class="badge bg-primary p-2 w-100">Litera</div>
+                            </div>
+                            <div class="col">
+                                <div class="badge bg-primary p-2 w-100">Lumen</div>
+                            </div>
+                            <div class="col">
+                                <div class="badge bg-primary p-2 w-100">Lux</div>
+                            </div>
+                            <div class="col">
+                                <div class="badge bg-primary p-2 w-100">Materia</div>
+                            </div>
+                            <div class="col">
+                                <div class="badge bg-primary p-2 w-100">Minty</div>
+                            </div>
+                            <div class="col">
+                                <div class="badge bg-primary p-2 w-100">Morph</div>
+                            </div>
+                            <div class="col">
+                                <div class="badge bg-primary p-2 w-100">Pulse</div>
+                            </div>
+                            <div class="col">
+                                <div class="badge bg-primary p-2 w-100">Quartz</div>
+                            </div>
+                            <div class="col">
+                                <div class="badge bg-primary p-2 w-100">Sandstone</div>
+                            </div>
+                            <div class="col">
+                                <div class="badge bg-primary p-2 w-100">Simplex</div>
+                            </div>
+                            <div class="col">
+                                <div class="badge bg-primary p-2 w-100">Sketchy</div>
+                            </div>
+                            <div class="col">
+                                <div class="badge bg-primary p-2 w-100">Slate</div>
+                            </div>
+                            <div class="col">
+                                <div class="badge bg-primary p-2 w-100">Solar</div>
+                            </div>
+                            <div class="col">
+                                <div class="badge bg-primary p-2 w-100">Spacelab</div>
+                            </div>
+                            <div class="col">
+                                <div class="badge bg-primary p-2 w-100">Superhero</div>
+                            </div>
+                            <div class="col">
+                                <div class="badge bg-primary p-2 w-100">United</div>
+                            </div>
+                            <div class="col">
+                                <div class="badge bg-primary p-2 w-100">Vapor</div>
+                            </div>
+                            <div class="col">
+                                <div class="badge bg-primary p-2 w-100">Yeti</div>
+                            </div>
+                            <div class="col">
+                                <div class="badge bg-primary p-2 w-100">Zephyr</div>
+                            </div>
+                            <div class="col">
+                                <div class="badge bg-success p-2 w-100">Mom (Custom)</div>
+                            </div>
+                            <div class="col">
+                                <div class="badge bg-success p-2 w-100">Texecon (Custom)</div>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-info mt-3">
+                            <strong>Note:</strong> To see these themes in action, use the theme switcher in the top
+                            navigation bar.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Advanced Configuration Section -->
+            <section id="advanced" class="mb-5">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="mb-0">Advanced Configuration</h2>
+                    </div>
+                    <div class="card-body">
+                        <h4>1. Create StyleCache Service</h4>
+                        <p>Create a <code>StyleCache.cs</code> file in your Services folder to cache Bootswatch styles:
+                        </p>
+                        <pre><code>using Microsoft.Extensions.Logging;
+using WebSpark.Bootswatch.Model;
+using WebSpark.Bootswatch.Provider;
+
+namespace WebSpark.Bootswatch.Demo.Services;
+
+public class StyleCache
+{
+    private readonly List&lt;StyleModel&gt; _styles = new();
+    private readonly IServiceProvider _serviceProvider;
+    private bool _isInitialized = false;
+    private readonly object _lockObject = new();
+    private Task? _initializationTask = null;
+    private readonly ILogger&lt;StyleCache&gt;? _logger;
+
+    public StyleCache(IServiceProvider serviceProvider, ILogger&lt;StyleCache&gt;? logger = null)
+    {
+        _serviceProvider = serviceProvider;
+        _logger = logger;
+    }
+
+    // Get all styles method (abbreviated)
+    public List&lt;StyleModel&gt; GetAllStyles()
+    {
+        // Implementation details...
+        return _styles.ToList(); 
+    }
+
+    // Get specific style method
+    public StyleModel GetStyle(string name)
+    {
+        var styles = GetAllStyles();
+        return styles.FirstOrDefault(s => s.name == name) ?? new StyleModel();
+    }
+
+    // Initialize styles in background
+    public void StartInitialization()
+    {
+        // Implementation details...
+    }
+
+    // Load styles from provider
+    public async Task LoadStyles()
+    {
+        // Implementation details...
+    }
+
+    // Static initialization helper
+    public static void InitializeInBackground(IServiceProvider serviceProvider)
+    {
+        var styleCache = serviceProvider.GetRequiredService&lt;StyleCache&gt;();
+        styleCache.StartInitialization();
+    }
+}</code></pre>
+
+                        <h4>2. Register and Initialize StyleCache</h4>
+                        <p>Add these lines to your <code>Program.cs</code> file:</p>
+                        <pre><code>// Register StyleCache as a singleton
+builder.Services.AddSingleton&lt;StyleCache&gt;();
+builder.Services.AddLogging();
+
+var app = builder.Build();
+
+// Initialize StyleCache in the background without blocking application startup
+StyleCache.InitializeInBackground(app.Services);</code></pre>
+
+                        <h4>3. Custom HTTP Request Implementation (Optional)</h4>
+                        <p>If you need custom HTTP request handling:</p>
+                        <pre><code>// Use custom implementation for HTTP requests
+builder.Services.AddScoped&lt;IHttpRequestResultService, HttpRequestResultService&gt;();</code></pre>
+
+                        <h4>4. Custom Theme Implementation</h4>
+                        <p>You can implement your own themes by creating a custom <code>StyleProvider</code>:</p>
+                        <pre><code>public class CustomStyleProvider : IStyleProvider
+{
+    private readonly List&lt;StyleModel&gt; _styles = new();
+    
+    public CustomStyleProvider()
+    {
+        // Add your custom themes
+        _styles.Add(new StyleModel { Name = "custom-theme", DisplayName = "Custom Theme", Url = "/css/custom-theme.css" });
+    }
+    
+    // Implement the interface methods
+}</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Caching Section -->
+            <section id="caching" class="mb-5">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="mb-0">Caching Implementation</h2>
+                    </div>
+                    <div class="card-body">
+                        <h4>Add Cache Control Headers</h4>
+                        <p>Enhance performance by adding cache control headers for static files:</p>
+                        <pre><code>app.UseStaticFiles(new StaticFileOptions
+{
+    OnPrepareResponse = ctx =>
+    {
+        // Cache static files for 1 day
+        ctx.Context.Response.Headers.Append("Cache-Control", "public,max-age=86400");
+    }
+});</code></pre>
+
+                        <h4>For better performance, consider using a caching service:</h4>
+                        <pre><code>public class StyleCache : IStyleCache
+{
+    private readonly IMemoryCache _cache;
+    
+    public StyleCache(IMemoryCache cache)
+    {
+        _cache = cache;
+    }
+    
+    public BootswatchStyle GetCachedStyle(string styleName)
+    {
+        return _cache.GetOrCreate($"style_{styleName}", entry => {
+            entry.SlidingExpiration = TimeSpan.FromHours(1);
+            // Load and return the style
+        });
+    }
+}</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Troubleshooting Section -->
+            <section id="troubleshooting" class="mb-5">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="mb-0">Troubleshooting</h2>
+                    </div>
+                    <div class="card-body">
+                        <h4>Theme Not Loading</h4>
+                        <ol>
+                            <li><strong>Check Network Requests</strong><br>
+                                Use browser developer tools (F12) to inspect network requests for CSS files.</li>
+                            <li><strong>Verify Middleware Order</strong><br>
+                                Ensure <code>UseBootswatchStaticFiles()</code> is called before
+                                <code>UseStaticFiles()</code>.
+                            </li>
+                            <li><strong>Check Cache Initialization</strong><br>
+                                Verify StyleCache initializes correctly by checking application logs.</li>
+                            <li><strong>Clear Browser Cache</strong><br>
+                                Hard refresh with Ctrl+F5 to clear cached CSS files.</li>
+                        </ol>
+
+                        <h4>Missing Themes</h4>
+                        <ol>
+                            <li><strong>Check API Connection</strong><br>
+                                Ensure your application can reach the Bootswatch API.</li>
+                            <li><strong>Inspect Logs</strong><br>
+                                Look for any error messages during StyleCache initialization.</li>
+                            <li><strong>Add Fallback Themes</strong><br>
+                                Modify the StyleCache to include default themes if API calls fail.</li>
+                        </ol>
+
+                        <h4>Add Logging for Troubleshooting</h4>
+                        <p>Add middleware to log theme loading issues:</p>
+                        <pre><code>app.Use(async (context, next) =>
+{
+    var logger = context.RequestServices.GetRequiredService&lt;ILogger&lt;Program&gt;&gt;();
+    var path = context.Request.Path.Value;
+
+    // Log all requests that look like they're trying to access theme CSS files
+    if (path?.Contains("bootstrap.min.css") == true)
+    {
+        logger.LogInformation("Requested theme CSS: {Path}", path);
+    }
+
+    await next();
+
+    // Log if the response is a 404 for theme CSS files
+    if (context.Response.StatusCode == 404 && path?.Contains("bootstrap.min.css") == true)
+    {
+        logger.LogWarning("404 Not Found for theme CSS: {Path}", path);
+    }
+});</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Best Practices Section -->
+            <section id="best-practices" class="mb-5">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="mb-0">Best Practices</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Non-Blocking Initialization</h5>
+                                        <p class="card-text">Initialize the StyleCache in the background to avoid
+                                            blocking application startup.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Error Handling</h5>
+                                        <p class="card-text">Always provide fallback styles if theme loading fails.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title">User Preferences</h5>
+                                        <p class="card-text">Store user theme preferences in cookies or user profile for
+                                            persistence.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Performance Optimization</h5>
+                                        <p class="card-text">Cache theme styles to reduce API calls and improve page
+                                            load times.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title">CDN Fallbacks</h5>
+                                        <p class="card-text">Implement fallbacks for CDN-hosted theme files in case of
+                                            CDN failures.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Responsive Testing</h5>
+                                        <p class="card-text">Test themes across different screen sizes to ensure
+                                            responsive behavior.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- License Section -->
+            <section id="license" class="mb-5">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="mb-0">License</h2>
+                    </div>
+                    <div class="card-body">
+                        <p>WebSpark.Bootswatch is licensed under the MIT License.</p>
+                        <a href="https://github.com/markhazleton/WebSpark.Bootswatch/blob/main/LICENSE"
+                            class="btn btn-outline-secondary" target="_blank">View License</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

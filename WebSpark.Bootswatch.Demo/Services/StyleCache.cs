@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Logging;
 using WebSpark.Bootswatch.Model;
 using WebSpark.Bootswatch.Provider;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace WebSpark.Bootswatch.Demo.Services;
 

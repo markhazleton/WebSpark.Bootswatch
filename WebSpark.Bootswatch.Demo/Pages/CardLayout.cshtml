@@ -1,0 +1,381 @@
+@page
+@model WebSpark.Bootswatch.Demo.Pages.CardLayoutModel
+@{
+    ViewData["Title"] = "Bootstrap 5 Cards & Layouts";
+}
+
+<div class="container py-4">
+    <header class="pb-3 mb-4 border-bottom">
+        <h1 class="display-4">Bootstrap 5 Cards & Layouts</h1>
+        <p class="lead">Demonstration of Bootstrap 5's versatile card component and various layout patterns.</p>
+    </header>
+
+    <!-- Basic Cards -->
+    <section class="mb-5">
+        <h2 class="border-bottom pb-2 mb-4">Basic Cards</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-header">
+                        Simple Card
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the card's content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                    <div class="card-footer text-muted">
+                        2 days ago
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <img src="https://picsum.photos/id/1015/500/300" class="card-img-top" alt="Card image">
+                    <div class="card-body">
+                        <h5 class="card-title">Card with image</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the card's content.</p>
+                        <a href="#" class="btn btn-outline-secondary">Learn more</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-white bg-primary h-100">
+                    <div class="card-header">Featured</div>
+                    <div class="card-body">
+                        <h5 class="card-title">Primary card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the card's content.</p>
+                    </div>
+                    <div class="card-footer">
+                        <small>Last updated 3 mins ago</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Card Styles -->
+    <section class="mb-5">
+        <h2 class="border-bottom pb-2 mb-4">Card Styles</h2>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col">
+                <div class="card border-primary h-100">
+                    <div class="card-header">Primary</div>
+                    <div class="card-body text-primary">
+                        <h5 class="card-title">Primary card title</h5>
+                        <p class="card-text">Some quick example text with a border context color.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card border-secondary h-100">
+                    <div class="card-header">Secondary</div>
+                    <div class="card-body text-secondary">
+                        <h5 class="card-title">Secondary card title</h5>
+                        <p class="card-text">Some quick example text with a border context color.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card border-success h-100">
+                    <div class="card-header">Success</div>
+                    <div class="card-body text-success">
+                        <h5 class="card-title">Success card title</h5>
+                        <p class="card-text">Some quick example text with a border context color.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card border-danger h-100">
+                    <div class="card-header">Danger</div>
+                    <div class="card-body text-danger">
+                        <h5 class="card-title">Danger card title</h5>
+                        <p class="card-text">Some quick example text with a border context color.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card border-warning h-100">
+                    <div class="card-header">Warning</div>
+                    <div class="card-body text-warning">
+                        <h5 class="card-title">Warning card title</h5>
+                        <p class="card-text">Some quick example text with a border context color.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card border-info h-100">
+                    <div class="card-header">Info</div>
+                    <div class="card-body text-info">
+                        <h5 class="card-title">Info card title</h5>
+                        <p class="card-text">Some quick example text with a border context color.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Card Groups -->
+    <section class="mb-5">
+        <h2 class="border-bottom pb-2 mb-4">Card Groups</h2>
+        <p>Use card groups to render cards as a single, attached element with equal width and height columns.</p>
+
+        <div class="card-group">
+            <div class="card">
+                <img src="https://picsum.photos/id/1018/300/200" class="card-img-top" alt="Card image">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
+                        additional content. This content is a little bit longer.</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://picsum.photos/id/1019/300/200" class="card-img-top" alt="Card image">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://picsum.photos/id/1020/300/200" class="card-img-top" alt="Card image">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
+                        additional content. This card has even longer content than the first.</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Card Decks -->
+    <section class="mb-5">
+        <h2 class="border-bottom pb-2 mb-4">Card Grid</h2>
+        <p>Use the Bootstrap grid system with cards for a responsive layout with equal height cards.</p>
+
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col">
+                <div class="card h-100">
+                    <img src="https://picsum.photos/id/1035/300/200" class="card-img-top" alt="Card image">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
+                            additional content. This content is a little bit longer.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="https://picsum.photos/id/1036/300/200" class="card-img-top" alt="Card image">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This is a short card.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="https://picsum.photos/id/1037/300/200" class="card-img-top" alt="Card image">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
+                            additional content.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="https://picsum.photos/id/1038/300/200" class="card-img-top" alt="Card image">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
+                            additional content. This content is a little bit longer.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Horizontal Cards -->
+    <section class="mb-5">
+        <h2 class="border-bottom pb-2 mb-4">Horizontal Cards</h2>
+        <p>Using the Bootstrap grid system, create horizontal card layouts.</p>
+
+        <div class="card mb-3">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="https://picsum.photos/id/1039/600/400" class="img-fluid rounded-start" alt="Card image">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
+                            additional content. This content is a little bit longer.</p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-3">
+            <div class="row g-0">
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
+                            additional content. This content is a little bit longer.</p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <img src="https://picsum.photos/id/1040/600/400" class="img-fluid rounded-end" alt="Card image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Masonry Layout -->
+    <section class="mb-5">
+        <h2 class="border-bottom pb-2 mb-4">Card Masonry</h2>
+        <p>Using CSS Grid to create a masonry-like layout with Bootstrap 5.</p>
+
+        <div class="row"
+            style="display: grid; grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr)); grid-gap: 1rem; align-items: start;">
+            <div class="card">
+                <img src="https://picsum.photos/id/1042/300/150" class="card-img-top" alt="Card image">
+                <div class="card-body">
+                    <h5 class="card-title">Short Card</h5>
+                    <p class="card-text">This is a short card.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://picsum.photos/id/1043/300/200" class="card-img-top" alt="Card image">
+                <div class="card-body">
+                    <h5 class="card-title">Medium Card</h5>
+                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.
+                    </p>
+                    <p class="card-text">It has a bit more content to demonstrate the masonry layout.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://picsum.photos/id/1044/300/100" class="card-img-top" alt="Card image">
+                <div class="card-body">
+                    <h5 class="card-title">Another Short Card</h5>
+                    <p class="card-text">Just a short card.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://picsum.photos/id/1045/300/250" class="card-img-top" alt="Card image">
+                <div class="card-body">
+                    <h5 class="card-title">Longer Card</h5>
+                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
+                        additional content. This content is a little bit longer.</p>
+                    <p class="card-text">It has even more content to make it taller than the other cards.</p>
+                    <p class="card-text">And a third paragraph just to make sure it's really tall.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://picsum.photos/id/1047/300/180" class="card-img-top" alt="Card image">
+                <div class="card-body">
+                    <h5 class="card-title">Medium Card</h5>
+                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.
+                    </p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://picsum.photos/id/1048/300/150" class="card-img-top" alt="Card image">
+                <div class="card-body">
+                    <h5 class="card-title">Short Card</h5>
+                    <p class="card-text">This is a short card again.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Cards Example -->
+    <section class="mb-5">
+        <h2 class="border-bottom pb-2 mb-4">Pricing Cards</h2>
+        <p>Common layout for pricing tables using Bootstrap cards.</p>
+
+        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+            <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm">
+                    <div class="card-header py-3">
+                        <h4 class="my-0 fw-normal">Free</h4>
+                    </div>
+                    <div class="card-body">
+                        <h1 class="card-title pricing-card-title">$0<small class="text-muted fw-light">/mo</small></h1>
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li>10 users included</li>
+                            <li>2 GB of storage</li>
+                            <li>Email support</li>
+                            <li>Help center access</li>
+                        </ul>
+                        <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm">
+                    <div class="card-header py-3">
+                        <h4 class="my-0 fw-normal">Pro</h4>
+                    </div>
+                    <div class="card-body">
+                        <h1 class="card-title pricing-card-title">$15<small class="text-muted fw-light">/mo</small></h1>
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li>20 users included</li>
+                            <li>10 GB of storage</li>
+                            <li>Priority email support</li>
+                            <li>Help center access</li>
+                        </ul>
+                        <button type="button" class="w-100 btn btn-lg btn-primary">Get started</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm border-primary">
+                    <div class="card-header py-3 text-white bg-primary border-primary">
+                        <h4 class="my-0 fw-normal">Enterprise</h4>
+                    </div>
+                    <div class="card-body">
+                        <h1 class="card-title pricing-card-title">$29<small class="text-muted fw-light">/mo</small></h1>
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li>30 users included</li>
+                            <li>15 GB of storage</li>
+                            <li>Phone and email support</li>
+                            <li>Help center access</li>
+                        </ul>
+                        <button type="button" class="w-100 btn btn-lg btn-primary">Contact us</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+                           
+                           
+                           
+                       
+                    
+                       
+                           
+                           
+                           
+                           
+                           
+           
+                    
+                       
+                    

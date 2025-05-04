@@ -1,0 +1,18 @@
+WebSpark.Bootswatch
+Copyright © 2025 Mark Hazleton
+
+This package includes software and themes developed by multiple authors:
+
+1. Bootstrap - Licensed under MIT
+   Website: https://getbootstrap.com/
+   Copyright (c) 2011-2025 The Bootstrap Authors
+
+2. Bootswatch - Licensed under MIT
+   Website: https://bootswatch.com/
+   Copyright (c) 2013-2025 Thomas Park
+
+3. WebSpark.HttpClientUtility - Licensed under MIT
+   Website: https://github.com/MarkHazleton/WebSpark.HttpClientUtility
+   Copyright (c) 2025 Mark Hazleton
+
+The full license texts for these components are included with their respective packages.

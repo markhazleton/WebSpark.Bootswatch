@@ -1,0 +1,389 @@
+@page
+@model WebSpark.Bootswatch.Demo.Pages.GridSystemModel
+@{
+    ViewData["Title"] = "Bootstrap 5 Grid System";
+}
+
+<div class="container py-4">
+    <header class="pb-3 mb-4 border-bottom">
+        <h1 class="display-4">Bootstrap 5 Grid System</h1>
+        <p class="lead">A comprehensive demonstration of Bootstrap's responsive grid system capabilities.</p>
+    </header>
+
+    <!-- Basic Grid Example -->
+    <section class="mb-5">
+        <h2 class="border-bottom pb-2 mb-4">Basic Grid</h2>
+        <p>Bootstrap's grid system uses a series of containers, rows, and columns to layout and align content. It's
+            built with flexbox and is fully responsive.</p>
+
+        <div class="row mb-4">
+            <div class="col-sm-4">
+                <div class="p-3 bg-primary text-white rounded">.col-sm-4</div>
+            </div>
+            <div class="col-sm-4">
+                <div class="p-3 bg-primary text-white rounded">.col-sm-4</div>
+            </div>
+            <div class="col-sm-4">
+                <div class="p-3 bg-primary text-white rounded">.col-sm-4</div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-sm-6">
+                <div class="p-3 bg-secondary text-white rounded">.col-sm-6</div>
+            </div>
+            <div class="col-sm-6">
+                <div class="p-3 bg-secondary text-white rounded">.col-sm-6</div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-sm-8">
+                <div class="p-3 bg-success text-white rounded">.col-sm-8</div>
+            </div>
+            <div class="col-sm-4">
+                <div class="p-3 bg-success text-white rounded">.col-sm-4</div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-sm">
+                <div class="p-3 bg-danger text-white rounded">.col-sm (equal-width)</div>
+            </div>
+            <div class="col-sm">
+                <div class="p-3 bg-danger text-white rounded">.col-sm (equal-width)</div>
+            </div>
+            <div class="col-sm">
+                <div class="p-3 bg-danger text-white rounded">.col-sm (equal-width)</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Responsive Grid -->
+    <section class="mb-5">
+        <h2 class="border-bottom pb-2 mb-4">Responsive Grid</h2>
+        <p>Bootstrap's grid includes five tiers of predefined classes for building complex responsive layouts.</p>
+
+        <div class="row mb-4">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-3">
+                <div class="p-3 bg-info text-dark rounded">
+                    <div>col-12</div>
+                    <div>col-sm-6</div>
+                    <div>col-md-4</div>
+                    <div>col-lg-3</div>
+                    <div>col-xl-2</div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-3">
+                <div class="p-3 bg-info text-dark rounded">
+                    <div>col-12</div>
+                    <div>col-sm-6</div>
+                    <div>col-md-4</div>
+                    <div>col-lg-3</div>
+                    <div>col-xl-2</div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-3">
+                <div class="p-3 bg-info text-dark rounded">
+                    <div>col-12</div>
+                    <div>col-sm-6</div>
+                    <div>col-md-4</div>
+                    <div>col-lg-3</div>
+                    <div>col-xl-2</div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-3">
+                <div class="p-3 bg-info text-dark rounded">
+                    <div>col-12</div>
+                    <div>col-sm-6</div>
+                    <div>col-md-4</div>
+                    <div>col-lg-3</div>
+                    <div>col-xl-2</div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-3">
+                <div class="p-3 bg-info text-dark rounded">
+                    <div>col-12</div>
+                    <div>col-sm-6</div>
+                    <div>col-md-4</div>
+                    <div>col-lg-3</div>
+                    <div>col-xl-2</div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-3">
+                <div class="p-3 bg-info text-dark rounded">
+                    <div>col-12</div>
+                    <div>col-sm-6</div>
+                    <div>col-md-4</div>
+                    <div>col-lg-3</div>
+                    <div>col-xl-2</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-12 col-md-8 mb-3">
+                <div class="p-3 bg-warning text-dark rounded">.col-12 .col-md-8</div>
+            </div>
+            <div class="col-12 col-md-4 mb-3">
+                <div class="p-3 bg-warning text-dark rounded">.col-12 .col-md-4</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Grid Alignment -->
+    <section class="mb-5">
+        <h2 class="border-bottom pb-2 mb-4">Grid Alignment</h2>
+        <p>Use flexbox alignment utilities to vertically and horizontally align columns.</p>
+
+        <h4 class="mt-4">Vertical Alignment</h4>
+        <div class="row align-items-start bg-light mb-4" style="height: 150px;">
+            <div class="col">
+                <div class="p-3 bg-primary text-white rounded">align-items-start</div>
+            </div>
+            <div class="col">
+                <div class="p-3 bg-primary text-white rounded">Top aligned</div>
+            </div>
+            <div class="col">
+                <div class="p-3 bg-primary text-white rounded">Column</div>
+            </div>
+        </div>
+
+        <div class="row align-items-center bg-light mb-4" style="height: 150px;">
+            <div class="col">
+                <div class="p-3 bg-secondary text-white rounded">align-items-center</div>
+            </div>
+            <div class="col">
+                <div class="p-3 bg-secondary text-white rounded">Center aligned</div>
+            </div>
+            <div class="col">
+                <div class="p-3 bg-secondary text-white rounded">Column</div>
+            </div>
+        </div>
+
+        <div class="row align-items-end bg-light mb-4" style="height: 150px;">
+            <div class="col">
+                <div class="p-3 bg-success text-white rounded">align-items-end</div>
+            </div>
+            <div class="col">
+                <div class="p-3 bg-success text-white rounded">Bottom aligned</div>
+            </div>
+            <div class="col">
+                <div class="p-3 bg-success text-white rounded">Column</div>
+            </div>
+        </div>
+
+        <h4 class="mt-4">Individual Column Alignment</h4>
+        <div class="row bg-light mb-4" style="height: 150px;">
+            <div class="col align-self-start">
+                <div class="p-3 bg-danger text-white rounded">align-self-start</div>
+            </div>
+            <div class="col align-self-center">
+                <div class="p-3 bg-danger text-white rounded">align-self-center</div>
+            </div>
+            <div class="col align-self-end">
+                <div class="p-3 bg-danger text-white rounded">align-self-end</div>
+            </div>
+        </div>
+
+        <h4 class="mt-4">Horizontal Alignment</h4>
+        <div class="row justify-content-start mb-3">
+            <div class="col-4">
+                <div class="p-3 bg-info text-dark rounded">justify-content-start</div>
+            </div>
+            <div class="col-4">
+                <div class="p-3 bg-info text-dark rounded">One more</div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center mb-3">
+            <div class="col-4">
+                <div class="p-3 bg-info text-dark rounded">justify-content-center</div>
+            </div>
+            <div class="col-4">
+                <div class="p-3 bg-info text-dark rounded">One more</div>
+            </div>
+        </div>
+
+        <div class="row justify-content-end mb-3">
+            <div class="col-4">
+                <div class="p-3 bg-info text-dark rounded">justify-content-end</div>
+            </div>
+            <div class="col-4">
+                <div class="p-3 bg-info text-dark rounded">One more</div>
+            </div>
+        </div>
+
+        <div class="row justify-content-around mb-3">
+            <div class="col-4">
+                <div class="p-3 bg-info text-dark rounded">justify-content-around</div>
+            </div>
+            <div class="col-4">
+                <div class="p-3 bg-info text-dark rounded">One more</div>
+            </div>
+        </div>
+
+        <div class="row justify-content-between mb-3">
+            <div class="col-4">
+                <div class="p-3 bg-info text-dark rounded">justify-content-between</div>
+            </div>
+            <div class="col-4">
+                <div class="p-3 bg-info text-dark rounded">One more</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Grid with Gutters -->
+    <section class="mb-5">
+        <h2 class="border-bottom pb-2 mb-4">Grid with Different Gutters</h2>
+        <p>Bootstrap 5 added new gutter classes to control the spacing between columns.</p>
+
+        <h4 class="mt-4">Default Gutters</h4>
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="p-3 bg-light border rounded">Regular column with default gutter</div>
+            </div>
+            <div class="col-md-6">
+                <div class="p-3 bg-light border rounded">Regular column with default gutter</div>
+            </div>
+        </div>
+
+        <h4 class="mt-4">No Gutters (g-0)</h4>
+        <div class="row g-0 mb-4">
+            <div class="col-md-6">
+                <div class="p-3 bg-light border rounded">Column with no gutter</div>
+            </div>
+            <div class="col-md-6">
+                <div class="p-3 bg-light border rounded">Column with no gutter</div>
+            </div>
+        </div>
+
+        <h4 class="mt-4">Larger Gutters (g-4)</h4>
+        <div class="row g-4 mb-4">
+            <div class="col-md-6">
+                <div class="p-3 bg-light border rounded">Column with larger gutter (g-4)</div>
+            </div>
+            <div class="col-md-6">
+                <div class="p-3 bg-light border rounded">Column with larger gutter (g-4)</div>
+            </div>
+        </div>
+
+        <h4 class="mt-4">Horizontal Gutters Only (gx-5)</h4>
+        <div class="row gx-5 mb-4">
+            <div class="col-md-6">
+                <div class="p-3 bg-light border rounded">Column with horizontal gutter only</div>
+            </div>
+            <div class="col-md-6">
+                <div class="p-3 bg-light border rounded">Column with horizontal gutter only</div>
+            </div>
+            <div class="col-md-6 mt-3">
+                <div class="p-3 bg-light border rounded">Notice the vertical spacing is default</div>
+            </div>
+            <div class="col-md-6 mt-3">
+                <div class="p-3 bg-light border rounded">While horizontal spacing is larger</div>
+            </div>
+        </div>
+
+        <h4 class="mt-4">Vertical Gutters Only (gy-5)</h4>
+        <div class="row gy-5 mb-4">
+            <div class="col-md-6">
+                <div class="p-3 bg-light border rounded">Column with vertical gutter only</div>
+            </div>
+            <div class="col-md-6">
+                <div class="p-3 bg-light border rounded">Column with vertical gutter only</div>
+            </div>
+            <div class="col-md-6">
+                <div class="p-3 bg-light border rounded">Notice the increased vertical spacing</div>
+            </div>
+            <div class="col-md-6">
+                <div class="p-3 bg-light border rounded">While horizontal spacing is default</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Offsetting columns -->
+    <section class="mb-5">
+        <h2 class="border-bottom pb-2 mb-4">Offsetting Columns</h2>
+        <p>Move columns to the right using offset classes.</p>
+
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <div class="p-3 bg-primary text-white rounded">.col-md-4</div>
+            </div>
+            <div class="col-md-4 offset-md-4">
+                <div class="p-3 bg-primary text-white rounded">.col-md-4 .offset-md-4</div>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-3 offset-md-3">
+                <div class="p-3 bg-secondary text-white rounded">.col-md-3 .offset-md-3</div>
+            </div>
+            <div class="col-md-3 offset-md-3">
+                <div class="p-3 bg-secondary text-white rounded">.col-md-3 .offset-md-3</div>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6 offset-md-3">
+                <div class="p-3 bg-success text-white rounded">.col-md-6 .offset-md-3 (centered)</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nesting -->
+    <section class="mb-5">
+        <h2 class="border-bottom pb-2 mb-4">Nested Grids</h2>
+        <p>You can nest rows and columns inside existing columns.</p>
+
+        <div class="row mb-4">
+            <div class="col-sm-9">
+                <div class="p-3 bg-primary text-white rounded">.col-sm-9</div>
+                <div class="row mt-3">
+                    <div class="col-8 col-sm-6">
+                        <div class="p-3 bg-light text-dark rounded">.col-8 .col-sm-6 (nested)</div>
+                    </div>
+                    <div class="col-4 col-sm-6">
+                        <div class="p-3 bg-light text-dark rounded">.col-4 .col-sm-6 (nested)</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="p-3 bg-primary text-white rounded">.col-sm-3</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order -->
+    <section class="mb-5">
+        <h2 class="border-bottom pb-2 mb-4">Column Ordering</h2>
+        <p>Change the visual order of columns with order classes.</p>
+
+        <h4 class="mt-4">Normal Order</h4>
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="p-3 bg-light border rounded">First in code</div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-3 bg-light border rounded">Second in code</div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-3 bg-light border rounded">Third in code</div>
+            </div>
+        </div>
+
+        <h4 class="mt-4">Reordered</h4>
+        <div class="row mb-4">
+            <div class="col-md-4 order-3">
+                <div class="p-3 bg-info border rounded">First in code, Last visually</div>
+            </div>
+            <div class="col-md-4 order-1">
+                <div class="p-3 bg-info border rounded">Second in code, First visually</div>
+            </div>
+            <div class="col-md-4 order-2">
+                <div class="p-3 bg-info border rounded">Third in code, Second visually</div>
+            </div>
+        </div>
+    </section>
+</div>
+           

@@ -1,0 +1,17 @@
+<Project>
+    <PropertyGroup>
+        <!-- Properties to avoid circular dependencies -->
+        <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+        <RestoreIgnoreFailedSources>true</RestoreIgnoreFailedSources>
+        <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
+        <NoWarn>$(NoWarn);NU1101;NU1102;NU1603;NU1604</NoWarn>
+
+        <!-- Disable automatic package reference checks during build -->
+        <DisableImplicitFrameworkReferences
+            Condition="'$(MSBuildProjectName)' == 'WebSpark.Bootswatch'">false</DisableImplicitFrameworkReferences>
+        <SkipValidatePackageReferences Condition="'$(MSBuildProjectName)' == 'WebSpark.Bootswatch'">
+            true</SkipValidatePackageReferences>
+        <RestoreSources Condition="'$(MSBuildProjectName)' == 'WebSpark.Bootswatch'">
+            https://api.nuget.org/v3/index.json</RestoreSources>
+    </PropertyGroup>
+</Project>

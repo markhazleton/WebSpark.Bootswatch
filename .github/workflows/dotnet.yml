@@ -1,25 +1,190 @@
-name: .NET
+name: .NET Build and Publish
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
+    tags:
+      - "v*"
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: |
+            8.0.x
+            9.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Test
+        run: dotnet test --configuration Release --no-build --verbosity normal
+
+  publish:
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v2
-      with:
-        dotnet-version: 9.0.x
-    - name: Restore dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: |
+            8.0.x
+            9.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Extract version from tag
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Update version in project file
+        run: |
+          sed -i "s/<Version>.*<\/Version>/<Version>${{ steps.get_version.outputs.VERSION }}<\/Version>/g" WebSpark.Bootswatch/WebSpark.Bootswatch.csproj
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Pack
+        run: dotnet pack WebSpark.Bootswatch/WebSpark.Bootswatch.csproj --configuration Release --no-build --output nuget-packages
+
+      - name: Basic Package Validation
+        run: |
+          echo "Validating NuGet package..."
+
+          # Check if package exists
+          if [ ! -f nuget-packages/WebSpark.Bootswatch.${{ steps.get_version.outputs.VERSION }}.nupkg ]; then
+            echo "::error::Package file not found"
+            exit 1
+          fi
+
+          # Check if symbols package exists
+          if [ ! -f nuget-packages/WebSpark.Bootswatch.${{ steps.get_version.outputs.VERSION }}.snupkg ]; then
+            echo "::warning::Symbols package not found"
+          else
+            echo "✓ Symbols package found"
+          fi
+
+          # Extract package to inspect contents
+          mkdir -p package-contents
+          unzip -q nuget-packages/WebSpark.Bootswatch.${{ steps.get_version.outputs.VERSION }}.nupkg -d package-contents
+
+          # Check for essential files
+          if [ -f package-contents/*.nuspec ]; then
+            echo "✓ NuSpec file found"
+          else
+            echo "::error::NuSpec file not found"
+            exit 1
+          fi
+
+          # Check for README
+          if [ -f package-contents/README.md ]; then
+            echo "✓ README file found"
+          else
+            echo "::warning::README.md not found"
+          fi
+
+          # Check for NOTICE.txt
+          if [ -f package-contents/NOTICE.txt ]; then
+            echo "✓ NOTICE.txt file found"
+          else
+            echo "::warning::NOTICE.txt not found"
+          fi
+
+          # Check for icon
+          if [ -f package-contents/ControlSpark.png ]; then
+            echo "✓ Package icon found"
+          else
+            echo "::warning::Package icon not found"
+          fi
+
+          # Check for assemblies
+          if [ -d package-contents/lib ]; then
+            ASSEMBLY_COUNT=$(find package-contents/lib -name "*.dll" | wc -l)
+            if [ $ASSEMBLY_COUNT -gt 0 ]; then
+              echo "✓ Found $ASSEMBLY_COUNT assemblies"
+            else
+              echo "::error::No assemblies found in lib folder"
+              exit 1
+            fi
+            
+            # Check for XML documentation
+            XML_COUNT=$(find package-contents/lib -name "*.xml" | wc -l)
+            if [ $XML_COUNT -gt 0 ]; then
+              echo "✓ XML documentation found"
+            else
+              echo "::warning::XML documentation not found"
+            fi
+          else
+            echo "::error::No lib folder found"
+            exit 1
+          fi
+
+          echo "Package validation completed successfully"
+
+      - name: Push to NuGet
+        run: dotnet nuget push nuget-packages/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ steps.get_version.outputs.VERSION }}
+          draft: false
+          prerelease: false
+          body: |
+            # WebSpark.Bootswatch ${{ steps.get_version.outputs.VERSION }}
+
+            This release includes the WebSpark.Bootswatch NuGet package version ${{ steps.get_version.outputs.VERSION }}.
+
+            ## Compatibility
+            - .NET 9.0
+            - .NET 8.0
+
+            ## Installation
+            ```
+            dotnet add package WebSpark.Bootswatch --version ${{ steps.get_version.outputs.VERSION }}
+            ```
+
+            See [README.md](https://github.com/MarkHazleton/WebSpark.Bootswatch/blob/main/README.md) for usage instructions.
+
+      - name: Upload NuGet Package as Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: nuget-packages/WebSpark.Bootswatch.${{ steps.get_version.outputs.VERSION }}.nupkg
+          asset_name: WebSpark.Bootswatch.${{ steps.get_version.outputs.VERSION }}.nupkg
+          asset_content_type: application/octet-stream
+
+      - name: Upload Symbols Package as Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: nuget-packages/WebSpark.Bootswatch.${{ steps.get_version.outputs.VERSION }}.snupkg
+          asset_name: WebSpark.Bootswatch.${{ steps.get_version.outputs.VERSION }}.snupkg
+          asset_content_type: application/octet-stream

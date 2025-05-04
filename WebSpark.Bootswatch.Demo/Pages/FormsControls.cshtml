@@ -1,0 +1,454 @@
+@page
+@model WebSpark.Bootswatch.Demo.Pages.FormsControlsModel
+@{
+    ViewData["Title"] = "Bootstrap 5 Forms & Controls";
+}
+
+<div class="container py-4">
+    <header class="pb-3 mb-4 border-bottom">
+        <h1 class="display-4">Bootstrap 5 Forms & Controls</h1>
+        <p class="lead">A comprehensive demonstration of Bootstrap 5's form components and input controls.</p>
+    </header>
+
+    <!-- Basic Form Examples -->
+    <section class="mb-5">
+        <h2 class="border-bottom pb-2 mb-4">Basic Form</h2>
+        <p>Bootstrap's form controls expand on our Rebooted form styles with classes.</p>
+        
+        <form>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1">
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </section>
+
+    <!-- Horizontal Form -->
+    <section class="mb-5">
+        <h2 class="border-bottom pb-2 mb-4">Horizontal Form</h2>
+        <p>Create horizontal forms with the grid by adding the row class to form groups and using the col-* classes to specify the width of your labels and controls.</p>
+        
+        <form>
+            <div class="row mb-3">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                    <input type="email" class="form-control" id="inputEmail3">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control" id="inputPassword3">
+                </div>
+            </div>
+            <fieldset class="row mb-3">
+                <legend class="col-form-label col-sm-2 pt-0">Radios</legend>
+                <div class="col-sm-10">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+                        <label class="form-check-label" for="gridRadios1">
+                            First radio
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+                        <label class="form-check-label" for="gridRadios2">
+                            Second radio
+                        </label>
+                    </div>
+                    <div class="form-check disabled">
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3" disabled>
+                        <label class="form-check-label" for="gridRadios3">
+                            Third disabled radio
+                        </label>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="row mb-3">
+                <div class="col-sm-10 offset-sm-2">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="gridCheck1">
+                        <label class="form-check-label" for="gridCheck1">
+                            Example checkbox
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Sign in</button>
+        </form>
+    </section>
+
+    <!-- Form Controls -->
+    <section class="mb-5">
+        <h2 class="border-bottom pb-2 mb-4">Form Controls</h2>
+        
+        <h4 class="mt-4">Text Input Types</h4>
+        <div class="row g-3 mb-4">
+            <div class="col-md-4">
+                <label for="textInput" class="form-label">Text Input</label>
+                <input type="text" class="form-control" id="textInput" placeholder="Text input">
+            </div>
+            <div class="col-md-4">
+                <label for="emailInput" class="form-label">Email Input</label>
+                <input type="email" class="form-control" id="emailInput" placeholder="name@example.com">
+            </div>
+            <div class="col-md-4">
+                <label for="passwordInput" class="form-label">Password Input</label>
+                <input type="password" class="form-control" id="passwordInput" placeholder="Password">
+            </div>
+            <div class="col-md-4">
+                <label for="numberInput" class="form-label">Number Input</label>
+                <input type="number" class="form-control" id="numberInput" placeholder="Number">
+            </div>
+            <div class="col-md-4">
+                <label for="dateInput" class="form-label">Date Input</label>
+                <input type="date" class="form-control" id="dateInput">
+            </div>
+            <div class="col-md-4">
+                <label for="colorInput" class="form-label">Color Input</label>
+                <input type="color" class="form-control form-control-color" id="colorInput" value="#563d7c" title="Choose your color">
+            </div>
+        </div>
+        
+        <h4 class="mt-4">Select and Textarea</h4>
+        <div class="row g-3 mb-4">
+            <div class="col-md-6">
+                <label for="exampleSelect" class="form-label">Example select</label>
+                <select class="form-select" id="exampleSelect">
+                    <option selected>Open this select menu</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="exampleTextarea" class="form-label">Example textarea</label>
+                <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+            </div>
+        </div>
+        
+        <h4 class="mt-4">Checkboxes and Radios</h4>
+        <div class="row g-3 mb-4">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <h5>Default Checkboxes</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                        <label class="form-check-label" for="defaultCheck1">
+                            Default checkbox
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" checked>
+                        <label class="form-check-label" for="defaultCheck2">
+                            Checked checkbox
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck3" disabled>
+                        <label class="form-check-label" for="defaultCheck3">
+                            Disabled checkbox
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <h5>Switch Checkboxes</h5>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                        <label class="form-check-label" for="flexSwitchCheckDefault">Default switch checkbox input</label>
+                    </div>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
+                        <label class="form-check-label" for="flexSwitchCheckChecked">Checked switch checkbox input</label>
+                    </div>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDisabled" disabled>
+                        <label class="form-check-label" for="flexSwitchCheckDisabled">Disabled switch checkbox input</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <h5>Default Radios</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                        <label class="form-check-label" for="exampleRadios1">
+                            Default radio
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                        <label class="form-check-label" for="exampleRadios2">
+                            Second default radio
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3" disabled>
+                        <label class="form-check-label" for="exampleRadios3">
+                            Disabled radio
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <h5>Inline Radios</h5>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                        <label class="form-check-label" for="inlineRadio1">1</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                        <label class="form-check-label" for="inlineRadio2">2</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" disabled>
+                        <label class="form-check-label" for="inlineRadio3">3 (disabled)</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Form Validation -->
+    <section class="mb-5">
+        <h2 class="border-bottom pb-2 mb-4">Form Validation</h2>
+        <p>Bootstrap provides validation styles for error, warning, and success states on form controls.</p>
+        
+        <form class="row g-3 needs-validation" novalidate>
+            <div class="col-md-4">
+                <label for="validationCustom01" class="form-label">First name</label>
+                <input type="text" class="form-control" id="validationCustom01" value="Mark" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label for="validationCustom02" class="form-label">Last name</label>
+                <input type="text" class="form-control" id="validationCustom02" value="Otto" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label for="validationCustomUsername" class="form-label">Username</label>
+                <div class="input-group has-validation">
+                    <span class="input-group-text" id="inputGroupPrepend">@@</span>
+                    <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+                    <div class="invalid-feedback">
+                        Please choose a username.
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label for="validationCustom03" class="form-label">City</label>
+                <input type="text" class="form-control" id="validationCustom03" required>
+                <div class="invalid-feedback">
+                    Please provide a valid city.
+                </div>
+            </div>
+            <div class="col-md-3">
+                <label for="validationCustom04" class="form-label">State</label>
+                <select class="form-select" id="validationCustom04" required>
+                    <option selected disabled value="">Choose...</option>
+                    <option>California</option>
+                    <option>New York</option>
+                    <option>Texas</option>
+                    <option>Florida</option>
+                </select>
+                <div class="invalid-feedback">
+                    Please select a valid state.
+                </div>
+            </div>
+            <div class="col-md-3">
+                <label for="validationCustom05" class="form-label">Zip</label>
+                <input type="text" class="form-control" id="validationCustom05" required>
+                <div class="invalid-feedback">
+                    Please provide a valid zip.
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                    <label class="form-check-label" for="invalidCheck">
+                        Agree to terms and conditions
+                    </label>
+                    <div class="invalid-feedback">
+                        You must agree before submitting.
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <button class="btn btn-primary" type="submit">Submit form</button>
+            </div>
+        </form>
+    </section>
+
+    <!-- Input Groups -->
+    <section class="mb-5">
+        <h2 class="border-bottom pb-2 mb-4">Input Groups</h2>
+        <p>Easily extend form controls by adding text, buttons, or button groups on either side of inputs.</p>
+        
+        <div class="mb-3">
+            <label for="basic-url" class="form-label">Your vanity URL</label>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon3">https://example.com/users/</span>
+                <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+            </div>
+        </div>
+        
+        <div class="mb-3">
+            <div class="input-group mb-3">
+                <span class="input-group-text">$</span>
+                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                <span class="input-group-text">.00</span>
+            </div>
+        </div>
+        
+        <div class="mb-3">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Username" aria-label="Username">
+                <span class="input-group-text">@@</span>
+                <input type="text" class="form-control" placeholder="Server" aria-label="Server">
+            </div>
+        </div>
+        
+        <div class="mb-3">
+            <div class="input-group">
+                <span class="input-group-text">With textarea</span>
+                <textarea class="form-control" aria-label="With textarea"></textarea>
+            </div>
+        </div>
+        
+        <div class="mb-3">
+            <div class="input-group mb-3">
+                <button class="btn btn-outline-secondary" type="button" id="button-addon1">Button</button>
+                <input type="text" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+            </div>
+        </div>
+        
+        <div class="mb-3">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
+                <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating Labels -->
+    <section class="mb-5">
+        <h2 class="border-bottom pb-2 mb-4">Floating Labels</h2>
+        <p>Create beautifully simple form labels that float over your input fields.</p>
+        
+        <div class="row g-3">
+            <div class="col-md-6">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                    <label for="floatingInput">Email address</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                    <label for="floatingPassword">Password</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                        <option selected>Open this select menu</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                    <label for="floatingSelect">Works with select</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-floating mb-3">
+                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                    <label for="floatingTextarea2">Comments</label>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Range and File inputs -->
+    <section class="mb-5">
+        <h2 class="border-bottom pb-2 mb-4">Range & File Inputs</h2>
+        
+        <div class="row g-3">
+            <div class="col-md-6">
+                <h4>Range Inputs</h4>
+                <label for="customRange1" class="form-label">Example range</label>
+                <input type="range" class="form-range" id="customRange1">
+                
+                <label for="customRange2" class="form-label">Min and max range</label>
+                <input type="range" class="form-range" min="0" max="5" id="customRange2">
+                
+                <label for="customRange3" class="form-label">Range with steps</label>
+                <input type="range" class="form-range" min="0" max="5" step="0.5" id="customRange3">
+            </div>
+            
+            <div class="col-md-6">
+                <h4>File Input</h4>
+                <div class="mb-3">
+                    <label for="formFile" class="form-label">Default file input example</label>
+                    <input class="form-control" type="file" id="formFile">
+                </div>
+                <div class="mb-3">
+                    <label for="formFileMultiple" class="form-label">Multiple files input example</label>
+                    <input class="form-control" type="file" id="formFileMultiple" multiple>
+                </div>
+                <div class="mb-3">
+                    <label for="formFileDisabled" class="form-label">Disabled file input example</label>
+                    <input class="form-control" type="file" id="formFileDisabled" disabled>
+                </div>
+                <div class="mb-3">
+                    <label for="formFileSm" class="form-label">Small file input example</label>
+                    <input class="form-control form-control-sm" id="formFileSm" type="file">
+                </div>
+                <div>
+                    <label for="formFileLg" class="form-label">Large file input example</label>
+                    <input class="form-control form-control-lg" id="formFileLg" type="file">
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+@section Scripts {
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+    </script>
+}

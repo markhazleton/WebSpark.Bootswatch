@@ -1,0 +1,7 @@
+<Project>
+    <Target Name="SkipSelfReferencedPackage" BeforeTargets="CollectPackageReferences">
+        <ItemGroup>
+            <PackageReference Remove="WebSpark.Bootswatch" />
+        </ItemGroup>
+    </Target>
+</Project>

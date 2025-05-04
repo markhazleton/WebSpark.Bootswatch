@@ -1,11 +1,113 @@
 ﻿@page
-@using WebSpark.Bootswatch.Demo.Pages
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
 }
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+<div class="p-4 p-md-5 mb-4 text-white rounded bg-primary">
+    <div class="col-md-8 px-0">
+        <h1 class="display-4 fw-bold">Bootstrap 5 with Bootswatch</h1>
+        <p class="lead my-3">Explore the versatility and power of Bootstrap 5 with dynamic Bootswatch themes. This demo
+            showcases the flexibility of Bootstrap 5's components, layout system, and utility classes.</p>
+        <p class="lead mb-0">
+            <a href="https://getbootstrap.com/docs/5.0/getting-started/introduction/" class="text-white fw-bold">Learn
+                more about Bootstrap 5...</a>
+        </p>
+    </div>
 </div>
 
+<div class="row mb-2 g-4">
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Components</h5>
+                <p class="card-text">Explore Bootstrap 5's rich set of components including alerts, buttons, badges,
+                    progress bars, and spinners.</p>
+                <a asp-page="/Components" class="btn btn-primary">View Components</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Grid System</h5>
+                <p class="card-text">Learn about Bootstrap's powerful mobile-first flexbox grid system with responsive
+                    breakpoints, gutters, and alignment options.</p>
+                <a asp-page="/GridSystem" class="btn btn-primary">View Grid System</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Cards & Layout</h5>
+                <p class="card-text">See the versatility of Bootstrap cards and how they can be used to create various
+                    layout patterns.</p>
+                <a asp-page="/CardLayout" class="btn btn-primary">View Cards & Layout</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Forms & Controls</h5>
+                <p class="card-text">Explore various form layouts, input types, validation styles, and form controls
+                    offered by Bootstrap 5.</p>
+                <a asp-page="/FormsControls" class="btn btn-primary">View Forms & Controls</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row my-5">
+    <div class="col-md-12">
+        <div class="p-5 mb-4 bg-light rounded-3">
+            <div class="container-fluid py-5">
+                <h1 class="display-5 fw-bold">Dynamic Theme Switching</h1>
+                <p class="col-md-8 fs-4">Use the theme switcher in the navigation bar to apply different Bootswatch
+                    themes and see how they affect the appearance of Bootstrap components.</p>
+                <button class="btn btn-lg btn-secondary" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Theme Info</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+    id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasScrollingLabel">About Bootswatch Themes</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <p>Bootswatch is a collection of open source themes for Bootstrap. Each theme consists of a CSS file that you
+            can drop into any Bootstrap project.</p>
+        <p>This demo integrates Bootswatch with ASP.NET Core, allowing dynamic theme switching with cookies to persist
+            your theme choice.</p>
+        <p>Try different themes to see how they affect the appearance of all Bootstrap components throughout this demo.
+        </p>
+        <hr>
+        <h6>Features Demonstrated:</h6>
+        <ul>
+            <li>Dynamic theme switching</li>
+            <li>Bootstrap 5 components</li>
+            <li>Responsive grid system</li>
+            <li>Card layouts and patterns</li>
+            <li>Form styles and validation</li>
+        </ul>
+    </div>
+</div>
+
+
+
+       
+                   
+                   
+                   
+                   
+                   
+                   
+   
+           
+           
+        

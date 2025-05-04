@@ -1,24 +1,25 @@
 # WebSpark.Bootswatch
 
-A .NET Razor Class Library for integrating Bootstrap themes from [Bootswatch](https://bootswatch.com/) into ASP.NET Core applications. This library also includes custom themes and provides a simple way to switch between themes at runtime.
+A .NET Razor Class Library for integrating Bootstrap 5 themes from [Bootswatch](https://bootswatch.com/) into ASP.NET Core applications. This library simplifies the process of applying modern, responsive themes to your web applications, leveraging the power of Bootstrap 5.
 
 [![NuGet](https://img.shields.io/nuget/v/WebSpark.Bootswatch.svg)](https://www.nuget.org/packages/WebSpark.Bootswatch/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Features
 
-- Integrates Bootswatch themes with ASP.NET Core applications
-- Provides a simple interface to switch between themes at runtime
-- Includes custom themes (mom, texecon) as well as standard Bootswatch themes
-- Caches themes to improve performance
-- Fully documented with XML comments for IntelliSense support
+- Seamless integration of Bootswatch themes with ASP.NET Core applications.
+- Built on Bootstrap 5, offering modern, responsive, and mobile-first design.
+- Easy runtime theme switching.
+- Includes custom themes (e.g., Mom, Texecon) alongside standard Bootswatch themes.
+- Caching for improved performance.
+- Fully documented with IntelliSense support.
 
-## Compatibility
+## Benefits of Bootstrap 5
 
-This package targets:
-
-- .NET 9.0
-- .NET 8.0
+- **Responsive Design**: Build mobile-first, responsive web applications effortlessly.
+- **Modern Components**: Access a wide range of pre-designed components.
+- **Customizable**: Easily customize themes to match your branding.
+- **No jQuery Dependency**: Bootstrap 5 removes the dependency on jQuery, making it lighter and faster.
 
 ## Installation
 
@@ -38,7 +39,7 @@ dotnet add package WebSpark.Bootswatch
 
 ### 1. Register Services
 
-Add the WebSpark.Bootswatch services to your application in `Program.cs`:
+In the `Program.cs` file of your ASP.NET Core application, register the Bootswatch services:
 
 ```csharp
 var builder = WebApplication.CreateBuilder(args);
@@ -188,6 +189,14 @@ public class CustomStyleProvider : IStyleProvider
     }
 }
 ```
+
+## Demo Project
+
+For a complete example of how to integrate WebSpark.Bootswatch, refer to the `WebSpark.Bootswatch.Demo` project included in this repository. It demonstrates:
+
+- Registering Bootswatch services.
+- Using the theme switcher component.
+- Applying themes dynamically in the layout.
 
 ## License
 

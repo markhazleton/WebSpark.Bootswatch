@@ -12,9 +12,9 @@
 
   <PropertyGroup>
     <!-- Package metadata -->
-    <Version>1.0.2</Version>
-    <AssemblyVersion>1.0.2</AssemblyVersion>
-    <FileVersion>1.0.2</FileVersion>
+    <Version>1.0.3</Version>
+    <AssemblyVersion>1.0.3</AssemblyVersion>
+    <FileVersion>1.0.3</FileVersion>
     <PackageId>WebSpark.Bootswatch</PackageId>
     <Title>WebSpark.Bootswatch</Title>
     <Authors>Mark Hazleton</Authors>
@@ -26,6 +26,10 @@
     <PackageIcon>WebSpark.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+
+    <!-- Package signing -->
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\WebSpark.snk</AssemblyOriginatorKeyFile>
 
     <!-- Repository info -->
     <RepositoryType>git</RepositoryType>
@@ -46,6 +50,11 @@
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageReleaseNotes>Initial release with Bootswatch themes for ASP.NET Core applications.
+      Includes custom themes and styles for easy integration with MVC or Razor Pages.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

@@ -19,9 +19,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: |
-            8.0.x
-            9.0.x
+          dotnet-version: 9.0.x
 
       - name: Restore dependencies
         run: dotnet restore
@@ -45,9 +43,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: |
-            8.0.x
-            9.0.x
+          dotnet-version: 9.0.x
 
       - name: Restore dependencies
         run: dotnet restore
@@ -59,34 +55,50 @@ jobs:
       - name: Update version in project file
         run: |
           sed -i "s/<Version>.*<\/Version>/<Version>${{ steps.get_version.outputs.VERSION }}<\/Version>/g" WebSpark.Bootswatch/WebSpark.Bootswatch.csproj
+          sed -i "s/<AssemblyVersion>.*<\/AssemblyVersion>/<AssemblyVersion>${{ steps.get_version.outputs.VERSION }}<\/AssemblyVersion>/g" WebSpark.Bootswatch/WebSpark.Bootswatch.csproj
+          sed -i "s/<FileVersion>.*<\/FileVersion>/<FileVersion>${{ steps.get_version.outputs.VERSION }}<\/FileVersion>/g" WebSpark.Bootswatch/WebSpark.Bootswatch.csproj
 
       - name: Build
         run: dotnet build --configuration Release --no-restore
 
       - name: Pack
-        run: dotnet pack WebSpark.Bootswatch/WebSpark.Bootswatch.csproj --configuration Release --no-build --output nuget-packages
+        run: dotnet pack WebSpark.Bootswatch/WebSpark.Bootswatch.csproj --configuration Release --no-build --output ./nuget-packages
 
       - name: Basic Package Validation
         run: |
           echo "Validating NuGet package..."
-
+          
+          # List directory content to debug
+          echo "Content of nuget-packages directory:"
+          ls -la nuget-packages/
+          
+          # Package path using exact version
+          PACKAGE_PATH="nuget-packages/WebSpark.Bootswatch.${{ steps.get_version.outputs.VERSION }}.nupkg"
+          
           # Check if package exists
-          if [ ! -f nuget-packages/WebSpark.Bootswatch.${{ steps.get_version.outputs.VERSION }}.nupkg ]; then
-            echo "::error::Package file not found"
+          if [ ! -f "$PACKAGE_PATH" ]; then
+            echo "::error::Package file not found at: $PACKAGE_PATH"
             exit 1
+          else
+            echo "✓ Package found at: $PACKAGE_PATH"
           fi
 
           # Check if symbols package exists
-          if [ ! -f nuget-packages/WebSpark.Bootswatch.${{ steps.get_version.outputs.VERSION }}.snupkg ]; then
-            echo "::warning::Symbols package not found"
+          SYMBOLS_PATH="nuget-packages/WebSpark.Bootswatch.${{ steps.get_version.outputs.VERSION }}.snupkg"
+          if [ ! -f "$SYMBOLS_PATH" ]; then
+            echo "::warning::Symbols package not found at: $SYMBOLS_PATH"
           else
             echo "✓ Symbols package found"
           fi
 
           # Extract package to inspect contents
           mkdir -p package-contents
-          unzip -q nuget-packages/WebSpark.Bootswatch.${{ steps.get_version.outputs.VERSION }}.nupkg -d package-contents
-
+          unzip -q "$PACKAGE_PATH" -d package-contents
+          
+          # List extracted content to debug
+          echo "Extracted package contents:"
+          ls -la package-contents/
+          
           # Check for essential files
           if [ -f package-contents/*.nuspec ]; then
             echo "✓ NuSpec file found"
@@ -109,9 +121,9 @@ jobs:
             echo "::warning::NOTICE.txt not found"
           fi
 
-          # Check for icon
-          if [ -f package-contents/ControlSpark.png ]; then
-            echo "✓ Package icon found"
+          # Check for icon - try both WebSpark and WebSpark prefix
+          if [ -f package-contents/WebSpark.png ]; then
+            echo "✓ Package icon found (WebSpark.png)"
           else
             echo "::warning::Package icon not found"
           fi
@@ -121,6 +133,10 @@ jobs:
             ASSEMBLY_COUNT=$(find package-contents/lib -name "*.dll" | wc -l)
             if [ $ASSEMBLY_COUNT -gt 0 ]; then
               echo "✓ Found $ASSEMBLY_COUNT assemblies"
+              
+              # List found assemblies
+              echo "Assemblies found:"
+              find package-contents/lib -name "*.dll" -exec ls -la {} \;
             else
               echo "::error::No assemblies found in lib folder"
               exit 1
@@ -160,7 +176,6 @@ jobs:
 
             ## Compatibility
             - .NET 9.0
-            - .NET 8.0
 
             ## Installation
             ```

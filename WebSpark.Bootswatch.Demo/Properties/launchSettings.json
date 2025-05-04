@@ -8,7 +8,7 @@
     }
   },
   "profiles": {
-    "ControlSpark.Bootswatch.Demo": {
+    "WebSpark.Bootswatch.Demo": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

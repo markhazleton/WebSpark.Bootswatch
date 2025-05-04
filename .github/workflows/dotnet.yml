@@ -67,14 +67,14 @@ jobs:
       - name: Basic Package Validation
         run: |
           echo "Validating NuGet package..."
-          
+
           # List directory content to debug
           echo "Content of nuget-packages directory:"
           ls -la nuget-packages/
-          
+
           # Package path using exact version
           PACKAGE_PATH="nuget-packages/WebSpark.Bootswatch.${{ steps.get_version.outputs.VERSION }}.nupkg"
-          
+
           # Check if package exists
           if [ ! -f "$PACKAGE_PATH" ]; then
             echo "::error::Package file not found at: $PACKAGE_PATH"
@@ -94,11 +94,11 @@ jobs:
           # Extract package to inspect contents
           mkdir -p package-contents
           unzip -q "$PACKAGE_PATH" -d package-contents
-          
+
           # List extracted content to debug
           echo "Extracted package contents:"
           ls -la package-contents/
-          
+
           # Check for essential files
           if [ -f package-contents/*.nuspec ]; then
             echo "✓ NuSpec file found"

@@ -9,36 +9,38 @@
     <!-- Disable default content items since we're managing them explicitly -->
     <EnableDefaultContentItems>false</EnableDefaultContentItems>
   </PropertyGroup>
-  
+
   <PropertyGroup>
     <!-- Package metadata -->
-    <Version>1.0.1</Version>
-    <AssemblyVersion>1.0.1</AssemblyVersion>
-    <FileVersion>1.0.1</FileVersion>
+    <Version>1.0.2</Version>
+    <AssemblyVersion>1.0.2</AssemblyVersion>
+    <FileVersion>1.0.2</FileVersion>
     <PackageId>WebSpark.Bootswatch</PackageId>
     <Title>WebSpark.Bootswatch</Title>
     <Authors>Mark Hazleton</Authors>
-    <Description>WebSpark.Bootswatch provides Bootswatch themes for ASP.NET Core applications. It includes custom themes and styles that can be easily integrated with ASP.NET Core MVC or Razor Pages applications.</Description>
+    <Description>WebSpark.Bootswatch provides Bootswatch themes for ASP.NET Core applications. It
+      includes custom themes and styles that can be easily integrated with ASP.NET Core MVC or Razor
+      Pages applications.</Description>
     <Copyright>Copyright © 2025 Mark Hazleton</Copyright>
     <PackageTags>bootswatch;bootstrap;themes;razor;aspnetcore;css;styling</PackageTags>
     <PackageIcon>WebSpark.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    
+
     <!-- Repository info -->
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/MarkHazleton/WebSpark.Bootswatch</RepositoryUrl>
     <PackageProjectUrl>https://github.com/MarkHazleton/WebSpark.Bootswatch</PackageProjectUrl>
-    
+
     <!-- Build settings -->
     <ApplicationIcon>favicon.ico</ApplicationIcon>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Deterministic>true</Deterministic>
-    
+
     <!-- Documentation -->
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);CS1591</NoWarn>
-    
+
     <!-- SourceLink configuration -->
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>

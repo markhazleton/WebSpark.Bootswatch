@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32811.315
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSpark.Bootswatch", "WebSpark.Bootswatch\WebSpark.Bootswatch.csproj", "{4D37D0B3-0BD4-FC00-6E5A-1ED4664D3DF3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSpark.Bootswatch.Demo", "WebSpark.Bootswatch.Demo\WebSpark.Bootswatch.Demo.csproj", "{53D41A24-8713-C690-5166-73AD956318C7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4D37D0B3-0BD4-FC00-6E5A-1ED4664D3DF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D37D0B3-0BD4-FC00-6E5A-1ED4664D3DF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D37D0B3-0BD4-FC00-6E5A-1ED4664D3DF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D37D0B3-0BD4-FC00-6E5A-1ED4664D3DF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53D41A24-8713-C690-5166-73AD956318C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53D41A24-8713-C690-5166-73AD956318C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53D41A24-8713-C690-5166-73AD956318C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53D41A24-8713-C690-5166-73AD956318C7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DEDC7111-6422-4881-841C-DD5B61D69EEB}
+	EndGlobalSection
+EndGlobal

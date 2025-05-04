@@ -1,20 +1,20 @@
 namespace WebSpark.Bootswatch.Model;
 
-
 /// <summary>
-/// Style Service
+/// Interface for theme style providers that retrieve and manage available themes
 /// </summary>
 public interface IStyleProvider
 {
     /// <summary>
-    /// Get List of Themes
+    /// Gets a list of all available theme styles
     /// </summary>
-    /// <returns></returns>
+    /// <returns>A collection of StyleModel objects representing the available themes</returns>
     Task<IEnumerable<StyleModel>> GetAsync();
+
     /// <summary>
-    /// Get Theme By Name
+    /// Gets a specific theme style by its name
     /// </summary>
-    /// <param name="name"></param>
-    /// <returns></returns>
+    /// <param name="name">The name of the theme to retrieve</param>
+    /// <returns>A StyleModel object representing the requested theme</returns>
     Task<StyleModel> GetAsync(string name);
 }

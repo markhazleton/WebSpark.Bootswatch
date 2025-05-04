@@ -12,8 +12,8 @@
   <PropertyGroup>
     <Deterministic>false</Deterministic>
     <SourceRevisionId>build$([System.DateTime]::UtcNow.ToString("yyyyMMddHHmmss"))</SourceRevisionId>
-    <AssemblyVersion>
-      9.$([System.DateTime]::UtcNow.ToString(yyMM)).$([System.DateTime]::UtcNow.ToString(ddHH)).$([System.DateTime]::UtcNow.ToString(mmss))</AssemblyVersion>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <FileVersion>1.0.0</FileVersion>
     <ApplicationIcon>favicon.ico</ApplicationIcon>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>ControlSpark.Bootswatch</Title>
@@ -22,8 +22,6 @@
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/controlorigins/ControlSpark.Bootswatch</RepositoryUrl>
     <PackageProjectUrl>https://github.com/controlorigins/ControlSpark.Bootswatch</PackageProjectUrl>
-    <FileVersion>
-      6.$([System.DateTime]::UtcNow.ToString(yyMM)).$([System.DateTime]::UtcNow.ToString(ddHH)).$([System.DateTime]::UtcNow.ToString(mmss))</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>

@@ -12,9 +12,9 @@
 
   <PropertyGroup>
     <!-- Package metadata -->
-    <Version>1.0.5</Version>
-    <AssemblyVersion>1.0.5</AssemblyVersion>
-    <FileVersion>1.0.5</FileVersion>
+    <Version>1.0.6</Version>
+    <AssemblyVersion>1.0.6</AssemblyVersion>
+    <FileVersion>1.0.6</FileVersion>
     <PackageId>WebSpark.Bootswatch</PackageId>
     <Title>WebSpark.Bootswatch</Title>
     <Authors>Mark Hazleton</Authors>
@@ -34,7 +34,7 @@
     <!-- Repository info -->
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/MarkHazleton/WebSpark.Bootswatch</RepositoryUrl>
-    <PackageProjectUrl>https://github.com/MarkHazleton/WebSpark.Bootswatch</PackageProjectUrl>
+    <PackageProjectUrl>https://bootswatch.markhazleton.com/</PackageProjectUrl>
 
     <!-- Build settings -->
     <ApplicationIcon>favicon.ico</ApplicationIcon>
@@ -45,6 +45,11 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);CS1591</NoWarn>
 
+    <!-- Reading Experience Metadata -->
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageReadmeFileName>README.md</PackageReadmeFileName>
+    <PackageReadmeTitle>WebSpark.Bootswatch - Bootstrap Theming for ASP.NET Core</PackageReadmeTitle>
+
     <!-- SourceLink configuration -->
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
@@ -53,8 +58,16 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageReleaseNotes>Initial release with Bootswatch themes for ASP.NET Core applications.
-      Includes custom themes and styles for easy integration with MVC or Razor Pages.</PackageReleaseNotes>
+    <PackageReleaseNotes>
+      Version 1.0.5:
+      - Added support for the latest Bootstrap themes
+      - Improved theme switching in dark mode
+      - Enhanced StyleCache performance
+      - Added better Razor Pages integration
+      - Fixed theme inheritance issues
+      - Optimized CSS loading for better performance
+      - Improved documentation and code examples
+    </PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

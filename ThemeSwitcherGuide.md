@@ -2,6 +2,12 @@
 
 WebSpark.Bootswatch includes a built-in theme switcher and light/dark mode functionality that can be easily integrated into any ASP.NET Core application. This guide explains how to use these features.
 
+## Important Links
+
+- **Demo Site**: [https://bootswatch.markhazleton.com/](https://bootswatch.markhazleton.com/)
+- **NuGet Package**: [https://www.nuget.org/packages/WebSpark.Bootswatch](https://www.nuget.org/packages/WebSpark.Bootswatch)
+- **GitHub Repository**: [https://github.com/MarkHazleton/WebSpark.Bootswatch](https://github.com/MarkHazleton/WebSpark.Bootswatch)
+
 ## Features
 
 - **Theme Switching**: Users can select from all available Bootswatch themes

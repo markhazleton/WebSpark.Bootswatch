@@ -11,6 +11,12 @@ This guide provides comprehensive instructions for installing, configuring, and 
 
 **Last Updated:** May 4, 2025
 
+## Important Links
+
+- **Demo Site**: [https://bootswatch.markhazleton.com/](https://bootswatch.markhazleton.com/)
+- **NuGet Package**: [https://www.nuget.org/packages/WebSpark.Bootswatch](https://www.nuget.org/packages/WebSpark.Bootswatch)
+- **GitHub Repository**: [https://github.com/MarkHazleton/WebSpark.Bootswatch](https://github.com/MarkHazleton/WebSpark.Bootswatch)
+
 ## Table of Contents
 
 - [Prerequisites](#prerequisites)

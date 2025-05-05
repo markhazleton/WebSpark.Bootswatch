@@ -64,6 +64,8 @@ Add the necessary using statements at the top of your `Program.cs` file:
 using WebSpark.Bootswatch;
 using WebSpark.Bootswatch.Provider;
 using WebSpark.Bootswatch.Model;
+using WebSpark.Bootswatch.Services;
+using WebSpark.Bootswatch.Helpers;
 ```
 
 Register Bootswatch services in the dependency injection container:
@@ -74,15 +76,15 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container
 builder.Services.AddRazorPages(); // or AddControllersWithViews() for MVC
 
-// Register Bootswatch services
-builder.Services.AddBootswatchStyles();
+// Register Bootswatch theme switcher services (includes StyleCache)
+builder.Services.AddBootswatchThemeSwitcher();
 
 var app = builder.Build();
 ```
 
 ### 2. Configure Middleware
 
-Configure the HTTP request pipeline to use Bootswatch static files:
+Configure the HTTP request pipeline to use Bootswatch features:
 
 ```csharp
 // Configure middleware
@@ -93,12 +95,10 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-// Register Bootswatch static files middleware BEFORE standard static files
-app.UseBootswatchStaticFiles();
-
-// Standard static files middleware
 app.UseStaticFiles();
+
+// Use all Bootswatch features (includes StyleCache and static files)
+app.UseBootswatchAll();
 
 app.UseRouting();
 app.UseAuthorization();
@@ -107,138 +107,38 @@ app.MapRazorPages(); // or MapControllerRoute() for MVC
 app.Run();
 ```
 
-> **Important**: `app.UseBootswatchStaticFiles()` must be called before `app.UseStaticFiles()` to ensure proper serving of embedded static files.
-
 ## Advanced Configuration
 
-### 1. Create StyleCache Service
+### Using the StyleCache Service
 
-Create a `StyleCache.cs` file in your Services folder to cache Bootswatch styles:
+WebSpark.Bootswatch includes a built-in StyleCache service that is automatically registered when you call `AddBootswatchThemeSwitcher()`:
 
 ```csharp
-using Microsoft.Extensions.Logging;
-using WebSpark.Bootswatch.Model;
-using WebSpark.Bootswatch.Provider;
+using WebSpark.Bootswatch.Services;
 
-namespace YourApp.Services;
-
-public class StyleCache
+public class HomeController : Controller
 {
-    private readonly List<StyleModel> _styles = new();
-    private readonly IServiceProvider _serviceProvider;
-    private bool _isInitialized = false;
-    private readonly object _lockObject = new();
-    private Task? _initializationTask = null;
-    private readonly ILogger<StyleCache>? _logger;
-
-    public StyleCache(IServiceProvider serviceProvider, ILogger<StyleCache>? logger = null)
+    private readonly StyleCache _styleCache;
+    
+    public HomeController(StyleCache styleCache)
     {
-        _serviceProvider = serviceProvider;
-        _logger = logger;
+        _styleCache = styleCache;
     }
-
-    public List<StyleModel> GetAllStyles()
+    
+    public IActionResult Index()
     {
-        // If we're not initialized yet but loading has started, wait for a maximum of 3 seconds
-        if (!_isInitialized && _initializationTask != null)
-        {
-            try
-            {
-                if (Task.WaitAny(new[] { _initializationTask }, TimeSpan.FromSeconds(3)) == 0)
-                {
-                    // Task completed successfully
-                }
-                else
-                {
-                    _logger?.LogWarning("Timed out waiting for styles to load. Returning default styles.");
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger?.LogError(ex, "Error waiting for style initialization");
-            }
-        }
-
-        // Even if initialization hasn't completed, return what we have
-        lock (_lockObject)
-        {
-            return _styles.ToList(); // Return a copy to avoid potential thread issues
-        }
-    }
-
-    public StyleModel GetStyle(string name)
-    {
-        var styles = GetAllStyles();
-        return styles.FirstOrDefault(s => s.name == name) ?? new StyleModel();
-    }
-
-    public void StartInitialization()
-    {
-        if (_initializationTask == null)
-        {
-            lock (_lockObject)
-            {
-                if (_initializationTask == null)
-                {
-                    _initializationTask = Task.Run(async () =>
-                    {
-                        try
-                        {
-                            await LoadStyles();
-                            _isInitialized = true;
-                            _logger?.LogInformation("StyleCache successfully initialized with {Count} styles", _styles.Count);
-                        }
-                        catch (Exception ex)
-                        {
-                            _logger?.LogError(ex, "Error during StyleCache initialization");
-                        }
-                    });
-                }
-            }
-        }
-    }
-
-    public async Task LoadStyles()
-    {
-        // Create a scope to resolve the IStyleProvider since it's registered as scoped
-        using var scope = _serviceProvider.CreateScope();
-        var styleProvider = scope.ServiceProvider.GetRequiredService<IStyleProvider>();
-
-        // Get styles from the provider
-        var styles = await styleProvider.GetAsync();
-
-        // Clear and populate the styles collection
-        lock (_lockObject)
-        {
-            _styles.Clear();
-            _styles.AddRange(styles);
-        }
-    }
-
-    public static void InitializeInBackground(IServiceProvider serviceProvider)
-    {
-        var styleCache = serviceProvider.GetRequiredService<StyleCache>();
-        styleCache.StartInitialization();
+        // Access all available styles
+        var allStyles = _styleCache.GetAllStyles();
+        
+        // Get a specific style by name
+        var currentStyle = _styleCache.GetStyle("darkly");
+        
+        return View(new { AllStyles = allStyles, CurrentStyle = currentStyle });
     }
 }
 ```
 
-### 2. Register and Initialize StyleCache
-
-Add these lines to your `Program.cs` file:
-
-```csharp
-// Register StyleCache as a singleton
-builder.Services.AddSingleton<StyleCache>();
-builder.Services.AddLogging();
-
-var app = builder.Build();
-
-// Initialize StyleCache in the background without blocking application startup
-StyleCache.InitializeInBackground(app.Services);
-```
-
-### 3. Custom HTTP Request Implementation (Optional)
+### Custom HTTP Request Implementation (Optional)
 
 If you need custom HTTP request handling:
 
@@ -251,29 +151,26 @@ builder.Services.AddScoped<IHttpRequestResultService, HttpRequestResultService>(
 
 ### 1. Update Layout for Dynamic Themes
 
-Modify your `_Layout.cshtml` file to dynamically load the selected theme:
+Modify your `_Layout.cshtml` file to use the theme switcher:
 
 ```cshtml
-@using YourApp.Services
-@using WebSpark.Bootswatch.Model
+@using WebSpark.Bootswatch.Services
+@using WebSpark.Bootswatch.Helpers
 @inject StyleCache StyleCache
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="@(BootswatchThemeHelper.GetCurrentColorMode(HttpContext))">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Your App</title>
 
     @{
-        var themeName = Context.Request.Cookies["bootswatch-theme"] ?? "default";
-        var themeUrl = themeName == "default" ?
-            "/lib/bootstrap/dist/css/bootstrap.min.css" :
-            StyleCache.GetStyle(themeName)?.cssCdn ?? "/lib/bootstrap/dist/css/bootstrap.min.css";
+        var themeName = BootswatchThemeHelper.GetCurrentThemeName(HttpContext);
+        var themeUrl = BootswatchThemeHelper.GetThemeUrl(StyleCache, themeName);
     }
 
-    <link id="theme-stylesheet" rel="stylesheet" href="@themeUrl" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/YourApp.styles.css" asp-append-version="true" />
+    <link id="bootswatch-theme-stylesheet" rel="stylesheet" href="@themeUrl" />
+    <script src="/_content/WebSpark.Bootswatch/js/bootswatch-theme-switcher.js"></script>
 </head>
 <body>
     <!-- Header with navigation -->
@@ -283,7 +180,7 @@ Modify your `_Layout.cshtml` file to dynamically load the selected theme:
                 <!-- Your navigation items -->
                 
                 <!-- Theme switcher component -->
-                <partial name="_ThemeSwitcher" />
+                @Html.Raw(BootswatchThemeHelper.GetThemeSwitcherHtml(StyleCache, HttpContext))
             </div>
         </nav>
     </header>
@@ -312,49 +209,40 @@ Modify your `_Layout.cshtml` file to dynamically load the selected theme:
 </html>
 ```
 
-### 2. Create Theme Switcher Component
+### 2. Theme Switcher Helper Methods
 
-Create a `_ThemeSwitcher.cshtml` partial view in your Pages/Shared folder:
+The `BootswatchThemeHelper` class provides several useful methods:
 
-```cshtml
-@using YourApp.Services
-@inject StyleCache StyleCache
+```csharp
+// Get the current theme name from cookies
+var themeName = BootswatchThemeHelper.GetCurrentThemeName(HttpContext);
 
-<div class="dropdown theme-switcher">
-    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        Theme
-    </button>
-    <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#" onclick="setTheme('default')">Default</a></li>
-        @foreach (var style in StyleCache.GetAllStyles())
-        {
-            <li><a class="dropdown-item" href="#" onclick="setTheme('@style.name')">@style.name</a></li>
-        }
-    </ul>
-</div>
+// Get the current color mode (light/dark) from cookies
+var colorMode = BootswatchThemeHelper.GetCurrentColorMode(HttpContext);
 
-<script>
-    function setTheme(themeName) {
-        // Set cookie to remember theme choice
-        document.cookie = "bootswatch-theme=" + themeName + "; path=/; max-age=31536000"; // 1 year expiry
-        
-        // Update CSS link
-        var themeUrl = themeName === 'default' 
-            ? '/lib/bootstrap/dist/css/bootstrap.min.css' 
-            : '@StyleCache.GetAllStyles().FirstOrDefault()?.cssCdn'.replace('@StyleCache.GetAllStyles().FirstOrDefault()?.name', themeName);
-        
-        document.getElementById('theme-stylesheet').href = themeUrl;
-        
-        return false;
-    }
-</script>
+// Get the URL for a theme's CSS
+var themeUrl = BootswatchThemeHelper.GetThemeUrl(StyleCache, themeName);
+
+// Generate HTML for the theme switcher component
+var switcherHtml = BootswatchThemeHelper.GetThemeSwitcherHtml(StyleCache, HttpContext);
+
+// Get HTML attributes for the HTML tag with theme support
+var htmlAttributes = BootswatchThemeHelper.GetHtmlAttributes(HttpContext);
 ```
+
+See [ThemeSwitcherGuide.md](ThemeSwitcherGuide.md) for more details on theme switching.
 
 ## Caching Implementation
 
-### 1. Add Cache Control Headers
+The WebSpark.Bootswatch package includes a built-in `StyleCache` service that automatically caches styles to improve performance. The StyleCache handles:
 
-Enhance performance by adding cache control headers for static files:
+1. **Efficient style retrieval** - Styles are loaded once and cached for subsequent requests
+2. **Thread-safe operations** - The cache is designed to be used in multi-threaded environments
+3. **Memory management** - Optimized for minimal memory footprint
+
+You don't need to implement your own caching logic anymore - simply inject and use the `StyleCache` service.
+
+For custom cache control, you can still add cache headers to your static files:
 
 ```csharp
 app.UseStaticFiles(new StaticFileOptions
@@ -367,32 +255,6 @@ app.UseStaticFiles(new StaticFileOptions
 });
 ```
 
-### 2. Add Logging for Troubleshooting
-
-Add middleware to log theme loading issues:
-
-```csharp
-app.Use(async (context, next) =>
-{
-    var logger = context.RequestServices.GetRequiredService<ILogger<Program>>();
-    var path = context.Request.Path.Value;
-
-    // Log all requests that look like they're trying to access theme CSS files
-    if (path?.Contains("bootstrap.min.css") == true)
-    {
-        logger.LogInformation("Requested theme CSS: {Path}", path);
-    }
-
-    await next();
-
-    // Log if the response is a 404 for theme CSS files
-    if (context.Response.StatusCode == 404 && path?.Contains("bootstrap.min.css") == true)
-    {
-        logger.LogWarning("404 Not Found for theme CSS: {Path}", path);
-    }
-});
-```
-
 ## Troubleshooting
 
 ### Theme Not Loading
@@ -401,10 +263,10 @@ app.Use(async (context, next) =>
    Use browser developer tools (F12) to inspect network requests for CSS files.
 
 2. **Verify Middleware Order**  
-   Ensure `UseBootswatchStaticFiles()` is called before `UseStaticFiles()`.
+   Ensure you're using `app.UseBootswatchAll()` after `app.UseStaticFiles()`.
 
-3. **Check Cache Initialization**  
-   Verify StyleCache initializes correctly by checking application logs.
+3. **Check StyleCache Usage**  
+   Make sure you're injecting and using the StyleCache correctly.
 
 4. **Clear Browser Cache**  
    Hard refresh with Ctrl+F5 to clear cached CSS files.
@@ -418,26 +280,27 @@ app.Use(async (context, next) =>
    Look for any error messages during StyleCache initialization.
 
 3. **Add Fallback Themes**  
-   Modify the StyleCache to include default themes if API calls fail.
+   Always use the fallback mechanism with conditional checks as shown in the examples.
 
 ## Best Practices
 
-1. **Non-Blocking Initialization**  
-   Initialize the StyleCache in the background to avoid blocking application startup.
+1. **Default Theme Fallback**  
+   Always use the `BootswatchThemeHelper.GetThemeUrl()` method which includes fallback handling:
 
-2. **Error Handling**  
-   Always provide fallback styles if theme loading fails.
+   ```csharp
+   var themeUrl = BootswatchThemeHelper.GetThemeUrl(StyleCache, themeName);
+   ```
 
-3. **User Preferences**  
-   Store user theme preferences in cookies or user profile for persistence.
+2. **User Preferences**  
+   Use the built-in cookie mechanism for storing and retrieving user theme preferences.
 
-4. **Performance Optimization**  
-   Cache theme styles to reduce API calls and improve page load times.
+3. **Performance Optimization**  
+   Use the built-in StyleCache for optimal performance.
 
-5. **CDN Fallbacks**  
+4. **CDN Fallbacks**  
    Implement fallbacks for CDN-hosted theme files in case of CDN failures.
 
-6. **Responsive Testing**  
+5. **Responsive Testing**  
    Test themes across different screen sizes to ensure responsive behavior.
 
 ## Demo Application
@@ -445,7 +308,8 @@ app.Use(async (context, next) =>
 The `WebSpark.Bootswatch.Demo` application in this repository provides a complete reference implementation showcasing all features discussed in this guide, including:
 
 - Theme switching
-- Caching
+- Light/dark mode toggle
+- StyleCache usage
 - Proper middleware configuration
 - Responsive layouts
 - Bootstrap 5 components

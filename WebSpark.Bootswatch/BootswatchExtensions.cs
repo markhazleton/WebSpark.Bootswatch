@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
@@ -6,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using System.Reflection;
 using WebSpark.Bootswatch.Model;
 using WebSpark.Bootswatch.Provider;
+using WebSpark.Bootswatch.Services;
 
 namespace WebSpark.Bootswatch;
 
@@ -25,6 +27,46 @@ public static class BootswatchExtensions
         services.AddScoped<Model.IStyleProvider, BootswatchStyleProvider>();
 
         return services;
+    }
+
+    /// <summary>
+    /// Adds the Bootswatch style provider, style cache service, and required services to the IServiceCollection
+    /// </summary>
+    /// <param name="services">The service collection to add services to</param>
+    /// <returns>The service collection for chaining</returns>
+    public static IServiceCollection AddBootswatchStylesWithCache(this IServiceCollection services)
+    {
+        services.AddBootswatchStyles();
+        services.AddSingleton<StyleCache>();
+
+        return services;
+    }
+
+    /// <summary>
+    /// Adds the Bootswatch theme switcher components and services to the IServiceCollection
+    /// </summary>
+    /// <param name="services">The service collection to add services to</param>
+    /// <returns>The service collection for chaining</returns>
+    public static IServiceCollection AddBootswatchThemeSwitcher(this IServiceCollection services)
+    {
+        services.AddBootswatchStylesWithCache();
+
+        // Add MVC parts if necessary, but don't add RazorPages since that's application-specific
+        services.AddMvcCore().ConfigureApplicationPartManager(apm =>
+            apm.ApplicationParts.Add(new AssemblyPart(typeof(BootswatchExtensions).Assembly)));
+
+        return services;
+    }
+
+    /// <summary>
+    /// Initializes the Bootswatch style cache in the background to avoid blocking application startup
+    /// </summary>
+    /// <param name="app">The web application to configure</param>
+    /// <returns>The web application for chaining</returns>
+    public static IApplicationBuilder UseBootswatchStyleCache(this IApplicationBuilder app)
+    {
+        StyleCache.InitializeInBackground(app.ApplicationServices);
+        return app;
     }
 
     /// <summary>
@@ -66,6 +108,18 @@ public static class BootswatchExtensions
             }
         });
 
+        return app;
+    }
+
+    /// <summary>
+    /// Configures the application to use all Bootswatch features including the theme switcher
+    /// </summary>
+    /// <param name="app">The web application to configure</param>
+    /// <returns>The web application for chaining</returns>
+    public static IApplicationBuilder UseBootswatchAll(this IApplicationBuilder app)
+    {
+        app.UseBootswatchStyleCache();
+        app.UseBootswatchStaticFiles();
         return app;
     }
 }

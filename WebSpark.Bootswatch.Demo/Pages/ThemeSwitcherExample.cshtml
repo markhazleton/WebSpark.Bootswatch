@@ -1,0 +1,72 @@
+@page
+@model WebSpark.Bootswatch.Demo.Pages.ThemeSwitcherExampleModel
+@using WebSpark.Bootswatch.Helpers
+@inject WebSpark.Bootswatch.Services.StyleCache StyleCache
+
+@{
+    // Simple example of how to use the theme switcher with the helper methods
+    ViewData["Title"] = "Theme Switcher Example";
+
+    // Get the current theme and color mode using the helper methods
+    var currentTheme = BootswatchThemeHelper.GetCurrentThemeName(HttpContext);
+    var colorMode = BootswatchThemeHelper.GetCurrentColorMode(HttpContext);
+    var themeUrl = BootswatchThemeHelper.GetThemeUrl(StyleCache, currentTheme);
+}
+
+<div class="container">
+    <h1 class="my-4">Theme Switcher Example</h1>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-4">
+                <div class="card-header">
+                    Current Theme Settings
+                </div>
+                <div class="card-body">
+                    <p><strong>Current Theme:</strong> @currentTheme</p>
+                    <p><strong>Color Mode:</strong> @colorMode</p>
+                    <p><strong>Theme URL:</strong> @themeUrl</p>
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Theme Switcher:</h5>
+                        @Html.Raw(BootswatchThemeHelper.GetThemeSwitcherHtml(StyleCache, HttpContext))
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-4">
+                <div class="card-header">
+                    Implementation Instructions
+                </div>
+                <div class="card-body">
+                    <h5>1. Register services in Program.cs</h5>
+                    <pre><code>// Add Bootswatch theme switcher services
+builder.Services.AddBootswatchThemeSwitcher();
+
+// ... other services
+
+// Add Bootswatch static files and cache
+app.UseBootswatchAll();</code></pre>
+
+                    <h5>2. Add the theme stylesheet and script to your layout</h5>
+                    <pre><code>&lt;head&gt;
+    &lt;!-- Other head elements --&gt;
+    &lt;link id="bootswatch-theme-stylesheet" rel="stylesheet" href="@themeUrl" /&gt;
+    &lt;script src="/_content/WebSpark.Bootswatch/js/bootswatch-theme-switcher.js"&gt;&lt;/script&gt;
+&lt;/head&gt;</code></pre>
+
+                    <h5>3. Add the theme attribute to your html tag</h5>
+                    <pre><code>&lt;html lang="en" data-bs-theme="@colorMode"&gt;</code></pre>
+
+                    <h5>4. Add the theme switcher component to your layout</h5>
+                    <pre><code>@Html.Raw(BootswatchThemeHelper.GetThemeSwitcherHtml(StyleCache, HttpContext))</code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

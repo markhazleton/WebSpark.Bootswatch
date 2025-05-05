@@ -1,9 +1,9 @@
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.DependencyInjection;
 using WebSpark.Bootswatch.Model;
 using WebSpark.Bootswatch.Provider;
-using Microsoft.Extensions.DependencyInjection;
 
-namespace WebSpark.Bootswatch.Demo.Services;
+namespace WebSpark.Bootswatch.Services;
 
 /// <summary>
 /// Singleton service that caches style models from the Bootswatch API
@@ -17,6 +17,11 @@ public class StyleCache
     private Task? _initializationTask = null;
     private readonly ILogger<StyleCache>? _logger;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StyleCache"/> class
+    /// </summary>
+    /// <param name="serviceProvider">The service provider</param>
+    /// <param name="logger">Optional logger</param>
     public StyleCache(IServiceProvider serviceProvider, ILogger<StyleCache>? logger = null)
     {
         _serviceProvider = serviceProvider;

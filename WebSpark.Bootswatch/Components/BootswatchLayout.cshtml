@@ -1,0 +1,39 @@
+@using WebSpark.Bootswatch.Model
+@using WebSpark.Bootswatch.Services
+@inject StyleCache StyleCache
+
+@{
+    var themeName = Context.Request.Cookies["bootswatch-theme"] ?? "default";
+    var colorMode = Context.Request.Cookies["bootswatch-color-mode"] ?? "light";
+    var themeUrl = themeName == "default" ?
+    "/lib/bootstrap/dist/css/bootstrap.min.css" :
+    StyleCache.GetStyle(themeName)?.cssCdn ?? "/lib/bootstrap/dist/css/bootstrap.min.css";
+}
+
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="@colorMode">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+
+    <link id="bootswatch-theme-stylesheet" rel="stylesheet" href="@themeUrl" />
+
+    <!-- Add additional stylesheets here -->
+    @RenderSection("Styles", required: false)
+
+    <!-- Add Bootswatch theme switcher script -->
+    <script src="/_content/WebSpark.Bootswatch/js/bootswatch-theme-switcher.js"></script>
+</head>
+
+<body>
+    @RenderBody()
+
+    <!-- Add scripts section -->
+    @RenderSection("Scripts", required: false)
+</body>
+
+</html>
+
+

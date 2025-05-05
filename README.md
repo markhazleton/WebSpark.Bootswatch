@@ -9,9 +9,10 @@ A .NET Razor Class Library for integrating Bootstrap 5 themes from [Bootswatch](
 
 - Seamless integration of Bootswatch themes with ASP.NET Core applications.
 - Built on Bootstrap 5, offering modern, responsive, and mobile-first design.
-- Easy runtime theme switching.
+- **NEW!** Integrated theme switcher component with light/dark mode support.
+- Easy runtime theme switching with cookie persistence.
 - Includes custom themes (e.g., Mom, Texecon) alongside standard Bootswatch themes.
-- Caching for improved performance.
+- Built-in caching mechanism for improved performance through StyleCache service.
 - Fully documented with IntelliSense support.
 
 ## Benefits of Bootstrap 5
@@ -46,7 +47,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container
 builder.Services.AddRazorPages();
-builder.Services.AddBootswatchStyles(); // Add Bootswatch services
+
+// Add Bootswatch theme switcher services (includes StyleCache)
+builder.Services.AddBootswatchThemeSwitcher();
 
 var app = builder.Build();
 
@@ -59,7 +62,9 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-app.UseBootswatchStaticFiles(); // Enable Bootswatch static files
+
+// Use all Bootswatch features (includes StyleCache and static files)
+app.UseBootswatchAll();
 
 app.UseRouting();
 app.MapRazorPages();
@@ -67,66 +72,34 @@ app.MapRazorPages();
 app.Run();
 ```
 
-### 2. Create a Theme Switcher Component
+### 2. Update Your Layout
 
-Create a partial view `_ThemeSwitcher.cshtml` to allow users to change themes:
-
-```html
-@using WebSpark.Bootswatch.Model
-@inject IStyleProvider StyleProvider
-
-@{
-    var styles = await StyleProvider.GetAsync();
-}
-
-<div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        Change Theme
-    </button>
-    <ul class="dropdown-menu">
-        @foreach (var style in styles)
-        {
-            <li><a class="dropdown-item" href="?theme=@style.name">@style.name</a></li>
-        }
-    </ul>
-</div>
-```
-
-### 3. Use Theme in Layout
-
-Update your `_Layout.cshtml` file to use the current theme:
+Modify your `_Layout.cshtml` file to use the theme switcher:
 
 ```html
-@using WebSpark.Bootswatch.Model
-@inject IStyleProvider StyleProvider
-
-@{
-    var theme = Context.Request.Query["theme"].ToString() ?? "default";
-    var currentStyle = await StyleProvider.GetAsync(theme);
-}
-
+@using WebSpark.Bootswatch.Services
+@using WebSpark.Bootswatch.Helpers
+@inject StyleCache StyleCache
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="@(BootswatchThemeHelper.GetCurrentColorMode(HttpContext))">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - WebSpark.Bootswatch.Demo</title>
     
-    <!-- Use the theme from Bootswatch -->
-    @if (!string.IsNullOrEmpty(currentStyle.cssCdn))
-    {
-        <link rel="stylesheet" href="@currentStyle.cssCdn" />
-    }
-    else
-    {
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    @{
+        var themeName = BootswatchThemeHelper.GetCurrentThemeName(HttpContext);
+        var themeUrl = BootswatchThemeHelper.GetThemeUrl(StyleCache, themeName);
     }
     
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link id="bootswatch-theme-stylesheet" rel="stylesheet" href="@themeUrl" />
+    <script src="/_content/WebSpark.Bootswatch/js/bootswatch-theme-switcher.js"></script>
 </head>
 <body>
-    <!-- Rest of your layout -->
-    <partial name="_ThemeSwitcher" />
+    <!-- Your layout content -->
+    
+    <!-- Add the theme switcher where you want it to appear -->
+    @Html.Raw(BootswatchThemeHelper.GetThemeSwitcherHtml(StyleCache, HttpContext))
     
     <!-- Content -->
     @RenderBody()
@@ -134,61 +107,64 @@ Update your `_Layout.cshtml` file to use the current theme:
     <!-- Scripts -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
 ```
 
+No JavaScript implementation is needed - the theme switcher functionality is now built into the library!
+
 ## Advanced Usage
 
-### Caching Themes
+### Using the Integrated StyleCache Service
 
-For improved performance, you can implement a caching service:
+The package includes a built-in `StyleCache` service for improved performance:
 
 ```csharp
-public class StyleCache
-{
-    private readonly IStyleProvider _styleProvider;
-    private readonly IMemoryCache _memoryCache;
-    private const string CacheKey = "BootswatchStyles";
+// In your Controller or Razor Page
+using WebSpark.Bootswatch.Services;
 
-    public StyleCache(IStyleProvider styleProvider, IMemoryCache memoryCache)
+public class HomeController : Controller
+{
+    private readonly StyleCache _styleCache;
+
+    public HomeController(StyleCache styleCache)
     {
-        _styleProvider = styleProvider;
-        _memoryCache = memoryCache;
+        _styleCache = styleCache;
     }
 
-    public async Task<IEnumerable<StyleModel>> GetStylesAsync()
+    public IActionResult Index()
     {
-        if (!_memoryCache.TryGetValue(CacheKey, out IEnumerable<StyleModel> styles))
-        {
-            styles = await _styleProvider.GetAsync();
-            _memoryCache.Set(CacheKey, styles, TimeSpan.FromHours(1));
-        }
-        return styles;
+        // Get all available styles
+        var styles = _styleCache.GetAllStyles();
+        
+        // Get a specific style by name
+        var defaultStyle = _styleCache.GetStyle("default");
+        
+        return View();
     }
 }
 ```
 
-### Custom Theme Implementation
+### Theme Switcher Helpers
 
-You can create your own theme provider by implementing the `IStyleProvider` interface:
+The library now includes the `BootswatchThemeHelper` class with useful methods:
 
 ```csharp
-public class CustomStyleProvider : IStyleProvider
-{
-    public Task<IEnumerable<StyleModel>> GetAsync()
-    {
-        // Return your custom themes
-    }
+// Get the current theme name
+var themeName = BootswatchThemeHelper.GetCurrentThemeName(HttpContext);
 
-    public Task<StyleModel> GetAsync(string name)
-    {
-        // Return a specific theme by name
-    }
-}
+// Get the current color mode (light/dark)
+var colorMode = BootswatchThemeHelper.GetCurrentColorMode(HttpContext);
+
+// Get the URL for a theme
+var themeUrl = BootswatchThemeHelper.GetThemeUrl(StyleCache, themeName);
+
+// Get HTML for the theme switcher component
+var switcherHtml = BootswatchThemeHelper.GetThemeSwitcherHtml(StyleCache, HttpContext);
 ```
+
+For more details on the theme switcher, see [ThemeSwitcherGuide.md](ThemeSwitcherGuide.md).
 
 ## Demo Project
 
@@ -197,6 +173,7 @@ For a complete example of how to integrate WebSpark.Bootswatch, refer to the `We
 - Registering Bootswatch services.
 - Using the theme switcher component.
 - Applying themes dynamically in the layout.
+- Using the StyleCache service for efficient theme management.
 
 ## License
 

@@ -2,7 +2,6 @@ using WebSpark.Bootswatch;
 using WebSpark.Bootswatch.Provider;
 using WebSpark.Bootswatch.Model;
 using WebSpark.HttpClientUtility.RequestResult;
-using WebSpark.Bootswatch.Demo.Services;
 using Microsoft.Extensions.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,23 +9,17 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-// Use the extension method to register Bootswatch services
-builder.Services.AddBootswatchStyles();
-
 // Use our custom implementation instead of the default one for HTTP requests
 builder.Services.AddScoped<IHttpRequestResultService, HttpRequestResultService>();
 
-// Register StyleCache as a singleton with logger
-builder.Services.AddSingleton<StyleCache>();
+// Use the extension method to register Bootswatch theme switcher (includes StyleCache)
+builder.Services.AddBootswatchThemeSwitcher();
 builder.Services.AddLogging();
 
 // Add detailed logging for static files middleware
 builder.Logging.AddConsole().SetMinimumLevel(LogLevel.Debug);
 
 var app = builder.Build();
-
-// Initialize StyleCache in the background without blocking application startup
-StyleCache.InitializeInBackground(app.Services);
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -38,8 +31,8 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// First register the Bootswatch static files middleware to serve embedded static files
-app.UseBootswatchStaticFiles();
+// Use all Bootswatch features including theme switcher
+app.UseBootswatchAll();
 
 // Add custom middleware to log and debug static file requests
 app.Use(async (context, next) =>

@@ -1,7 +1,9 @@
 @page
 @model WebSpark.Bootswatch.Demo.Pages.WebSparkBootswatchModel
-@using WebSpark.Bootswatch.Demo.Services
 @using WebSpark.Bootswatch.Model
+@using WebSpark.Bootswatch.Provider
+@using WebSpark.Bootswatch.Services
+@using WebSpark.Bootswatch.Helpers
 @using System.Linq
 @inject StyleCache StyleCache
 @{
@@ -196,93 +198,53 @@ app.Run();</code></pre>
                         <h2 class="mb-0">Theme Switching Implementation</h2>
                     </div>
                     <div class="card-body">
-                        <h4>1. Update Layout for Dynamic Themes</h4>
-                        <p>Modify your <code>_Layout.cshtml</code> file to dynamically load the selected theme:</p>
-                        <pre><code>@@using WebSpark.Bootswatch.Demo.Services
-@@using WebSpark.Bootswatch.Model
-@@inject StyleCache StyleCache
+                        <h4>1. Update Service Registration</h4>
+                        <p>Register the theme switcher services in your <code>Program.cs</code> file:</p>
+                        <pre><code>// Add Bootswatch theme switcher services (includes StyleCache)
+builder.Services.AddBootswatchThemeSwitcher();
+
+// Later in the pipeline configuration:
+// Use all Bootswatch features (includes StyleCache and static files)
+app.UseBootswatchAll();</code></pre>
+
+                        <h4>2. Update Layout</h4>
+                        <p>Modify your <code>_Layout.cshtml</code> file to use the theme switcher:</p>
+                        <pre><code>@* Make sure to add these namespaces to your view *@
+@using WebSpark.Bootswatch.Services
+@using WebSpark.Bootswatch.Helpers
+@inject StyleCache StyleCache
 &lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
+&lt;html lang="en" data-bs-theme="@(BootswatchThemeHelper.GetCurrentColorMode(HttpContext))"&gt;
 &lt;head&gt;
     &lt;meta charset="utf-8" /&gt;
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
-    &lt;title&gt;@@ViewData["Title"] - WebSpark.Bootswatch.Demo&lt;/title&gt;
+    &lt;title&gt;@ViewData["Title"]&lt;/title&gt;
 
-    @@{
-        var themeName = Context.Request.Cookies["bootswatch-theme"] ?? "default";
-        var themeUrl = themeName == "default" ?
-                "/lib/bootstrap/dist/css/bootstrap.min.css" :
-                StyleCache.GetStyle(themeName)?.cssCdn ?? "/lib/bootstrap/dist/css/bootstrap.min.css";
+    @{
+                var themeName = BootswatchThemeHelper.GetCurrentThemeName(HttpContext);
+                var themeUrl = BootswatchThemeHelper.GetThemeUrl(StyleCache, themeName);
     }
 
-    &lt;link id="theme-stylesheet" rel="stylesheet" href="@@themeUrl" /&gt;
-    &lt;link rel="stylesheet" href="~/css/site.css" asp-append-version="true" /&gt;
-    &lt;link rel="stylesheet" href="~/WebSpark.Bootswatch.Demo.styles.css" asp-append-version="true" /&gt;
+    &lt;link id="bootswatch-theme-stylesheet" rel="stylesheet" href="@themeUrl" /&gt;
+    &lt;script src="/_content/WebSpark.Bootswatch/js/bootswatch-theme-switcher.js"&gt;&lt;/script&gt;
 &lt;/head&gt;</code></pre>
 
-                        <h4>2. Create Theme Switcher Component</h4>
-                        <p>Create a <code>_ThemeSwitcher.cshtml</code> partial view in your Pages/Shared folder:</p>
-                        <pre><code>@@using WebSpark.Bootswatch.Demo.Services
-@@inject StyleCache StyleCache
+                        <h4>3. Add Theme Switcher Component</h4>
+                        <p>Add the theme switcher component where you want it to appear in your layout:</p>
+                        <pre><code>@Html.Raw(BootswatchThemeHelper.GetThemeSwitcherHtml(StyleCache, HttpContext))</code></pre>
 
-&lt;div class="dropdown theme-switcher"&gt;
-    &lt;button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"&gt;
-        Theme
-    &lt;/button&gt;
-    &lt;ul class="dropdown-menu"&gt;
-        &lt;li&gt;&lt;a class="dropdown-item" href="#" onclick="setTheme('default')"&gt;Default&lt;/a&gt;&lt;/li&gt;
-        @@foreach (var styleItem in StyleCache.GetAllStyles())
-        {
-            &lt;li&gt;&lt;a class="dropdown-item" href="#" onclick="setTheme('@@styleItem.name')"&gt;@@styleItem.name&lt;/a&gt;&lt;/li&gt;
-        }
-    &lt;/ul&gt;
-&lt;/div&gt;
+                        <div class="alert alert-info mt-3">
+                            <strong>Note:</strong> The theme switcher component is now included in the
+                            WebSpark.Bootswatch package,
+                            so you don't need to create your own implementation.
+                        </div>
 
-&lt;script&gt;
-    function setTheme(themeName) {
-        // Set cookie to remember theme choice
-        document.cookie = "bootswatch-theme=" + themeName + "; path=/; max-age=31536000"; // 1 year expiry
-        
-        // Update CSS link
-        var themeUrl = themeName === 'default' 
-            ? '/lib/bootstrap/dist/css/bootstrap.min.css' 
-            : '@@StyleCache.GetAllStyles().FirstOrDefault()?.cssCdn'.replace('@@StyleCache.GetAllStyles().FirstOrDefault()?.name', themeName);
-        
-        document.getElementById('theme-stylesheet').href = themeUrl;
-        
-        return false;
-    }
-&lt;/script&gt;</code></pre>
-
-                        <h4>3. Switching Themes</h4>
-                        <h5>Option 1: Via Controller</h5>
-                        <pre><code>[HttpGet("SetTheme/{name}")]
-public IActionResult SetTheme(string name)
-{
-    // Access the IStyleProvider to change the theme
-    var styleProvider = HttpContext.RequestServices.GetRequiredService&lt;IStyleProvider&gt;();
-    styleProvider.SetCurrentStyle(name);
-    
-    // Redirect back to the previous page
-    return Redirect(Request.Headers["Referer"].ToString());
-}</code></pre>
-
-                        <h5>Option 2: Via Razor Page</h5>
-                        <pre><code>public class IndexModel : PageModel
-{
-    private readonly IStyleProvider _styleProvider;
-
-    public IndexModel(IStyleProvider styleProvider)
-    {
-        _styleProvider = styleProvider;
-    }
-    
-    public IActionResult OnPostChangeTheme(string themeName)
-    {
-        _styleProvider.SetCurrentStyle(themeName);
-        return RedirectToPage();
-    }
-}</code></pre>
+                        <h4>4. For More Details</h4>
+                        <p>See the <a asp-page="/ThemeSwitcherExample">Theme Switcher Example</a> page for a complete
+                            example
+                            or refer to the <a
+                                href="https://github.com/MarkHazleton/WebSpark.Bootswatch/blob/main/ThemeSwitcherGuide.md"
+                                target="_blank">Theme Switcher Guide</a>.</p>
                     </div>
                 </div>
             </section>

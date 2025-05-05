@@ -12,9 +12,9 @@
 
   <PropertyGroup>
     <!-- Package metadata -->
-    <Version>1.0.4</Version>
-    <AssemblyVersion>1.0.4</AssemblyVersion>
-    <FileVersion>1.0.4</FileVersion>
+    <Version>1.0.5</Version>
+    <AssemblyVersion>1.0.5</AssemblyVersion>
+    <FileVersion>1.0.5</FileVersion>
     <PackageId>WebSpark.Bootswatch</PackageId>
     <Title>WebSpark.Bootswatch</Title>
     <Authors>Mark Hazleton</Authors>
@@ -68,6 +68,20 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+
+    <!-- Add embedded resources -->
+    <EmbeddedResource Include="wwwroot\**\*" />
+  </ItemGroup>
+
+  <!-- Razor components for theme switching -->
+  <ItemGroup>
+    <Content Include="Components\**\*.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+
+    <!-- Add embedded resources -->
+    <EmbeddedResource Include="Components\**\*.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -81,6 +95,8 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="9.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor" Version="2.2.0" />
     <PackageReference Include="WebSpark.HttpClientUtility" Version="1.0.5" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
   </ItemGroup>

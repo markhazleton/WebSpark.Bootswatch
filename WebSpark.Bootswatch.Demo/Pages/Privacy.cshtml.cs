@@ -7,7 +7,8 @@ namespace WebSpark.Bootswatch.Demo.Pages
     {
         private readonly ILogger<PrivacyModel> _logger;
 
-        public string CurrentColorMode { get; private set; }
+        // Make the setter public to match the class visibility (to fix the required member error)
+        public required string CurrentColorMode { get; set; }
 
         public PrivacyModel(ILogger<PrivacyModel> logger)
         {
@@ -17,7 +18,7 @@ namespace WebSpark.Bootswatch.Demo.Pages
         public void OnGet()
         {
             // Get the current color mode from cookie or default to "light"
-            CurrentColorMode = Request.Cookies["color-mode"] ?? "light";
+            CurrentColorMode = Request.Cookies["bootswatch-color-mode"] ?? "light";
             _logger.LogInformation("Privacy page accessed with color mode: {ColorMode}", CurrentColorMode);
         }
     }

@@ -104,13 +104,28 @@
     <None Include="..\LICENSE" Pack="true" PackagePath="\" />
     <None Include="..\NOTICE.txt" Pack="true" PackagePath="\" />
   </ItemGroup>
-
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="9.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.3.0" />
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="9.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor" Version="2.3.0" />
+    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
     <PackageReference Include="WebSpark.HttpClientUtility" Version="1.0.5" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
   </ItemGroup>
+
+  <!-- Track front-end files -->
+  <ItemGroup>
+    <Content Update="package.json" CopyToOutputDirectory="Never" CopyToPublishDirectory="Never" />
+    <Content Update="webpack.config.js" CopyToOutputDirectory="Never" CopyToPublishDirectory="Never" />
+    <Content Update="build.js" CopyToOutputDirectory="Never" CopyToPublishDirectory="Never" />
+    <Content Update="clean.js" CopyToOutputDirectory="Never" CopyToPublishDirectory="Never" />
+    <Content Update="convert-css-to-scss.js" CopyToOutputDirectory="Never" CopyToPublishDirectory="Never" />
+  </ItemGroup>
+
+  <!-- Run npm build during BeforeBuild -->
+  <Target Name="NpmBuild" BeforeTargets="BeforeBuild">
+    <Message Text="Running npm clean and build using batch file..." Importance="high" />
+    <Exec Command="npm-build.cmd" WorkingDirectory="$(MSBuildProjectDirectory)" />
+  </Target>
 </Project>

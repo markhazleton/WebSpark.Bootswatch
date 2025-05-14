@@ -1,0 +1,777 @@
+﻿/*!
+ * Bootstrap Colorful Fun Theme v5.3.0
+ * A vibrant, playful modification of Bootstrap with rounded corners and bright colors
+ * Created on May 14, 2025
+ */
+
+:root {
+    /* Primary colors - bright and vibrant */
+    --bs-primary: #ff5e7d;
+    --bs-secondary: #7c4dff;
+    --bs-success: #00e676;
+    --bs-info: #00b0ff;
+    --bs-warning: #ffab00;
+    --bs-danger: #ff3d71;
+    --bs-light: #f8f9fa;
+    --bs-dark: #343a40;
+    /* Fun accent colors */
+    --bs-purple: #d471ff;
+    --bs-pink: #ff4db8;
+    --bs-orange: #ff6d00;
+    --bs-teal: #1de9b6;
+    --bs-cyan: #00e5ff;
+    /* Softer background colors */
+    --bs-primary-bg-subtle: #ffe0e6;
+    --bs-secondary-bg-subtle: #ede2ff;
+    --bs-success-bg-subtle: #e0ffe6;
+    --bs-info-bg-subtle: #e0f7ff;
+    --bs-warning-bg-subtle: #fff4e0;
+    --bs-danger-bg-subtle: #ffe6e6;
+    /* Gradients for fun effects */
+    --bs-primary-gradient: linear-gradient(135deg, var(--bs-primary), var(--bs-purple));
+    --bs-success-gradient: linear-gradient(135deg, var(--bs-success), var(--bs-teal));
+    --bs-info-gradient: linear-gradient(135deg, var(--bs-info), var(--bs-cyan));
+    /* Font families - slightly more playful */
+    --bs-body-font-family: 'Quicksand', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --bs-heading-font-family: 'Comfortaa', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    /* Border radius - increased for fun, rounded look */
+    --bs-border-radius: 0.5rem;
+    --bs-border-radius-sm: 0.375rem;
+    --bs-border-radius-lg: 0.75rem;
+    --bs-border-radius-xl: 1rem;
+    --bs-border-radius-2xl: 1.5rem;
+    --bs-border-radius-pill: 50rem;
+    /* Shadows - more playful */
+    --bs-box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.15);
+    --bs-box-shadow-sm: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.1);
+    --bs-box-shadow-lg: 0 0.5rem 2rem rgba(0, 0, 0, 0.2);
+    --bs-box-shadow-inset: inset 0 0.25rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+/* Apply the fun font to headings */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--bs-heading-font-family);
+    font-weight: 700;
+}
+
+/* Body text */
+body {
+    font-family: var(--bs-body-font-family);
+    font-weight: 400;
+    color: #333;
+    background-color: #fcfcfc;
+}
+
+/* Add a subtle pattern to the background for fun */
+.bg-pattern {
+    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%239C92AC' fill-opacity='0.05' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* ======= BUTTONS ======= */
+
+/* Base button styles */
+.btn {
+    border-radius: var(--bs-border-radius);
+    font-weight: 600;
+    text-transform: none;
+    transition: all 0.3s ease;
+    padding: 0.5rem 1.25rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+    /* Button hover effect - slight scale */
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Active button state */
+    .btn:active, .btn.active {
+        transform: translateY(0);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+/* Primary button */
+.btn-primary {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+    color: white;
+}
+
+    .btn-primary:hover {
+        background-color: #ff4169;
+        border-color: #ff4169;
+    }
+
+/* Secondary button */
+.btn-secondary {
+    background-color: var(--bs-secondary);
+    border-color: var(--bs-secondary);
+    color: white;
+}
+
+    .btn-secondary:hover {
+        background-color: #6a3eff;
+        border-color: #6a3eff;
+    }
+
+/* Success button */
+.btn-success {
+    background-color: var(--bs-success);
+    border-color: var(--bs-success);
+    color: white;
+}
+
+    .btn-success:hover {
+        background-color: #00d468;
+        border-color: #00d468;
+    }
+
+/* Info button */
+.btn-info {
+    background-color: var(--bs-info);
+    border-color: var(--bs-info);
+    color: white;
+}
+
+    .btn-info:hover {
+        background-color: #00a1e6;
+        border-color: #00a1e6;
+    }
+
+/* Warning button */
+.btn-warning {
+    background-color: var(--bs-warning);
+    border-color: var(--bs-warning);
+    color: white;
+}
+
+    .btn-warning:hover {
+        background-color: #ff9d00;
+        border-color: #ff9d00;
+    }
+
+/* Danger button */
+.btn-danger {
+    background-color: var(--bs-danger);
+    border-color: var(--bs-danger);
+    color: white;
+}
+
+    .btn-danger:hover {
+        background-color: #ff2e65;
+        border-color: #ff2e65;
+    }
+
+/* Outline buttons */
+.btn-outline-primary {
+    color: var(--bs-primary);
+    border-color: var(--bs-primary);
+}
+
+    .btn-outline-primary:hover {
+        color: white;
+        background-color: var(--bs-primary);
+    }
+
+/* Gradient buttons - unique to this theme */
+.btn-gradient-primary {
+    background: var(--bs-primary-gradient);
+    border: none;
+    color: white;
+}
+
+.btn-gradient-success {
+    background: var(--bs-success-gradient);
+    border: none;
+    color: white;
+}
+
+.btn-gradient-info {
+    background: var(--bs-info-gradient);
+    border: none;
+    color: white;
+}
+
+/* ======= CARDS ======= */
+
+.card {
+    border-radius: var(--bs-border-radius-lg);
+    border: none;
+    box-shadow: var(--bs-box-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+.card-header {
+    border-bottom: none;
+    background-color: transparent;
+    padding: 1.25rem 1.5rem 0.5rem;
+}
+
+.card-footer {
+    border-top: none;
+    background-color: transparent;
+    padding: 0.5rem 1.5rem 1.25rem;
+}
+
+/* Colorful card variations */
+.card-primary {
+    border-top: 4px solid var(--bs-primary);
+}
+
+.card-secondary {
+    border-top: 4px solid var(--bs-secondary);
+}
+
+.card-success {
+    border-top: 4px solid var(--bs-success);
+}
+
+.card-info {
+    border-top: 4px solid var(--bs-info);
+}
+
+.card-warning {
+    border-top: 4px solid var(--bs-warning);
+}
+
+.card-danger {
+    border-top: 4px solid var(--bs-danger);
+}
+
+/* ======= ALERTS ======= */
+
+.alert {
+    border: none;
+    border-radius: var(--bs-border-radius);
+    padding: 1rem 1.25rem;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+.alert-primary {
+    background-color: var(--bs-primary-bg-subtle);
+    color: var(--bs-primary);
+    border-left: 4px solid var(--bs-primary);
+}
+
+.alert-secondary {
+    background-color: var(--bs-secondary-bg-subtle);
+    color: var(--bs-secondary);
+    border-left: 4px solid var(--bs-secondary);
+}
+
+.alert-success {
+    background-color: var(--bs-success-bg-subtle);
+    color: var(--bs-success);
+    border-left: 4px solid var(--bs-success);
+}
+
+.alert-info {
+    background-color: var(--bs-info-bg-subtle);
+    color: var(--bs-info);
+    border-left: 4px solid var(--bs-info);
+}
+
+.alert-warning {
+    background-color: var(--bs-warning-bg-subtle);
+    color: var(--bs-warning);
+    border-left: 4px solid var(--bs-warning);
+}
+
+.alert-danger {
+    background-color: var(--bs-danger-bg-subtle);
+    color: var(--bs-danger);
+    border-left: 4px solid var(--bs-danger);
+}
+
+/* ======= BADGES ======= */
+
+.badge {
+    font-weight: 600;
+    padding: 0.35em 0.65em;
+    border-radius: var(--bs-border-radius-pill);
+}
+
+/* Fun badge animations on hover */
+.badge-animated:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s ease;
+}
+
+/* ======= FORMS ======= */
+
+.form-control, .form-select {
+    border-radius: var(--bs-border-radius);
+    padding: 0.5rem 0.75rem;
+    border-color: #ddd;
+    transition: all 0.3s ease;
+}
+
+    .form-control:focus, .form-select:focus {
+        border-color: var(--bs-primary);
+        box-shadow: 0 0 0 0.25rem rgba(255, 94, 125, 0.25);
+    }
+
+.form-label {
+    font-weight: 600;
+    color: #555;
+}
+
+/* Fun form element styles */
+.form-control-fun {
+    background-color: #f9f9f9;
+    border: 2px solid #eee;
+    border-radius: var(--bs-border-radius);
+}
+
+    .form-control-fun:focus {
+        background-color: white;
+        border-color: var(--bs-primary);
+    }
+
+/* Checkbox and radio customizations */
+.form-check-input:checked {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+}
+
+/* ======= NAVBAR ======= */
+
+.navbar {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-family: var(--bs-heading-font-family);
+}
+
+.navbar-light {
+    background-color: white;
+}
+
+.navbar-dark {
+    background-color: var(--bs-dark);
+}
+
+/* Fun colorful navbar */
+.navbar-colorful {
+    background: linear-gradient(90deg, var(--bs-primary), var(--bs-purple));
+}
+
+    .navbar-colorful .navbar-brand,
+    .navbar-colorful .nav-link {
+        color: white;
+    }
+
+        .navbar-colorful .nav-link:hover {
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+/* ======= MODALS ======= */
+
+.modal-content {
+    border: none;
+    border-radius: var(--bs-border-radius-lg);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+    border-bottom: none;
+}
+
+.modal-footer {
+    border-top: none;
+}
+
+/* ======= PROGRESS BARS ======= */
+
+.progress {
+    height: 0.75rem;
+    border-radius: var(--bs-border-radius-pill);
+    background-color: #f0f0f0;
+    margin: 1rem 0;
+}
+
+/* Colorful progress bars with gradients */
+.progress-bar-primary {
+    background: var(--bs-primary-gradient);
+}
+
+.progress-bar-success {
+    background: var(--bs-success-gradient);
+}
+
+.progress-bar-info {
+    background: var(--bs-info-gradient);
+}
+
+/* Animated progress bars */
+.progress-bar-animated {
+    animation: progress-bar-stripes 1s linear infinite;
+}
+
+/* ======= SPINNERS ======= */
+
+.spinner-border, .spinner-grow {
+    color: var(--bs-primary);
+}
+
+/* Colorful spinners */
+.spinner-primary {
+    color: var(--bs-primary);
+}
+
+.spinner-secondary {
+    color: var(--bs-secondary);
+}
+
+.spinner-success {
+    color: var(--bs-success);
+}
+
+/* ======= TABLES ======= */
+
+.table {
+    border-radius: var(--bs-border-radius);
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+    .table thead th {
+        background-color: #f8f9fa;
+        border-bottom: none;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 0.5px;
+    }
+
+/* Colorful table rows on hover */
+.table-hover tbody tr:hover {
+    background-color: var(--bs-primary-bg-subtle);
+}
+
+/* Rounded table styles */
+.table-rounded {
+    border-collapse: separate;
+    border-spacing: 0 5px;
+}
+
+    .table-rounded tbody tr {
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        border-radius: var(--bs-border-radius);
+    }
+
+    .table-rounded tbody td {
+        background-color: white;
+        border: none;
+    }
+
+        .table-rounded tbody td:first-child {
+            border-top-left-radius: var(--bs-border-radius);
+            border-bottom-left-radius: var(--bs-border-radius);
+        }
+
+        .table-rounded tbody td:last-child {
+            border-top-right-radius: var(--bs-border-radius);
+            border-bottom-right-radius: var(--bs-border-radius);
+        }
+
+/* ======= LIST GROUPS ======= */
+
+.list-group-item {
+    border-color: #eee;
+    padding: 1rem 1.25rem;
+}
+
+    .list-group-item:first-child {
+        border-top-left-radius: var(--bs-border-radius);
+        border-top-right-radius: var(--bs-border-radius);
+    }
+
+    .list-group-item:last-child {
+        border-bottom-left-radius: var(--bs-border-radius);
+        border-bottom-right-radius: var(--bs-border-radius);
+    }
+
+/* Hover effect for list items */
+.list-group-item-action:hover {
+    background-color: rgba(var(--bs-primary-rgb), 0.05);
+}
+
+/* ======= PAGINATION ======= */
+
+.pagination .page-link {
+    margin: 0 3px;
+    border-radius: var(--bs-border-radius);
+    border: none;
+    color: var(--bs-primary);
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--bs-primary);
+    color: white;
+}
+
+/* ======= TOOLTIPS & POPOVERS ======= */
+
+.tooltip .tooltip-inner {
+    border-radius: var(--bs-border-radius);
+    padding: 0.5rem 0.75rem;
+}
+
+.popover {
+    border-radius: var(--bs-border-radius);
+    border: none;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* ======= UTILITIES ======= */
+
+/* Background colors */
+.bg-primary {
+    background-color: var(--bs-primary) !important;
+}
+
+.bg-secondary {
+    background-color: var(--bs-secondary) !important;
+}
+
+.bg-success {
+    background-color: var(--bs-success) !important;
+}
+
+.bg-info {
+    background-color: var(--bs-info) !important;
+}
+
+.bg-warning {
+    background-color: var(--bs-warning) !important;
+}
+
+.bg-danger {
+    background-color: var(--bs-danger) !important;
+}
+
+/* Fun gradient backgrounds */
+.bg-gradient-primary {
+    background: var(--bs-primary-gradient) !important;
+}
+
+.bg-gradient-success {
+    background: var(--bs-success-gradient) !important;
+}
+
+.bg-gradient-info {
+    background: var(--bs-info-gradient) !important;
+}
+
+/* Text colors */
+.text-primary {
+    color: var(--bs-primary) !important;
+}
+
+.text-secondary {
+    color: var(--bs-secondary) !important;
+}
+
+.text-success {
+    color: var(--bs-success) !important;
+}
+
+.text-info {
+    color: var(--bs-info) !important;
+}
+
+.text-warning {
+    color: var(--bs-warning) !important;
+}
+
+.text-danger {
+    color: var(--bs-danger) !important;
+}
+
+/* Border colors */
+.border-primary {
+    border-color: var(--bs-primary) !important;
+}
+
+.border-secondary {
+    border-color: var(--bs-secondary) !important;
+}
+
+.border-success {
+    border-color: var(--bs-success) !important;
+}
+
+.border-info {
+    border-color: var(--bs-info) !important;
+}
+
+.border-warning {
+    border-color: var(--bs-warning) !important;
+}
+
+.border-danger {
+    border-color: var(--bs-danger) !important;
+}
+
+/* Fun animations */
+.hover-grow {
+    transition: transform 0.3s ease;
+}
+
+    .hover-grow:hover {
+        transform: scale(1.05);
+    }
+
+.hover-shadow {
+    transition: box-shadow 0.3s ease;
+}
+
+    .hover-shadow:hover {
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+/* Vibrant shadow utilities */
+.shadow-primary {
+    box-shadow: 0 5px 15px rgba(var(--bs-primary-rgb), 0.4) !important;
+}
+
+.shadow-success {
+    box-shadow: 0 5px 15px rgba(var(--bs-success-rgb), 0.4) !important;
+}
+
+.shadow-info {
+    box-shadow: 0 5px 15px rgba(var(--bs-info-rgb), 0.4) !important;
+}
+
+/* ======= RESPONSIVE ADJUSTMENTS ======= */
+
+@media (max-width: 768px) {
+    .btn {
+        padding: 0.4rem 1rem;
+    }
+
+    .card {
+        margin-bottom: 1rem;
+    }
+
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+}
+
+/* ======= ANIMATIONS ======= */
+
+/* Fade in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Bounce animation */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(-20px);
+    }
+
+    60% {
+        transform: translateY(-10px);
+    }
+}
+
+.bounce {
+    animation: bounce 2s ease infinite;
+}
+
+/* Pulse animation */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.pulse {
+    animation: pulse 2s infinite;
+}
+
+/* ======= CUSTOM FUN COMPONENTS ======= */
+
+/* Bubble buttons - extra round with shadow */
+.btn-bubble {
+    border-radius: 50px;
+    padding: 0.5rem 1.5rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Confetti background utility */
+.bg-confetti {
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%239C92AC' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+}
+
+/* Fun card styles with diagonal stripes */
+.card-fun {
+    position: relative;
+    overflow: hidden;
+    border: none;
+    border-radius: var(--bs-border-radius-lg);
+    box-shadow: var(--bs-box-shadow);
+}
+
+    .card-fun::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 6px;
+        background: linear-gradient(90deg, var(--bs-primary), var(--bs-secondary), var(--bs-success), var(--bs-info), var(--bs-warning), var(--bs-danger));
+    }
+
+/* ======= IMPLEMENTATION NOTES ======= */
+/*
+ * This colorful and fun Bootstrap theme includes:
+ * 
+ * 1. A vibrant color palette with bright primary colors
+ * 2. Playful animations and hover effects
+ * 3. Rounded corners for a friendly appearance
+ * 4. Gradient options for backgrounds and buttons
+ * 5. Custom card styles with colorful accents
+ * 6. Fun utilities like .hover-grow and .pulse
+ * 7. Customized form elements with improved visuals
+ * 8. Responsive adjustments for all screen sizes
+ * 
+ * To use web fonts like Quicksand and Comfortaa mentioned in this theme,
+ * add the following to your HTML head:
+ * 
+ * <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Comfortaa:wght@400;500;600;700&display=swap" rel="stylesheet">
+ */

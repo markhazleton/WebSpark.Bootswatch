@@ -1,0 +1,29 @@
+{
+  "name": "webspark-bootswatch-assets",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "node build.js",
+    "clean": "node clean.js",
+    "convert-scss": "node convert-css-to-scss.js",
+    "build-css": "npx webpack",
+    "lint:js": "eslint src/js --ext .js,.ts",
+    "lint:css": "stylelint src/style/**/*.scss",
+    "lint": "npm run lint:js && npm run lint:css"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.27.1",
+    "@babel/preset-env": "^7.27.2",
+    "babel-loader": "^10.0.0",
+    "css-loader": "^7.1.2",
+    "css-minimizer-webpack-plugin": "^7.0.2",
+    "eslint": "^9.26.0",
+    "mini-css-extract-plugin": "^2.9.2",
+    "sass": "^1.88.0",
+    "sass-loader": "^16.0.5",
+    "style-loader": "^4.0.0",
+    "stylelint": "^16.19.1",
+    "stylelint-config-standard": "^38.0.0",
+    "webpack": "^5.99.8",
+    "webpack-cli": "^6.0.1"
+  }
+}

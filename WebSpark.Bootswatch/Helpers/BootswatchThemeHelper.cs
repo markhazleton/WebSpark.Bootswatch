@@ -132,4 +132,12 @@ public static class BootswatchThemeHelper
 
         return attributes;
     }
+
+    /// <summary>
+    /// Renders the Bootswatch theme switcher as a Tag Helper for easy integration.
+    /// </summary>
+    public static string RenderThemeSwitcherTagHelper(StyleCache styleCache, HttpContext context)
+    {
+        return GetThemeSwitcherHtml(styleCache, context);
+    }
 }

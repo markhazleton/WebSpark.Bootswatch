@@ -12,9 +12,9 @@
 
   <PropertyGroup>
     <!-- Package metadata -->
-    <Version>1.0.7</Version>
-    <AssemblyVersion>1.0.7</AssemblyVersion>
-    <FileVersion>1.0.7</FileVersion>
+    <Version>1.10.0</Version>
+    <AssemblyVersion>1.10.0</AssemblyVersion>
+    <FileVersion>1.10.0</FileVersion>
     <PackageId>WebSpark.Bootswatch</PackageId>
     <Title>WebSpark.Bootswatch</Title>
     <Authors>Mark Hazleton</Authors>
@@ -58,12 +58,14 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageReleaseNotes>
-      Version 1.0.7:
-      - Added support for new Bootswatch themes
-      - Improved documentation and examples
-      - Fixed minor bugs and performance issues
-    </PackageReleaseNotes>
+    <PackageReleaseNotes> Version 1.10.0: - Added a Bootswatch theme switcher Tag Helper (<bootswatch-theme-switcher />)
+      for easy integration in layouts and navigation bars. - Included a sample layout file in the
+      NuGet package for quick reference and copy-paste setup. - Updated documentation and demo to
+      use the Tag Helper as the preferred method. - Added instructions and support for
+      AddHttpContextAccessor() when using the Tag Helper. - Improved README and install guide to
+      clarify integration steps and best practices. - Ensured static files and theme switcher JS are
+      always available and documented correct middleware order. - Cleaned up demo layout to avoid
+      duplicate theme switchers and match recommended usage. </PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

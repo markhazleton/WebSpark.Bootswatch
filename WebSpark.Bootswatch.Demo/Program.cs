@@ -19,6 +19,9 @@ builder.Services.AddLogging();
 // Add detailed logging for static files middleware
 builder.Logging.AddConsole().SetMinimumLevel(LogLevel.Debug);
 
+// Add HttpContextAccessor service
+builder.Services.AddHttpContextAccessor();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -46,7 +49,7 @@ app.Use(async (context, next) =>
         logger.LogInformation("Requested theme CSS: {Path}", path);
     }
 
-    await next();
+        await next();
 
     // Log if the response is a 404 for theme CSS files
     if (context.Response.StatusCode == 404 && path?.Contains("bootstrap.min.css") == true)

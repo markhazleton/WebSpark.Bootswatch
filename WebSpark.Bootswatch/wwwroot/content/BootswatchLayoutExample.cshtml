@@ -1,0 +1,31 @@
+@using WebSpark.Bootswatch.Services
+@using WebSpark.Bootswatch.Helpers
+@inject StyleCache StyleCache
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="@(BootswatchThemeHelper.GetCurrentColorMode(Context))">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    @{
+        var themeName = BootswatchThemeHelper.GetCurrentThemeName(Context);
+        var themeUrl = BootswatchThemeHelper.GetThemeUrl(StyleCache, themeName);
+    }
+    <link id="bootswatch-theme-stylesheet" rel="stylesheet" href="@themeUrl" />
+    <script src="/_content/WebSpark.Bootswatch/js/bootswatch-theme-switcher.js"></script>
+</head>
+
+<body>
+    <!-- Preferred: Use the Tag Helper for the theme switcher -->
+    <bootswatch-theme-switcher />
+    <!-- Or, for manual usage: -->
+    <!-- @Html.Raw(BootswatchThemeHelper.GetThemeSwitcherHtml(StyleCache, Context)) -->
+    @RenderBody()
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>
+

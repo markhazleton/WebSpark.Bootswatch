@@ -59,14 +59,10 @@
 
   <PropertyGroup>
     <PackageReleaseNotes>
-      Version 1.0.5:
-      - Added support for the latest Bootstrap themes
-      - Improved theme switching in dark mode
-      - Enhanced StyleCache performance
-      - Added better Razor Pages integration
-      - Fixed theme inheritance issues
-      - Optimized CSS loading for better performance
-      - Improved documentation and code examples
+      Version 1.0.7:
+      - Added support for new Bootswatch themes
+      - Improved documentation and examples
+      - Fixed minor bugs and performance issues
     </PackageReleaseNotes>
   </PropertyGroup>
 

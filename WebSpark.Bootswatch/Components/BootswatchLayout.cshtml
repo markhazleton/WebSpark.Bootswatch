@@ -1,5 +1,7 @@
+@* WebSpark.Bootswatch v1.10.1 Component Layout *@
 @using WebSpark.Bootswatch.Model
 @using WebSpark.Bootswatch.Services
+@using WebSpark.Bootswatch.Helpers
 @inject StyleCache StyleCache
 
 @{
@@ -69,6 +71,8 @@
                     </ul>
                     <!-- Preferred: Use the Tag Helper for the theme switcher -->
                     <bootswatch-theme-switcher />
+                    <!-- Or, for manual usage: -->
+                    <!-- @Html.Raw(BootswatchThemeHelper.GetThemeSwitcherHtml(StyleCache, Context)) -->
                 </div>
             </div>
         </nav>

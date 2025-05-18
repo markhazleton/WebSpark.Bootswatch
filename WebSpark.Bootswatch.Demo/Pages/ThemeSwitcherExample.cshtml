@@ -29,7 +29,11 @@
                 </div>
                 <div class="card-footer">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">Theme Switcher:</h5>
+                        <h5 class="mb-0">Theme Switcher (Preferred Tag Helper):</h5>
+                        <bootswatch-theme-switcher />
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mt-2">
+                        <h6 class="mb-0">Manual Helper (Alternative):</h6>
                         @Html.Raw(BootswatchThemeHelper.GetThemeSwitcherHtml(StyleCache, HttpContext))
                     </div>
                 </div>

@@ -201,7 +201,12 @@ builder.Services.AddBootswatchThemeSwitcher();
 
 var app = builder.Build();
 
-// ...existing code for error handling, HSTS, etc...
+// Configure the HTTP request pipeline
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Error");
+    app.UseHsts();
+}
 
 app.UseHttpsRedirection();
 
@@ -315,6 +320,14 @@ For a complete example of how to integrate WebSpark.Bootswatch, refer to the `We
 - Using the StyleCache service for efficient theme management.
 
 ## Release Notes
+
+### v1.10.1 (2025-05-18)
+
+- Improved logging and diagnostics for static file and theme CSS requests in the demo project.
+- Updated `Privacy.cshtml.cs` to log the current color mode and use required members for better compatibility.
+- Minor code cleanup and documentation improvements in the demo and main library.
+- Updated project files for compatibility with .NET 9 (demo) and .NET 7 (library).
+- No breaking changes; all integration steps remain the same as v1.10.0.
 
 ### v1.10.0 (2025-05-15)
 

@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using WebSpark.Bootswatch.Services;
 using System.Text.Encodings.Web;
+using WebSpark.Bootswatch.Services;
 
 namespace WebSpark.Bootswatch.Helpers;
 
@@ -76,7 +75,7 @@ public static class BootswatchThemeHelper
 
         foreach (var style in styles)
         {
-            var activeClass = style.name == currentStyle ? "active" : "";
+            var activeClass = style.name == currentStyle ? "active" : string.Empty;
             html += $@"
             <li>
                 <a class=""dropdown-item {activeClass}"" href=""#"" data-theme=""{HtmlEncode(style.name)}""

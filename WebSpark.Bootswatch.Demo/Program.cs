@@ -1,8 +1,5 @@
 using WebSpark.Bootswatch;
-using WebSpark.Bootswatch.Provider;
-using WebSpark.Bootswatch.Model;
 using WebSpark.HttpClientUtility.RequestResult;
-using Microsoft.Extensions.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -49,7 +46,7 @@ app.Use(async (context, next) =>
         logger.LogInformation("Requested theme CSS: {Path}", path);
     }
 
-        await next();
+    await next();
 
     // Log if the response is a 404 for theme CSS files
     if (context.Response.StatusCode == 404 && path?.Contains("bootstrap.min.css") == true)

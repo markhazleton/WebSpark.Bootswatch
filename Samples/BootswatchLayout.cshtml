@@ -50,12 +50,49 @@
                                 Switcher</a>
                         </li>
                         <li class="nav-item dropdown">
-                                                                                                                                                                                                                                                                                                                                                                                                                                    
-                                                                                               
-                                                                           
-                                               
-                                                                                                                                   
-                                                                                                                                   
-                                                                                                                                               
-                                                                                                                                               
-                                                                                                                   
+                            <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Docs
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li>
+                                    <a class="dropdown-item" href="https://bootswatch.com/docs/">
+                                        Bootswatch Docs
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item"
+                                        href="https://getbootstrap.com/docs/5.1/getting-started/introduction/">
+                                        Bootstrap Docs
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="navbar-text">
+                        <!-- Preferred: Use the Tag Helper for the theme switcher -->
+                        <bootswatch-theme-switcher />
+                        <!-- Or, for manual usage: -->
+                        <!-- @Html.Raw(BootswatchThemeHelper.GetThemeSwitcherHtml(StyleCache, Context)) -->
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        @RenderBody()
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2023 - WebSpark.Bootswatch -
+            <a asp-area="" asp-page="/Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <!-- Add any additional scripts here -->
+    @RenderSection("Scripts", required: false)
+</body>
+
+</html>

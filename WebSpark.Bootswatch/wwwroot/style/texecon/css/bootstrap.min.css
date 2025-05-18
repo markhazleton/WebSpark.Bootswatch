@@ -10848,3 +10848,16 @@ table {
 .list-group {
   font-size: 0.9625rem;
 }
+main {
+  background-color: rgba(255,255,255,0.8); /* Light mode, 80% opacity */
+}
+@media (prefers-color-scheme: dark) {
+  main {
+    background-color: rgba(34,34,34,0.8); /* Dark mode, 80% opacity */
+  }
+}
+main {
+  background-color: #f0f0f0; /* Light gray background */
+  padding: 2rem;
+  border-radius: 8px;
+}

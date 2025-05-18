@@ -1,7 +1,7 @@
-using Microsoft.AspNetCore.Razor.TagHelpers;
-using WebSpark.Bootswatch.Services;
-using WebSpark.Bootswatch.Helpers;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Razor.TagHelpers;
+using WebSpark.Bootswatch.Helpers;
+using WebSpark.Bootswatch.Services;
 
 namespace WebSpark.Bootswatch.TagHelpers
 {

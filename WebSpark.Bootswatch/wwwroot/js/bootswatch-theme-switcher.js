@@ -76,25 +76,60 @@ function setColorModeCookie(colorMode, expirationDays) {
 function initThemeSwitcher() {
     // Get all theme dropdown items
     const themeDropdownItems = document.querySelectorAll('.bootswatch-dropdown-menu a[data-theme]');
-    
+
+    // Helper to get cookie value by name
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+        return null;
+    }
+
+    // Check if a theme is already selected via cookie
+    let selectedTheme = getCookie('bootswatch-theme');
+    let selectedItem = null;
+    if (selectedTheme) {
+        // Try to find the item matching the cookie
+        themeDropdownItems.forEach(item => {
+            if (item.getAttribute('data-theme') === selectedTheme) {
+                selectedItem = item;
+            }
+        });
+    }
+
+    // If no theme is selected or cookie is invalid, select the first theme
+    if (!selectedItem && themeDropdownItems.length > 0) {
+        selectedItem = themeDropdownItems[0];
+        const themeName = selectedItem.getAttribute('data-theme');
+        const themeUrl = selectedItem.getAttribute('data-theme-url');
+        // Set theme and cookie
+        const themeStylesheet = document.getElementById('bootswatch-theme-stylesheet');
+        if (themeStylesheet && themeUrl) {
+            themeStylesheet.href = themeUrl;
+            setThemeCookie(themeName, 30);
+        }
+    }
+
+    // Remove active from all, add to selected
+    themeDropdownItems.forEach(item => item.classList.remove('active'));
+    if (selectedItem) {
+        selectedItem.classList.add('active');
+    }
+
     // Add click event listener to each item
     themeDropdownItems.forEach(item => {
         item.addEventListener('click', function (e) {
             e.preventDefault();
-            
             // Get theme name and URL from data attributes
             const themeName = this.getAttribute('data-theme');
             const themeUrl = this.getAttribute('data-theme-url');
-            
             // Switch the theme by changing the stylesheet href
             const themeStylesheet = document.getElementById('bootswatch-theme-stylesheet');
             if (themeStylesheet && themeUrl) {
                 themeStylesheet.href = themeUrl;
-                
                 // Remove active class from all items and add to selected
                 themeDropdownItems.forEach(item => item.classList.remove('active'));
                 this.classList.add('active');
-                
                 // Save selection in a cookie that expires in 30 days
                 setThemeCookie(themeName, 30);
             }

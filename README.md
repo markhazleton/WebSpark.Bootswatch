@@ -5,6 +5,57 @@ A .NET Razor Class Library for integrating Bootstrap 5 themes from [Bootswatch](
 [![NuGet](https://img.shields.io/nuget/v/WebSpark.Bootswatch.svg)](https://www.nuget.org/packages/WebSpark.Bootswatch/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+## Theme Switching Prerequisites
+
+To enable dynamic theme switching and fetch the list of available Bootswatch themes (as demonstrated in the demo project), you must:
+
+1. **Install the required NuGet packages:**
+   - `WebSpark.Bootswatch`
+   - `WebSpark.HttpClientUtility` (required for fetching the list of themes)
+
+   Install both via NuGet Package Manager or .NET CLI:
+
+   ```shell
+   dotnet add package WebSpark.Bootswatch
+   dotnet add package WebSpark.HttpClientUtility
+   ```
+
+2. **Add required configuration to `appsettings.json`:**
+   The `WebSpark.HttpClientUtility` package requires the following configuration for HTTP request resilience and output folder:
+
+   ```json
+   "CsvOutputFolder": "c:\\websites\\WebSpark\\CsvOutput",
+   "HttpRequestResultPollyOptions": {
+     "MaxRetryAttempts": 3,
+     "RetryDelaySeconds": 1,
+     "CircuitBreakerThreshold": 3,
+     "CircuitBreakerDurationSeconds": 10
+   }
+   ```
+
+   Example `appsettings.json` snippet:
+
+   ```json
+   {
+     "Logging": {
+       "LogLevel": {
+         "Default": "Information",
+         "Microsoft.AspNetCore": "Warning"
+       }
+     },
+     "AllowedHosts": "*",
+     "CsvOutputFolder": "c:\\websites\\WebSpark\\CsvOutput",
+     "HttpRequestResultPollyOptions": {
+       "MaxRetryAttempts": 3,
+       "RetryDelaySeconds": 1,
+       "CircuitBreakerThreshold": 3,
+       "CircuitBreakerDurationSeconds": 10
+     }
+   }
+   ```
+
+> **Note:** Without these dependencies and configuration, theme switching and dynamic theme listing will not function in your application or the demo project.
+
 ## Quick Links
 
 - **Demo Site**: [https://bootswatch.markhazleton.com/](https://bootswatch.markhazleton.com/)

@@ -1,5 +1,7 @@
 # WebSpark.Bootswatch Documentation
 
+## Current version: 1.10.1
+
 WebSpark.Bootswatch is a .NET Razor Class Library that integrates [Bootswatch](https://bootswatch.com/) themes into ASP.NET Core applications. This library allows you to easily switch between multiple Bootstrap themes at runtime.
 
 ## Quick Links
@@ -12,13 +14,13 @@ WebSpark.Bootswatch is a .NET Razor Class Library that integrates [Bootswatch](h
 
 Install via NuGet Package Manager:
 
-```
+```powershell
 Install-Package WebSpark.Bootswatch
 ```
 
 Or via .NET CLI:
 
-```
+```bash
 dotnet add package WebSpark.Bootswatch
 ```
 

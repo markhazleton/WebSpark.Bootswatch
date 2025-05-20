@@ -12,9 +12,9 @@
 
   <PropertyGroup>
     <!-- Package metadata -->
-    <Version>1.10.0</Version>
-    <AssemblyVersion>1.10.0</AssemblyVersion>
-    <FileVersion>1.10.0</FileVersion>
+    <Version>1.10.1</Version>
+    <AssemblyVersion>1.10.1</AssemblyVersion>
+    <FileVersion>1.10.1</FileVersion>
     <PackageId>WebSpark.Bootswatch</PackageId>
     <Title>WebSpark.Bootswatch</Title>
     <Authors>Mark Hazleton</Authors>
@@ -58,14 +58,12 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageReleaseNotes> Version 1.10.0: - Added a Bootswatch theme switcher Tag Helper (<bootswatch-theme-switcher />)
-      for easy integration in layouts and navigation bars. - Included a sample layout file in the
-      NuGet package for quick reference and copy-paste setup. - Updated documentation and demo to
-      use the Tag Helper as the preferred method. - Added instructions and support for
-      AddHttpContextAccessor() when using the Tag Helper. - Improved README and install guide to
-      clarify integration steps and best practices. - Ensured static files and theme switcher JS are
-      always available and documented correct middleware order. - Cleaned up demo layout to avoid
-      duplicate theme switchers and match recommended usage. </PackageReleaseNotes>
+    <PackageReleaseNotes> Version 1.10.1: - Improved logging and diagnostics for static file and
+      theme CSS requests in the demo project. - Updated Privacy.cshtml.cs to log the current color
+      mode and use required members for better compatibility. - Minor code cleanup and documentation
+      improvements in the demo and main library. - Updated project files for compatibility with .NET
+      9 (demo) and .NET 7 (library). - No breaking changes; all integration steps remain the same as
+      v1.10.0. </PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
@@ -109,7 +107,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor" Version="2.3.0" />
     <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
-    <PackageReference Include="WebSpark.HttpClientUtility" Version="1.0.5" />
+    <PackageReference Include="WebSpark.HttpClientUtility" Version="1.0.8" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
   </ItemGroup>
 </Project>

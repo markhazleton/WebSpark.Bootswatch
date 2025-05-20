@@ -372,6 +372,10 @@ For a complete example of how to integrate WebSpark.Bootswatch, refer to the `We
 
 ## Release Notes
 
+### v1.10.2 (2025-05-20)
+
+- Patch release. No breaking changes; all integration steps remain the same as v1.10.1.
+
 ### v1.10.1 (2025-05-18)
 
 - Improved logging and diagnostics for static file and theme CSS requests in the demo project.

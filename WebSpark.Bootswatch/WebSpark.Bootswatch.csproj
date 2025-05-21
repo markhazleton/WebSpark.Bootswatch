@@ -12,9 +12,9 @@
 
   <PropertyGroup>
     <!-- Package metadata -->
-    <Version>1.10.2</Version>
-    <AssemblyVersion>1.10.2</AssemblyVersion>
-    <FileVersion>1.10.2</FileVersion>
+    <Version>1.10.3</Version>
+    <AssemblyVersion>1.10.3</AssemblyVersion>
+    <FileVersion>1.10.3</FileVersion>
     <PackageId>WebSpark.Bootswatch</PackageId>
     <Title>WebSpark.Bootswatch</Title>
     <Authors>Mark Hazleton</Authors>
@@ -58,7 +58,8 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageReleaseNotes> Version 1.10.2: - Patch release. No breaking changes; all integration steps remain the same as v1.10.1. </PackageReleaseNotes>
+    <PackageReleaseNotes> Version 1.10.3: - Patch release. No breaking changes; all integration
+      steps remain the same as v1.10.1. </PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

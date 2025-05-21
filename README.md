@@ -355,7 +355,7 @@ Register the Tag Helper in your `_ViewImports.cshtml`:
 
 A sample layout file is included in the NuGet package at:
 
-```
+```bash
 contentFiles/any/any/BootswatchLayoutExample.cshtml
 ```
 
@@ -372,7 +372,7 @@ For a complete example of how to integrate WebSpark.Bootswatch, refer to the `We
 
 ## Release Notes
 
-### v1.10.2 (2025-05-20)
+### v1.10.3 (2025-05-20)
 
 - Patch release. No breaking changes; all integration steps remain the same as v1.10.1.
 

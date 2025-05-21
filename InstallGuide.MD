@@ -11,7 +11,7 @@ This guide provides comprehensive instructions for installing, configuring, and 
 
 **Last Updated:** May 20, 2025
 
-## Current version: 1.10.2
+## Current version: 1.10.3
 
 ## Important Links
 

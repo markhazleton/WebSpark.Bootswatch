@@ -50,7 +50,48 @@
                             runtime.</p>
 
                         <div class="alert alert-info">
-                            <strong>Last Updated:</strong> May 18, 2025
+                            <strong>Last Updated:</strong> @Model.BuildDate<br />
+                            <strong>NuGet Version:</strong> @Model.NuGetVersion<br />
+                            <strong>NuGet Published:</strong> @Model.NuGetPublished<br />
+                            <strong>Authors:</strong> @Model.NuGetAuthors<br />
+                            <strong>Description:</strong> @Model.NuGetDescription<br />
+                            <strong>Project URL:</strong> @if (!string.IsNullOrWhiteSpace(Model.NuGetProjectUrl)) {
+                            <a
+                                href="@Model.NuGetProjectUrl" target="_blank">@Model.NuGetProjectUrl</a>
+                                                        ; }
+<br />
+                            <strong>License URL:</strong> @if (!string.IsNullOrWhiteSpace(Model.NuGetLicenseUrl)) {
+                            <a
+                                href="@Model.NuGetLicenseUrl" target="_blank">@Model.NuGetLicenseUrl</a>
+                                                        ; }
+<br />
+                            <strong>Tags:</strong> @Model.NuGetTags<br />
+                            <strong>Icon:</strong> @if (!string.IsNullOrWhiteSpace(Model.NuGetIconUrl)) {
+                            <img
+                                src="@Model.NuGetIconUrl" alt="NuGet Icon" style="height:32px;vertical-align:middle;" />
+                                                        }
+<br />
+                            <strong>Readme:</strong> @if (!string.IsNullOrWhiteSpace(Model.NuGetReadmeUrl)) {
+                            <a
+                                href="@Model.NuGetReadmeUrl" target="_blank">Readme</a>
+                                                        ; }
+<br />
+                            <strong>Min Client Version:</strong> @Model.NuGetMinClientVersion<br />
+                            <strong>Target Frameworks:</strong> @Model.NuGetTargetFrameworks<br />
+                            <strong>Dependencies:</strong>
+                            @if (Model.NuGetDependencies != null && Model.NuGetDependencies.Count > 0)
+                            {
+                                <ul>
+                                    @foreach (var dep in Model.NuGetDependencies)
+                                    {
+                                        <li>@dep</li>
+                                    }
+                                </ul>
+                            }
+                            else
+                            {
+                                <span>None</span>
+                            }
                         </div>
 
                         <div class="mb-3">
@@ -221,8 +262,8 @@ app.UseBootswatchAll();</code></pre>
     &lt;title&gt;@ViewData["Title"]&lt;/title&gt;
 
     @{
-                var themeName = BootswatchThemeHelper.GetCurrentThemeName(HttpContext);
-                var themeUrl = BootswatchThemeHelper.GetThemeUrl(StyleCache, themeName);
+                            var themeName = BootswatchThemeHelper.GetCurrentThemeName(HttpContext);
+                            var themeUrl = BootswatchThemeHelper.GetThemeUrl(StyleCache, themeName);
     }
 
     &lt;link id="bootswatch-theme-stylesheet" rel="stylesheet" href="@themeUrl" /&gt;

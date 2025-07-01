@@ -100,7 +100,8 @@ jobs:
           ls -la package-contents/
 
           # Check for essential files
-          if [ -f package-contents/*.nuspec ]; then
+          NUSPEC_COUNT=$(find package-contents -name "*.nuspec" | wc -l)
+          if [ $NUSPEC_COUNT -gt 0 ]; then
             echo "✓ NuSpec file found"
           else
             echo "::error::NuSpec file not found"

@@ -372,6 +372,12 @@ For a complete example of how to integrate WebSpark.Bootswatch, refer to the `We
 
 ## Release Notes
 
+### v1.20.0 (2025-07-01)
+
+- Updated all NuGet package dependencies to their latest versions for improved security and compatibility.
+- Enhanced package reliability with latest dependency versions.
+- No breaking changes; all integration steps remain the same as previous versions.
+
 ### v1.10.3 (2025-05-20)
 
 - Patch release. No breaking changes; all integration steps remain the same as v1.10.1.

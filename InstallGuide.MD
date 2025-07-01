@@ -9,9 +9,9 @@ This guide provides comprehensive instructions for installing, configuring, and 
 [![NuGet](https://img.shields.io/nuget/v/WebSpark.Bootswatch.svg)](https://www.nuget.org/packages/WebSpark.Bootswatch/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**Last Updated:** May 20, 2025
+**Last Updated:** July 1, 2025
 
-## Current version: 1.10.3
+## Current version: 1.20.0
 
 ## Important Links
 

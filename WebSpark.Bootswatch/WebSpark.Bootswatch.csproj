@@ -97,17 +97,16 @@
     <None Include="..\LICENSE" Pack="true" PackagePath="\" />
     <None Include="..\NOTICE.txt" Pack="true" PackagePath="\" />
     <!-- Sample layout file for easy integration -->
-    <None Include="..\Samples\BootswatchLayout.cshtml" Pack="true"
-      PackagePath="contentFiles\any\any\" />
+    <None Include="..\Samples\BootswatchLayout.cshtml" Pack="true" PackagePath="contentFiles\any\any\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.3.0" />
-    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="9.0.6" />
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="9.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor" Version="2.3.0" />
     <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
-    <PackageReference Include="WebSpark.HttpClientUtility" Version="1.1.0" />
+    <PackageReference Include="WebSpark.HttpClientUtility" Version="1.2.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
   </ItemGroup>
 </Project>

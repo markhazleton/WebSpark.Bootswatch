@@ -1,0 +1,69 @@
+/* Custom styles for WebSpark.Bootswatch.Demo */
+
+/* Footer enhancements */
+.footer {
+    position: relative;
+    margin-top: auto;
+}
+
+.footer .container {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+/* Version and build info styling */
+.footer a {
+    color: inherit;
+    transition: color 0.15s ease-in-out;
+}
+
+.footer a:hover {
+    color: var(--bs-primary);
+    text-decoration: underline !important;
+}
+
+/* Responsive footer adjustments */
+@media (max-width: 767.98px) {
+    .footer .row > div {
+        text-align: center !important;
+    }
+    
+    .footer .d-flex.flex-column.flex-md-row {
+        align-items: center !important;
+    }
+}
+
+/* Ensure footer stays at bottom */
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.container:has(main) {
+    flex: 1 0 auto;
+}
+
+/* Theme-aware styling */
+[data-bs-theme="dark"] .footer {
+    background-color: var(--bs-dark);
+    border-color: var(--bs-border-color);
+}
+
+/* Accessibility improvements */
+.footer a:focus {
+    outline: 2px solid var(--bs-primary);
+    outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+    .footer {
+        position: static;
+        border-top: 1px solid #000;
+        page-break-inside: avoid;
+    }
+}

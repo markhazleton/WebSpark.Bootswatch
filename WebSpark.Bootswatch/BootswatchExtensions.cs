@@ -101,7 +101,23 @@ public static class BootswatchExtensions
             OnPrepareResponse = ctx =>
             {
                 // Add debug headers to help identify the file provider serving the resource
-                ctx.Context.Response.Headers.Add("X-Served-By", "WebSpark.Bootswatch.EmbeddedFileProvider");
+                ctx.Context.Response.Headers["X-Served-By"] = "WebSpark.Bootswatch.EmbeddedFileProvider";
+                
+                // Add caching headers for CSS and JS files
+                var file = ctx.File;
+                var extension = Path.GetExtension(file.Name).ToLowerInvariant();
+                
+                if (extension == ".css" || extension == ".js")
+                {
+                    // Cache for 1 year, but allow revalidation
+                    ctx.Context.Response.Headers["Cache-Control"] = "public, max-age=31536000, must-revalidate";
+                    ctx.Context.Response.Headers["Expires"] = DateTime.UtcNow.AddYears(1).ToString("R");
+                }
+                else
+                {
+                    // Shorter cache for other assets
+                    ctx.Context.Response.Headers["Cache-Control"] = "public, max-age=86400";
+                }
             }
         });
 

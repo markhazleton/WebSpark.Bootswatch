@@ -1,0 +1,66 @@
+@page "/debug-version"
+@using WebSpark.Bootswatch.Demo.Services
+@inject VersionService VersionService
+@{
+    ViewData["Title"] = "Version Debug";
+}
+
+<div class="container mt-4">
+    <h2>Version Service Debug Information</h2>
+    
+    <div class="alert alert-info">
+        <h5>Service Status:</h5>
+        <p><strong>Service Instance:</strong> @(VersionService != null ? "? Injected Successfully" : "? Not Available")</p>
+    </div>
+
+    @if (VersionService != null)
+    {
+        <div class="card">
+            <div class="card-header">
+                <h5>Version Information</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                            <td><strong>Full Version:</strong></td>
+                            <td><code>@VersionService.Version</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Short Version:</strong></td>
+                            <td><code>@VersionService.ShortVersion</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Build Date:</strong></td>
+                            <td><code>@VersionService.FormattedBuildDate</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>NuGet URL:</strong></td>
+                            <td><a href="@VersionService.NuGetPackageUrl" target="_blank">@VersionService.NuGetPackageUrl</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h5>Footer Preview:</h5>
+            <div class="border p-3 bg-light">
+                ?? <a href="@VersionService.NuGetPackageUrl" target="_blank">v@(VersionService.ShortVersion)</a>
+                <span class="ms-3">??? Built: @(VersionService.FormattedBuildDate)</span>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger">
+            <h5>Service Not Available</h5>
+            <p>The VersionService was not properly injected. Check the service registration in Program.cs.</p>
+        </div>
+    }
+
+    <div class="mt-4">
+        <a asp-page="/Index" class="btn btn-primary">Back to Home</a>
+        <a asp-page="/VersionTest" class="btn btn-secondary">Version Test</a>
+    </div>
+</div>

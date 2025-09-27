@@ -1,119 +1,91 @@
 # WebSpark.Bootswatch
 
-A .NET Razor Class Library for integrating Bootstrap 5 themes from [Bootswatch](https://bootswatch.com/) into ASP.NET Core applications. This library simplifies the process of applying modern, responsive themes to your web applications, leveraging the power of Bootstrap 5.
+A .NET 9 Razor Class Library that provides seamless integration of [Bootswatch](https://bootswatch.com/) themes into ASP.NET Core applications. Built on Bootstrap 5, this library offers modern, responsive theming with dynamic theme switching, light/dark mode support, and comprehensive caching mechanisms.
 
-[![NuGet](https://img.shields.io/nuget/v/WebSpark.Bootswatch.svg)](https://www.nuget.org/packages/WebSpark.Bootswatch/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![NuGet Version](https://img.shields.io/nuget/v/WebSpark.Bootswatch.svg)](https://www.nuget.org/packages/WebSpark.Bootswatch/)
+[![NuGet Downloads](https://img.shields.io/nuget/dt/WebSpark.Bootswatch.svg)](https://www.nuget.org/packages/WebSpark.Bootswatch/)
+[![GitHub License](https://img.shields.io/github/license/MarkHazleton/WebSpark.Bootswatch)](https://github.com/MarkHazleton/WebSpark.Bootswatch/blob/main/LICENSE)
+[![.NET](https://github.com/MarkHazleton/WebSpark.Bootswatch/actions/workflows/dotnet.yml/badge.svg)](https://github.com/MarkHazleton/WebSpark.Bootswatch/actions/workflows/dotnet.yml)
+[![GitHub Stars](https://img.shields.io/github/stars/MarkHazleton/WebSpark.Bootswatch)](https://github.com/MarkHazleton/WebSpark.Bootswatch/stargazers)
 
-## Theme Switching Prerequisites
+## 🚀 Quick Links
 
-To enable dynamic theme switching and fetch the list of available Bootswatch themes (as demonstrated in the demo project), you must:
+- **📦 NuGet Package**: [WebSpark.Bootswatch](https://www.nuget.org/packages/WebSpark.Bootswatch)
+- **🎨 Demo Site**: [bootswatch.markhazleton.com](https://bootswatch.markhazleton.com/)
+- **📚 Documentation**: [GitHub Wiki](https://github.com/MarkHazleton/WebSpark.Bootswatch/wiki)
+- **🐛 Issues**: [Report a Bug](https://github.com/MarkHazleton/WebSpark.Bootswatch/issues)
 
-1. **Install the required NuGet packages:**
-   - `WebSpark.Bootswatch`
-   - `WebSpark.HttpClientUtility` (required for fetching the list of themes)
+## ✨ Features
 
-   Install both via NuGet Package Manager or .NET CLI:
+- **🎨 Complete Bootswatch Integration**: All official Bootswatch themes plus custom themes
+- **🌓 Light/Dark Mode Support**: Automatic theme detection and switching
+- **⚡ High Performance**: Built-in caching with `StyleCache` service
+- **🔧 Easy Integration**: Single-line setup with extension methods
+- **📱 Responsive Design**: Mobile-first Bootstrap 5 foundation
+- **🎯 Tag Helper Support**: `<bootswatch-theme-switcher />` for easy UI integration
+- **🔒 Production Ready**: Comprehensive error handling and fallback mechanisms
+- **📖 Full Documentation**: IntelliSense support and XML documentation
 
-   ```shell
-   dotnet add package WebSpark.Bootswatch
-   dotnet add package WebSpark.HttpClientUtility
-   ```
+## 📋 Prerequisites
 
-2. **Add required configuration to `appsettings.json`:**
-   The `WebSpark.HttpClientUtility` package requires the following configuration for HTTP request resilience and output folder:
+### Required Dependencies
 
-   ```json
-   "CsvOutputFolder": "c:\\websites\\WebSpark\\CsvOutput",
-   "HttpRequestResultPollyOptions": {
-     "MaxRetryAttempts": 3,
-     "RetryDelaySeconds": 1,
-     "CircuitBreakerThreshold": 3,
-     "CircuitBreakerDurationSeconds": 10
-   }
-   ```
+```xml
+<PackageReference Include="WebSpark.Bootswatch" Version="1.30.0" />
+<PackageReference Include="WebSpark.HttpClientUtility" Version="1.2.0" />
+```
 
-   Example `appsettings.json` snippet:
+### Configuration Requirements
 
-   ```json
-   {
-     "Logging": {
-       "LogLevel": {
-         "Default": "Information",
-         "Microsoft.AspNetCore": "Warning"
-       }
-     },
-     "AllowedHosts": "*",
-     "CsvOutputFolder": "c:\\websites\\WebSpark\\CsvOutput",
-     "HttpRequestResultPollyOptions": {
-       "MaxRetryAttempts": 3,
-       "RetryDelaySeconds": 1,
-       "CircuitBreakerThreshold": 3,
-       "CircuitBreakerDurationSeconds": 10
-     }
-   }
-   ```
+Add to your `appsettings.json` for dynamic theme fetching:
 
-> **Note:** Without these dependencies and configuration, theme switching and dynamic theme listing will not function in your application or the demo project.
+```json
+{
+  "CsvOutputFolder": "c:\\temp\\WebSpark\\CsvOutput",
+  "HttpRequestResultPollyOptions": {
+    "MaxRetryAttempts": 3,
+    "RetryDelaySeconds": 1,
+    "CircuitBreakerThreshold": 3,
+    "CircuitBreakerDurationSeconds": 10
+  }
+}
+```
 
-## Quick Links
+## 🛠️ Installation
 
-- **Demo Site**: [https://bootswatch.markhazleton.com/](https://bootswatch.markhazleton.com/)
-- **NuGet Package**: [https://www.nuget.org/packages/WebSpark.Bootswatch](https://www.nuget.org/packages/WebSpark.Bootswatch)
-- **GitHub Repository**: [https://github.com/MarkHazleton/WebSpark.Bootswatch](https://github.com/MarkHazleton/WebSpark.Bootswatch)
-
-## Features
-
-- Seamless integration of Bootswatch themes with ASP.NET Core applications.
-- Built on Bootstrap 5, offering modern, responsive, and mobile-first design.
-- **NEW!** Integrated theme switcher component with light/dark mode support.
-- Easy runtime theme switching with cookie persistence.
-- Includes custom themes (e.g., Mom, Texecon) alongside standard Bootswatch themes.
-- Built-in caching mechanism for improved performance through StyleCache service.
-- Fully documented with IntelliSense support.
-
-## Benefits of Bootstrap 5
-
-- **Responsive Design**: Build mobile-first, responsive web applications effortlessly.
-- **Modern Components**: Access a wide range of pre-designed components.
-- **Customizable**: Easily customize themes to match your branding.
-- **No jQuery Dependency**: Bootstrap 5 removes the dependency on jQuery, making it lighter and faster.
-
-## Installation
-
-Install the package via NuGet Package Manager:
-
-```shell
+### Package Manager Console
+```powershell
 Install-Package WebSpark.Bootswatch
+Install-Package WebSpark.HttpClientUtility
 ```
 
-Or via .NET CLI:
-
-```shell
+### .NET CLI
+```bash
 dotnet add package WebSpark.Bootswatch
+dotnet add package WebSpark.HttpClientUtility
 ```
 
-## Quick Start
+### PackageReference
+```xml
+<PackageReference Include="WebSpark.Bootswatch" Version="1.30.0" />
+<PackageReference Include="WebSpark.HttpClientUtility" Version="1.2.0" />
+```
 
-### 1. Register Services
+## ⚡ Quick Start
 
-In the `Program.cs` file of your ASP.NET Core application, register the Bootswatch services. If you use the Tag Helper, also add `AddHttpContextAccessor()`:
+### 1. Configure Services (`Program.cs`)
 
 ```csharp
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container
+// Add services
 builder.Services.AddRazorPages();
-
-// (Optional) If you use the Tag Helper, add HttpContextAccessor
 builder.Services.AddHttpContextAccessor();
-
-// Add Bootswatch theme switcher services (includes StyleCache)
 builder.Services.AddBootswatchThemeSwitcher();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline
+// Configure pipeline
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
@@ -121,164 +93,15 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-// Use all Bootswatch features (includes StyleCache and static files)
-app.UseBootswatchAll();
-
-// (Optional) Add custom static file logging middleware if desired
-// app.Use(...)
-
+app.UseBootswatchAll(); // Must be before UseStaticFiles()
 app.UseStaticFiles();
 app.UseRouting();
 app.MapRazorPages();
-app.Run();
-```
-
-### 2. Update Your Layout
-
-In your `_Layout.cshtml`, place the theme switcher Tag Helper outside the `<ul class="navbar-nav flex-grow-1">` and after the navigation links, as shown in the demo:
-
-```html
-<!-- ...existing nav markup... -->
-<ul class="navbar-nav flex-grow-1">
-    <!-- nav items -->
-</ul>
-<bootswatch-theme-switcher />
-<!-- ...rest of layout... -->
-```
-
-This ensures the theme switcher appears in the correct place in the navigation bar, matching the demo project.
-
-Register the Tag Helper in your `_ViewImports.cshtml`:
-
-```csharp
-@addTagHelper *, WebSpark.Bootswatch
-```
-
-If you use the manual method, do not place both the Tag Helper and the manual HTML helper in the same layout to avoid duplicate selectors.
-
-**Manual alternative:**
-
-```html
-@Html.Raw(BootswatchThemeHelper.GetThemeSwitcherHtml(StyleCache, Context))
-```
-
-The rest of your layout setup remains the same. See the included sample layout file for a full example.
-
-No JavaScript implementation is needed—the theme switcher functionality is built into the library!
-
-## Advanced Usage
-
-### Using the Integrated StyleCache Service
-
-The package includes a built-in `StyleCache` service for improved performance:
-
-```csharp
-// In your Controller or Razor Page
-using WebSpark.Bootswatch.Services;
-
-public class HomeController : Controller
-{
-    private readonly StyleCache _styleCache;
-
-    public HomeController(StyleCache styleCache)
-    {
-        _styleCache = styleCache;
-    }
-
-    public IActionResult Index()
-    {
-        // Get all available styles
-        var styles = _styleCache.GetAllStyles();
-        
-        // Get a specific style by name
-        var defaultStyle = _styleCache.GetStyle("default");
-        
-        return View();
-    }
-}
-```
-
-### Theme Switcher Helpers
-
-The library includes the `BootswatchThemeHelper` class with useful methods. In Razor Pages, use `Context`:
-
-```csharp
-// Get the current theme name
-var themeName = BootswatchThemeHelper.GetCurrentThemeName(Context);
-
-// Get the current color mode (light/dark)
-var colorMode = BootswatchThemeHelper.GetCurrentColorMode(Context);
-
-// Get the URL for a theme
-var themeUrl = BootswatchThemeHelper.GetThemeUrl(StyleCache, themeName);
-
-// Get HTML for the theme switcher component
-var switcherHtml = BootswatchThemeHelper.GetThemeSwitcherHtml(StyleCache, Context);
-```
-
-For more details on the theme switcher, see [ThemeSwitcherGuide.md](ThemeSwitcherGuide.md).
-
-## How to Integrate WebSpark.Bootswatch into an Existing ASP.NET Core Web Application
-
-Follow these steps to add Bootswatch theme support and the integrated theme switcher to your existing ASP.NET Core Razor Pages or MVC project:
-
-### 1. Install the NuGet Package
-
-Install the package via NuGet Package Manager or .NET CLI:
-
-```shell
-Install-Package WebSpark.Bootswatch
-```
-
-or
-
-```shell
-dotnet add package WebSpark.Bootswatch
-```
-
-### 2. Register Bootswatch Services
-
-In your `Program.cs`, register the Bootswatch services after adding Razor Pages:
-
-```csharp
-var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container
-builder.Services.AddRazorPages();
-
-// Add Bootswatch theme switcher services (includes StyleCache)
-builder.Services.AddBootswatchThemeSwitcher();
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Error");
-    app.UseHsts();
-}
-
-app.UseHttpsRedirection();
-
-// Use all Bootswatch features (includes StyleCache and static files)
-app.UseBootswatchAll();
-
-app.UseRouting();
-app.MapRazorPages();
 
 app.Run();
 ```
 
-### 3. Update Your Layout File
-
-In your main layout file (e.g., `_Layout.cshtml`), add the following:
-
-- Inject the `StyleCache` service.
-- Use the `BootswatchThemeHelper` methods with `Context` (for Razor Pages) or `HttpContext` (for MVC) to set the theme and render the switcher.
-- Add the Bootswatch theme switcher JavaScript.
-
-Example for Razor Pages:
+### 2. Update Layout (`_Layout.cshtml`)
 
 ```html
 @using WebSpark.Bootswatch.Services
@@ -298,108 +121,290 @@ Example for Razor Pages:
     <script src="/_content/WebSpark.Bootswatch/js/bootswatch-theme-switcher.js"></script>
 </head>
 <body>
-    @Html.Raw(BootswatchThemeHelper.GetThemeSwitcherHtml(StyleCache, Context))
-    @RenderBody()
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <!-- Your navigation items -->
+            <ul class="navbar-nav flex-grow-1">
+                <!-- Nav items here -->
+            </ul>
+            <!-- Theme switcher -->
+            <bootswatch-theme-switcher />
+        </div>
+    </nav>
+    
+    <main>
+        @RenderBody()
+    </main>
+    
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
 ```
 
-### 4. (Optional) Use the StyleCache Service in Controllers or Pages
-
-You can inject and use the `StyleCache` service to access available styles or theme information in your controllers or pages.
-
-```csharp
-public class HomeController : Controller
-{
-    private readonly StyleCache _styleCache;
-    public HomeController(StyleCache styleCache)
-    {
-        _styleCache = styleCache;
-    }
-    public IActionResult Index()
-    {
-        var styles = _styleCache.GetAllStyles();
-        var defaultStyle = _styleCache.GetStyle("default");
-        return View();
-    }
-}
-```
-
-## Minimal Startup Example
-
-Add these lines to your `Program.cs`:
-
-```csharp
-builder.Services.AddBootswatchThemeSwitcher();
-app.UseBootswatchAll();
-```
-
-## Tag Helper Usage (Optional)
-
-You can use the built-in Tag Helper to render the theme switcher in your layout:
-
-```html
-<bootswatch-theme-switcher />
-```
-
-Register the Tag Helper in your `_ViewImports.cshtml`:
+### 3. Register Tag Helper (`_ViewImports.cshtml`)
 
 ```csharp
 @addTagHelper *, WebSpark.Bootswatch
 ```
 
-## Sample Layout File
+## 🎯 Advanced Usage
 
-A sample layout file is included in the NuGet package at:
+### StyleCache Service
 
-```bash
-contentFiles/any/any/BootswatchLayoutExample.cshtml
+```csharp
+public class HomeController : Controller
+{
+    private readonly StyleCache _styleCache;
+
+    public HomeController(StyleCache styleCache)
+    {
+        _styleCache = styleCache;
+    }
+
+    public IActionResult Index()
+    {
+        // Get all available themes
+        var allThemes = _styleCache.GetAllStyles();
+        
+        // Get specific theme
+        var defaultTheme = _styleCache.GetStyle("default");
+        
+        return View(allThemes);
+    }
+}
 ```
 
-Copy or reference this file to quickly set up your layout.
+### Theme Helper Methods
 
-## Demo Project
+```csharp
+// Get current theme information
+var currentTheme = BootswatchThemeHelper.GetCurrentThemeName(Context);
+var colorMode = BootswatchThemeHelper.GetCurrentColorMode(Context);
+var themeUrl = BootswatchThemeHelper.GetThemeUrl(StyleCache, currentTheme);
 
-For a complete example of how to integrate WebSpark.Bootswatch, refer to the `WebSpark.Bootswatch.Demo` project included in this repository. It demonstrates:
+// Generate theme switcher HTML
+var switcherHtml = BootswatchThemeHelper.GetThemeSwitcherHtml(StyleCache, Context);
+```
 
-- Registering Bootswatch services.
-- Using the theme switcher component.
-- Applying themes dynamically in the layout.
-- Using the StyleCache service for efficient theme management.
+### Custom Theme Integration
 
-## Release Notes
+```csharp
+// Add custom themes to your StyleCache
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddBootswatchThemeSwitcher();
+    services.Configure<BootswatchOptions>(options =>
+    {
+        options.CustomThemes.Add(new StyleModel
+        {
+            Name = "custom-theme",
+            Description = "My Custom Theme",
+            CssPath = "/css/custom-theme.css"
+        });
+    });
+}
+```
 
-### v1.20.0 (2025-07-01)
+## 🧪 Demo Project
 
-- Updated all NuGet package dependencies to their latest versions for improved security and compatibility.
-- Enhanced package reliability with latest dependency versions.
-- No breaking changes; all integration steps remain the same as previous versions.
+Explore the complete implementation in our demo project:
 
-### v1.10.3 (2025-05-20)
+```bash
+git clone https://github.com/MarkHazleton/WebSpark.Bootswatch.git
+cd WebSpark.Bootswatch
+dotnet run --project WebSpark.Bootswatch.Demo
+```
 
-- Patch release. No breaking changes; all integration steps remain the same as v1.10.1.
+The demo showcases:
+- ✅ All Bootswatch themes
+- ✅ Light/dark mode switching
+- ✅ Responsive design patterns
+- ✅ Integration examples
+- ✅ Performance optimizations
 
-### v1.10.1 (2025-05-18)
+## 🏗️ Architecture
 
-- Improved logging and diagnostics for static file and theme CSS requests in the demo project.
-- Updated `Privacy.cshtml.cs` to log the current color mode and use required members for better compatibility.
-- Minor code cleanup and documentation improvements in the demo and main library.
-- Updated project files for compatibility with .NET 9 (demo) and .NET 7 (library).
-- No breaking changes; all integration steps remain the same as v1.10.0.
+### Core Components
 
-### v1.10.0 (2025-05-15)
+| Component | Purpose | Lifecycle |
+|-----------|---------|-----------|
+| `StyleCache` | Theme data caching | Singleton |
+| `BootswatchStyleProvider` | Theme management | Scoped |
+| `BootswatchThemeHelper` | Static utilities | Static |
+| `BootswatchThemeSwitcherTagHelper` | UI component | Transient |
 
-- Added a Bootswatch theme switcher Tag Helper (`<bootswatch-theme-switcher />`) for easy integration in layouts and navigation bars.
-- Included a sample layout file in the NuGet package for quick reference and copy-paste setup.
-- Updated documentation and demo to use the Tag Helper as the preferred method.
-- Added instructions and support for `AddHttpContextAccessor()` when using the Tag Helper.
-- Improved README and install guide to clarify integration steps and best practices.
-- Ensured static files and theme switcher JS are always available and documented correct middleware order.
-- Cleaned up demo layout to avoid duplicate theme switchers and match recommended usage.
+### Middleware Pipeline
 
-## License
+The correct middleware order is crucial:
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+```csharp
+app.UseBootswatchStaticFiles(); // 1. Bootswatch static files
+app.UseStaticFiles();           // 2. Application static files  
+app.UseRouting();               // 3. Routing
+```
+
+## 🔧 Configuration Options
+
+### Middleware Configuration
+
+```csharp
+// Full configuration
+app.UseBootswatchAll();
+
+// Or individual components
+app.UseBootswatchStaticFiles();
+app.UseBootswatchThemeRoutes();
+```
+
+### Service Configuration
+
+```csharp
+services.AddBootswatchThemeSwitcher(options =>
+{
+    options.DefaultTheme = "bootstrap";
+    options.EnableCaching = true;
+    options.CacheDurationMinutes = 60;
+});
+```
+
+## 🚀 Performance
+
+### Caching Strategy
+- **Theme Data**: Cached in `StyleCache` singleton
+- **HTTP Requests**: Resilient HTTP client with Polly
+- **Static Files**: Embedded resources with cache headers
+- **Background Loading**: Non-blocking theme initialization
+
+### Bundle Optimization
+- **CSS**: Minified Bootswatch themes
+- **JavaScript**: Lightweight theme switcher (~2KB)
+- **Icons**: Optimized SVG assets
+
+## 🔒 Security
+
+- ✅ **Input Validation**: Theme names sanitized and validated
+- ✅ **XSS Protection**: HTML encoding in all outputs
+- ✅ **HTTPS**: Secure external resource loading
+- ✅ **CSP Friendly**: No inline scripts or styles
+- ✅ **CORS Compliant**: Proper resource sharing policies
+
+## 🛠️ Troubleshooting
+
+### Common Issues
+
+| Issue | Solution |
+|-------|----------|
+| Themes not loading | Check middleware order: `UseBootswatchAll()` before `UseStaticFiles()` |
+| Theme switcher not visible | Ensure `@addTagHelper *, WebSpark.Bootswatch` in `_ViewImports.cshtml` |
+| Missing dependencies | Install `WebSpark.HttpClientUtility` package |
+| Configuration errors | Add required `appsettings.json` configuration |
+
+### Debug Mode
+
+Enable detailed logging:
+
+```csharp
+builder.Services.AddLogging(config =>
+{
+    config.AddConsole();
+    config.SetMinimumLevel(LogLevel.Debug);
+});
+```
+
+## 📊 Browser Support
+
+| Browser | Version | Status |
+|---------|---------|---------|
+| Chrome | 90+ | ✅ Fully Supported |
+| Firefox | 88+ | ✅ Fully Supported |
+| Safari | 14+ | ✅ Fully Supported |
+| Edge | 90+ | ✅ Fully Supported |
+| IE | 11 | ❌ Not Supported |
+
+## 🤝 Contributing
+
+We welcome contributions! Please see [CONTRIBUTING.md](./copilot/CONTRIBUTING.md) for guidelines.
+
+### Development Setup
+
+```bash
+# Clone repository
+git clone https://github.com/MarkHazleton/WebSpark.Bootswatch.git
+cd WebSpark.Bootswatch
+
+# Restore dependencies
+dotnet restore
+
+# Build solution
+dotnet build
+
+# Run tests
+dotnet test
+
+# Run demo
+dotnet run --project WebSpark.Bootswatch.Demo
+```
+
+### Contribution Areas
+
+- 🐛 Bug fixes and improvements
+- 📚 Documentation enhancements
+- 🎨 New theme contributions
+- 🧪 Test coverage expansion
+- 🚀 Performance optimizations
+
+## 📝 Changelog
+
+### [1.20.0] - 2025-01-07
+- ✅ Updated all NuGet dependencies to latest versions
+- ✅ Enhanced security with latest dependency versions
+- ✅ No breaking changes
+
+### [1.10.3] - 2025-05-20
+- ✅ Patch release with minor improvements
+- ✅ Enhanced logging and diagnostics
+
+### [1.10.0] - 2025-05-15
+- ✅ Added Bootswatch Theme Switcher Tag Helper
+- ✅ Included sample layout file in NuGet package
+- ✅ Improved documentation and integration guides
+
+[View Full Changelog](./copilot/CHANGELOG.md)
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+
+### Third-Party Licenses
+
+- **Bootstrap**: MIT License
+- **Bootswatch**: MIT License  
+- **WebSpark.HttpClientUtility**: MIT License
+
+See [NOTICE.txt](./NOTICE.txt) for complete attribution.
+
+## 🙏 Acknowledgments
+
+- **Bootstrap Team** - For the amazing Bootstrap framework
+- **Thomas Park** - Creator of Bootswatch themes
+- **Contributors** - Everyone who has contributed to this project
+
+## 📞 Support
+
+- 📖 **Documentation**: [GitHub Wiki](https://github.com/MarkHazleton/WebSpark.Bootswatch/wiki)
+- 🐛 **Bug Reports**: [GitHub Issues](https://github.com/MarkHazleton/WebSpark.Bootswatch/issues)
+- 💬 **Discussions**: [GitHub Discussions](https://github.com/MarkHazleton/WebSpark.Bootswatch/discussions)
+- 📧 **Email**: [Contact Author](mailto:mark@markhazleton.com)
+
+---
+
+<div align="center">
+  <p>Made with ❤️ by <a href="https://github.com/MarkHazleton">Mark Hazleton</a></p>
+  <p>
+    <a href="https://github.com/MarkHazleton/WebSpark.Bootswatch">⭐ Star this repo</a> •
+    <a href="https://github.com/MarkHazleton/WebSpark.Bootswatch/fork">🔀 Fork</a> •
+    <a href="https://github.com/MarkHazleton/WebSpark.Bootswatch/issues">🐛 Report Bug</a> •
+    <a href="https://github.com/MarkHazleton/WebSpark.Bootswatch/discussions">💬 Discuss</a>
+  </p>
+</div>

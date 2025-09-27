@@ -1,0 +1,136 @@
+name: Bug Report
+description: Report a bug or issue with WebSpark.Bootswatch
+title: "[Bug]: "
+labels: ["bug", "needs-triage"]
+projects: ["MarkHazleton/WebSpark.Bootswatch"]
+assignees:
+  - MarkHazleton
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report! Please provide as much detail as possible to help us resolve the issue quickly.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: A clear and concise description of what the bug is.
+      placeholder: Describe the bug...
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: Steps to reproduce the behavior
+      placeholder: |
+        1. Go to '...'
+        2. Click on '....'
+        3. Scroll down to '....'
+        4. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected Behavior
+      description: A clear and concise description of what you expected to happen.
+      placeholder: What should have happened?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: Actual Behavior
+      description: A clear and concise description of what actually happened.
+      placeholder: What actually happened?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: version
+    attributes:
+      label: WebSpark.Bootswatch Version
+      description: What version of WebSpark.Bootswatch are you running?
+      options:
+        - 1.20.0 (Latest)
+        - 1.10.3
+        - 1.10.1
+        - 1.10.0
+        - 1.9.x
+        - Other (please specify in additional context)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: dotnet-version
+    attributes:
+      label: .NET Version
+      description: What version of .NET are you using?
+      options:
+        - .NET 9
+        - .NET 8
+        - .NET 7
+        - .NET 6
+        - Other (please specify in additional context)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating System
+      description: What operating system are you using?
+      options:
+        - Windows
+        - macOS
+        - Linux (Ubuntu)
+        - Linux (other)
+        - Other (please specify in additional context)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: browsers
+    attributes:
+      label: Browser (if applicable)
+      description: What browser are you using?
+      multiple: true
+      options:
+        - Chrome
+        - Firefox
+        - Safari
+        - Microsoft Edge
+        - Internet Explorer
+        - Other (please specify in additional context)
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant Log Output
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      render: shell
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: |
+        Add any other context about the problem here. This could include:
+        - Screenshots
+        - Code samples
+        - Configuration files
+        - Other relevant information
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/MarkHazleton/WebSpark.Bootswatch/blob/main/copilot/session-2025-09-26/CODE_OF_CONDUCT.md)
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true

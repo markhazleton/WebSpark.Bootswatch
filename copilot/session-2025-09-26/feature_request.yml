@@ -1,0 +1,124 @@
+name: Feature Request
+description: Suggest a new feature or enhancement for WebSpark.Bootswatch
+title: "[Feature]: "
+labels: ["enhancement", "needs-triage"]
+projects: ["MarkHazleton/WebSpark.Bootswatch"]
+assignees:
+  - MarkHazleton
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to suggest a new feature! Please provide as much detail as possible to help us understand your request.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem Statement
+      description: Is your feature request related to a problem? Please describe the problem you're trying to solve.
+      placeholder: A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: Describe the solution you'd like to see implemented.
+      placeholder: A clear and concise description of what you want to happen.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternative Solutions
+      description: Describe any alternative solutions or features you've considered.
+      placeholder: A clear and concise description of any alternative solutions or features you've considered.
+
+  - type: dropdown
+    id: feature-type
+    attributes:
+      label: Feature Type
+      description: What type of feature is this?
+      options:
+        - New Theme
+        - UI Component
+        - API Enhancement
+        - Performance Improvement
+        - Documentation
+        - Development Tools
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: How important is this feature to you?
+      options:
+        - Low - Nice to have
+        - Medium - Would be helpful
+        - High - Important for my use case
+        - Critical - Blocking my use case
+    validations:
+      required: true
+
+  - type: textarea
+    id: use-cases
+    attributes:
+      label: Use Cases
+      description: Provide specific use cases or scenarios where this feature would be beneficial.
+      placeholder: |
+        1. As a developer, I want to...
+        2. When building applications, I need to...
+        3. Users of my application would benefit from...
+
+  - type: textarea
+    id: implementation-ideas
+    attributes:
+      label: Implementation Ideas
+      description: If you have ideas about how this could be implemented, please share them.
+      placeholder: Technical implementation suggestions, API design ideas, etc.
+
+  - type: checkboxes
+    id: breaking-changes
+    attributes:
+      label: Breaking Changes
+      description: Would this feature require breaking changes?
+      options:
+        - label: This feature would require breaking changes
+        - label: This feature can be implemented without breaking changes
+        - label: I'm not sure about breaking changes
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: |
+        Add any other context or screenshots about the feature request here. This could include:
+        - Mockups or designs
+        - Examples from other libraries
+        - Code samples
+        - Related issues or discussions
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution
+      description: Are you willing to contribute to implementing this feature?
+      options:
+        - label: I'm willing to contribute code for this feature
+        - label: I'm willing to help with testing this feature
+        - label: I'm willing to help with documentation for this feature
+        - label: I can provide feedback during development
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/MarkHazleton/WebSpark.Bootswatch/blob/main/copilot/session-2025-09-26/CODE_OF_CONDUCT.md)
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true

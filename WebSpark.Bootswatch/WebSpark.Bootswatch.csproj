@@ -12,9 +12,9 @@
 
   <PropertyGroup>
     <!-- Package metadata -->
-    <Version>1.20.0</Version>
-    <AssemblyVersion>1.20.0</AssemblyVersion>
-    <FileVersion>1.20.0</FileVersion>
+    <Version>1.30.0</Version>
+    <AssemblyVersion>1.30.0</AssemblyVersion>
+    <FileVersion>1.30.0</FileVersion>
     <PackageId>WebSpark.Bootswatch</PackageId>
     <Title>WebSpark.Bootswatch</Title>
     <Authors>Mark Hazleton</Authors>
@@ -58,9 +58,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageReleaseNotes> Version 1.20.0: - Updated all NuGet package dependencies to their latest
-      versions for improved security and compatibility. No breaking changes; all integration steps
-      remain the same as previous versions. </PackageReleaseNotes>
+    <PackageReleaseNotes>Version 1.30.0: - Enhanced repository with GitHub NuGet best practices including comprehensive README.md, community health files (CONTRIBUTING.md, SECURITY.md, CODE_OF_CONDUCT.md), structured changelog, and professional issue templates. Improved documentation organization and developer experience. No breaking changes; all integration steps remain the same as previous versions.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

@@ -19,7 +19,14 @@ namespace WebSpark.Bootswatch.TagHelpers
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            var html = BootswatchThemeHelper.GetThemeSwitcherHtml(_styleCache, _httpContextAccessor.HttpContext);
+            var httpContext = _httpContextAccessor.HttpContext;
+            if (httpContext == null)
+            {
+                output.SuppressOutput();
+                return;
+            }
+
+            var html = BootswatchThemeHelper.GetThemeSwitcherHtml(_styleCache, httpContext);
             output.TagName = null; // Remove the wrapping tag
             output.Content.SetHtmlContent(html);
         }

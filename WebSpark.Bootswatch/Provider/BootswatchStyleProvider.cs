@@ -4,6 +4,7 @@ using WebSpark.Bootswatch.Model;
 using WebSpark.HttpClientUtility.RequestResult;
 
 namespace WebSpark.Bootswatch.Provider;
+
 /// <summary>
 /// Bootswatch Style Provider
 /// </summary>
@@ -14,13 +15,34 @@ public class BootswatchStyleProvider(
     private const string BootswatchApiUrl = "https://bootswatch.com/api/5.json";
     private const string StaticAssetBasePath = "/_content/WebSpark.Bootswatch";
 
+    // Cache default styles to avoid recreating them on every call
+    private static readonly List<StyleModel> DefaultStyles = new()
+    {
+        new()
+        {
+            name = "mom",
+            css = $"{StaticAssetBasePath}/style/mom/css/bootstrap.min.css",
+            cssMin = $"{StaticAssetBasePath}/style/mom/css/bootstrap.min.css",
+            cssCdn = $"{StaticAssetBasePath}/style/mom/css/bootstrap.min.css",
+            description = "Custom theme for MOM websites",
+        },
+        new()
+        {
+            name = "texecon",
+            css = $"{StaticAssetBasePath}/style/texecon/css/bootstrap.min.css",
+            cssMin = $"{StaticAssetBasePath}/style/texecon/css/bootstrap.min.css",
+            cssCdn = $"{StaticAssetBasePath}/style/texecon/css/bootstrap.min.css",
+            description = "Custom theme for TexEcon websites",
+        }
+    };
+
     /// <summary>
     /// Get all available styles
     /// </summary>
     /// <returns>Collection of styles including custom and Bootswatch themes</returns>
     public async Task<IEnumerable<StyleModel>> GetAsync()
     {
-        return await GetSiteStylesAsync();
+        return await GetSiteStylesAsync().ConfigureAwait(false);
     }
 
     /// <summary>
@@ -30,7 +52,21 @@ public class BootswatchStyleProvider(
     /// <returns>The requested style or an empty style model if not found</returns>
     public async Task<StyleModel> GetAsync(string name)
     {
-        return (await GetSiteStylesAsync())?.Where(w => w.name == name).FirstOrDefault() ?? new StyleModel();
+        if (string.IsNullOrEmpty(name))
+            return new StyleModel();
+
+        var styles = await GetSiteStylesAsync().ConfigureAwait(false);
+        
+        // Use more efficient lookup
+        foreach (var style in styles)
+        {
+            if (string.Equals(style.name, name, StringComparison.OrdinalIgnoreCase))
+            {
+                return style;
+            }
+        }
+        
+        return new StyleModel();
     }
 
     /// <summary>
@@ -39,26 +75,14 @@ public class BootswatchStyleProvider(
     /// <returns>List of all available styles</returns>
     public async Task<List<StyleModel>> GetSiteStylesAsync()
     {
-        // Default custom styles that are embedded in the library
-        var siteStyle = new List<StyleModel>
+        // Start with a copy of default styles to avoid modifying the cached version
+        var siteStyle = new List<StyleModel>(DefaultStyles.Count + 20) // Pre-allocate capacity
         {
-            new()
-            {
-                name = "mom",
-                css = $"{StaticAssetBasePath}/style/mom/css/bootstrap.min.css",
-                cssMin = $"{StaticAssetBasePath}/style/mom/css/bootstrap.min.css",
-                cssCdn = $"{StaticAssetBasePath}/style/mom/css/bootstrap.min.css",
-                description = "Custom theme for MOM websites",
-            },
-            new()
-            {
-                name = "texecon",
-                css = $"{StaticAssetBasePath}/style/texecon/css/bootstrap.min.css",
-                cssMin = $"{StaticAssetBasePath}/style/texecon/css/bootstrap.min.css",
-                cssCdn = $"{StaticAssetBasePath}/style/texecon/css/bootstrap.min.css",
-                description = "Custom theme for TexEcon websites",
-            }
+            // Add default styles
+            DefaultStyles[0],
+            DefaultStyles[1]
         };
+
         try
         {
             var themeRequestResult = new HttpRequestResult<BootswatchResponse>
@@ -75,16 +99,33 @@ public class BootswatchStyleProvider(
                 return siteStyle;
             }
 
-            foreach (var theme in themeRequestResult.ResponseResults.themes)
+            var themes = themeRequestResult.ResponseResults.themes;
+            
+            // Pre-allocate capacity based on known themes count
+            if (siteStyle.Capacity < siteStyle.Count + themes.Count)
             {
-                siteStyle.Add(Create(theme));
+                siteStyle.Capacity = siteStyle.Count + themes.Count;
             }
 
-            logger.LogInformation("Successfully loaded {Count} themes from Bootswatch API", themeRequestResult.ResponseResults.themes.Count);
+            // Use for loop for better performance than foreach
+            for (int i = 0; i < themes.Count; i++)
+            {
+                siteStyle.Add(Create(themes[i]));
+            }
+
+            logger.LogInformation("Successfully loaded {Count} themes from Bootswatch API", themes.Count);
+        }
+        catch (HttpRequestException httpEx)
+        {
+            logger.LogWarning(httpEx, "HTTP error occurred while fetching themes from Bootswatch API. Using default styles.");
+        }
+        catch (TaskCanceledException tcEx) when (tcEx.InnerException is TimeoutException)
+        {
+            logger.LogWarning(tcEx, "Timeout occurred while fetching themes from Bootswatch API. Using default styles.");
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "Error occurred while fetching themes from Bootswatch API. Using default styles.");
+            logger.LogError(ex, "Unexpected error occurred while fetching themes from Bootswatch API. Using default styles.");
         }
 
         return siteStyle;

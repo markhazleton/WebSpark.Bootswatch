@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Http;
 using System.Text.Encodings.Web;
+using System.Text;
+using System.Runtime.InteropServices;
 using WebSpark.Bootswatch.Services;
 
 namespace WebSpark.Bootswatch.Helpers;
@@ -9,6 +11,30 @@ namespace WebSpark.Bootswatch.Helpers;
 /// </summary>
 public static class BootswatchThemeHelper
 {
+    // Cache for HTML template parts to reduce memory allocations
+    private static readonly string HtmlTemplateStart = @"<div class=""bootswatch-theme-switcher d-flex align-items-center"">
+    <!-- Color Mode Toggle -->
+    <div class=""me-2"">
+        <button class=""btn btn-sm btn-outline-secondary"" id=""bootswatch-color-mode-toggle"" type=""button""
+            aria-label=""Toggle color mode"">
+            <i class=""bootswatch-color-mode-icon""></i>
+            <span class=""bootswatch-color-mode-text""></span>
+        </button>
+    </div>
+
+    <!-- Theme Dropdown -->
+    <div class=""dropdown"">
+        <button class=""btn btn-sm btn-outline-secondary dropdown-toggle"" type=""button"" id=""bootswatchThemeDropdown""
+            data-bs-toggle=""dropdown"" aria-expanded=""false"">
+            Theme
+        </button>
+        <ul class=""dropdown-menu dropdown-menu-end bootswatch-dropdown-menu"" aria-labelledby=""bootswatchThemeDropdown"">";
+
+    private static readonly string HtmlTemplateEnd = @"
+        </ul>
+    </div>
+</div>";
+
     /// <summary>
     /// Gets the current theme name from the request cookies or returns the default
     /// </summary>
@@ -55,42 +81,41 @@ public static class BootswatchThemeHelper
         var currentStyle = GetCurrentThemeName(context);
         var styles = styleCache.GetAllStyles();
 
-        var html = @"<div class=""bootswatch-theme-switcher d-flex align-items-center"">
-    <!-- Color Mode Toggle -->
-    <div class=""me-2"">
-        <button class=""btn btn-sm btn-outline-secondary"" id=""bootswatch-color-mode-toggle"" type=""button""
-            aria-label=""Toggle color mode"">
-            <i class=""bootswatch-color-mode-icon""></i>
-            <span class=""bootswatch-color-mode-text""></span>
-        </button>
-    </div>
+        // Pre-calculate capacity to reduce StringBuilder reallocations
+        // Estimate: base template (~1000 chars) + styles count * average item length (~150 chars)
+        var estimatedCapacity = 1000 + (styles.Count * 150);
+        var html = new StringBuilder(estimatedCapacity);
 
-    <!-- Theme Dropdown -->
-    <div class=""dropdown"">
-        <button class=""btn btn-sm btn-outline-secondary dropdown-toggle"" type=""button"" id=""bootswatchThemeDropdown""
-            data-bs-toggle=""dropdown"" aria-expanded=""false"">
-            Theme
-        </button>
-        <ul class=""dropdown-menu dropdown-menu-end bootswatch-dropdown-menu"" aria-labelledby=""bootswatchThemeDropdown"">";
+        html.Append(HtmlTemplateStart);
 
-        foreach (var style in styles)
+        // Use efficient iteration with for loop instead of foreach
+        for (int i = 0; i < styles.Count; i++)
         {
-            var activeClass = style.name == currentStyle ? "active" : string.Empty;
-            html += $@"
-            <li>
-                <a class=""dropdown-item {activeClass}"" href=""#"" data-theme=""{HtmlEncode(style.name)}""
-                    data-theme-url=""{HtmlEncode(style.cssCdn)}"">
-                    {HtmlEncode(style.name)}
-                </a>
-            </li>";
+            var style = styles[i];
+            var activeClass = string.Equals(style.name, currentStyle, StringComparison.OrdinalIgnoreCase) ? "active" : string.Empty;
+            
+            html.AppendLine()
+                .Append("            <li>")
+                .AppendLine()
+                .Append("                <a class=\"dropdown-item ")
+                .Append(activeClass)
+                .Append("\" href=\"#\" data-theme=\"")
+                .Append(HtmlEncode(style.name))
+                .Append("\" data-theme-url=\"")
+                .Append(HtmlEncode(style.cssCdn))
+                .Append("\">")
+                .AppendLine()
+                .Append("                    ")
+                .Append(HtmlEncode(style.name))
+                .AppendLine()
+                .Append("                </a>")
+                .AppendLine()
+                .Append("            </li>");
         }
 
-        html += @"
-        </ul>
-    </div>
-</div>";
+        html.Append(HtmlTemplateEnd);
 
-        return html;
+        return html.ToString();
     }
 
     private static string HtmlEncode(string? value)
@@ -109,7 +134,7 @@ public static class BootswatchThemeHelper
     /// <returns>Dictionary of HTML attributes</returns>
     public static IDictionary<string, object> GetHtmlAttributes(HttpContext context, object? additionalAttributes = null)
     {
-        var attributes = new Dictionary<string, object>
+        var attributes = new Dictionary<string, object>(capacity: 4) // Pre-allocate reasonable capacity
         {
             { "lang", "en" },
             { "data-bs-theme", GetCurrentColorMode(context) }

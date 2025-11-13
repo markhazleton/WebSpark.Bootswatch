@@ -5,6 +5,27 @@ All notable changes to WebSpark.Bootswatch will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.32.0] - 2025-01-13
+
+### Added
+- GitHub Actions workflow for automated NuGet publishing
+- Multi-framework build validation in CI/CD pipeline
+- Comprehensive package validation during build process
+- Automated GitHub release creation with package attachments
+- Test result summaries in GitHub Actions
+
+### Changed
+- Updated package tags to include net8, net9, net10, multi-targeting
+- Enhanced package description to highlight multi-framework support
+- Improved GitHub Actions to setup all .NET versions (8.0, 9.0, 10.0)
+- Upgraded to latest GitHub Actions versions (checkout@v4, setup-dotnet@v4, etc.)
+- Enhanced release notes template with framework-specific information
+
+### Fixed
+- Package validation now checks all three target frameworks
+- Build process verifies assembly presence for each framework
+- Improved error messages during package validation
+
 ## [1.31.0] - 2025-01-13
 
 ### Added
@@ -116,6 +137,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ---
 
 ## Migration Guides
+
+### Migrating to 1.32.0 from 1.31.0
+
+The 1.32.0 release includes enhanced CI/CD automation:
+
+#### What's New
+- Automated NuGet publishing via GitHub Actions
+- Enhanced package validation
+- Automatic GitHub release creation
+- No code changes required for consumers
+
+#### For Maintainers
+To publish a new version:
+1. Update version in `WebSpark.Bootswatch.csproj`
+2. Commit and push changes
+3. Create and push a git tag: `git tag v1.32.0 && git push origin v1.32.0`
+4. GitHub Actions will automatically build, test, and publish
 
 ### Migrating to 1.31.0 from 1.30.0
 

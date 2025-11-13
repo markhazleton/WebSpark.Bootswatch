@@ -12,17 +12,17 @@
 
   <PropertyGroup>
     <!-- Package metadata -->
-    <Version>1.31.0</Version>
-    <AssemblyVersion>1.31.0</AssemblyVersion>
-    <FileVersion>1.31.0</FileVersion>
+    <Version>1.32.0</Version>
+    <AssemblyVersion>1.32.0</AssemblyVersion>
+    <FileVersion>1.32.0</FileVersion>
     <PackageId>WebSpark.Bootswatch</PackageId>
     <Title>WebSpark.Bootswatch</Title>
     <Authors>Mark Hazleton</Authors>
     <Description>WebSpark.Bootswatch provides Bootswatch themes for ASP.NET Core applications. It
       includes custom themes and styles that can be easily integrated with ASP.NET Core MVC or Razor
-      Pages applications.</Description>
+      Pages applications. Supports .NET 8.0, 9.0, and 10.0.</Description>
     <Copyright>Copyright © 2025 Mark Hazleton</Copyright>
-    <PackageTags>bootswatch;bootstrap;themes;razor;aspnetcore;css;styling</PackageTags>
+    <PackageTags>bootswatch;bootstrap;themes;razor;aspnetcore;css;styling;net8;net9;net10;multi-targeting</PackageTags>
     <PackageIcon>WebSpark.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -58,7 +58,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageReleaseNotes>Version 1.31.0: Multi-targeting support for .NET 8.0, 9.0, and 10.0. Updated Microsoft.Extensions.FileProviders.Embedded to align with target frameworks. Removed redundant System.Text.RegularExpressions package reference (now included in framework).</PackageReleaseNotes>
+    <PackageReleaseNotes>Version 1.32.0: Multi-targeting support for .NET 8.0, 9.0, and 10.0. Updated Microsoft.Extensions.FileProviders.Embedded to align with target frameworks. Comprehensive test suite with 33 tests across all frameworks. Removed redundant System.Text.RegularExpressions package reference (now included in framework). GitHub Actions CI/CD with multi-framework testing.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

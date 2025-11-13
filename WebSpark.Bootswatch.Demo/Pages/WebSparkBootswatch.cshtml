@@ -251,8 +251,8 @@ app.UseBootswatchAll();</code></pre>
                         <h4>2. Update Layout</h4>
                         <p>Modify your <code>_Layout.cshtml</code> file to use the theme switcher:</p>
                         <pre><code>@* Make sure to add these namespaces to your view *@
-@using WebSpark.Bootswatch.Services
-@using WebSpark.Bootswatch.Helpers
+@@using WebSpark.Bootswatch.Services
+@@using WebSpark.Bootswatch.Helpers
 @inject StyleCache StyleCache
 &lt;!DOCTYPE html&gt;
 &lt;html lang="en" data-bs-theme="@(BootswatchThemeHelper.GetCurrentColorMode(HttpContext))"&gt;

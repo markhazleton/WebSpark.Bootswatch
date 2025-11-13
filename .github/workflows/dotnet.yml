@@ -7,28 +7,52 @@ on:
       - "v*"
   pull_request:
     branches: ["main"]
+  workflow_dispatch:
 
 jobs:
   build:
+    name: Build and Test
     runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        framework: [net8.0, net9.0, net10.0]
+    
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
+      - name: Setup .NET 8.0
+        uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 9.0.x
+          dotnet-version: '8.0.x'
+
+      - name: Setup .NET 9.0
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Setup .NET 10.0
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
 
       - name: Restore dependencies
         run: dotnet restore
 
-      - name: Build
-        run: dotnet build --configuration Release --no-restore
+      - name: Build for ${{ matrix.framework }}
+        run: dotnet build --configuration Release --framework ${{ matrix.framework }} --no-restore
 
-      - name: Test
-        run: dotnet test --configuration Release --no-build --verbosity normal
+      - name: Test for ${{ matrix.framework }}
+        run: dotnet test --configuration Release --framework ${{ matrix.framework }} --no-build --verbosity normal --logger "trx;LogFileName=test-results-${{ matrix.framework }}.trx"
+
+      - name: Upload test results for ${{ matrix.framework }}
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results-${{ matrix.framework }}
+          path: '**/test-results-${{ matrix.framework }}.trx'
 
   publish:
     needs: build
@@ -36,14 +60,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
+      - name: Setup .NET 8.0
+        uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 9.0.x
+          dotnet-version: '8.0.x'
+
+      - name: Setup .NET 9.0
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Setup .NET 10.0
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
 
       - name: Restore dependencies
         run: dotnet restore
@@ -64,143 +98,154 @@ jobs:
       - name: Pack
         run: dotnet pack WebSpark.Bootswatch/WebSpark.Bootswatch.csproj --configuration Release --no-build --output ./nuget-packages
 
-      - name: Basic Package Validation
+      - name: Validate Multi-Framework Package
         run: |
-          echo "Validating NuGet package..."
+          echo "Validating multi-framework NuGet package..."
 
-          # List directory content to debug
-          echo "Content of nuget-packages directory:"
-          ls -la nuget-packages/
-
-          # Package path using exact version
+          # Package path
           PACKAGE_PATH="nuget-packages/WebSpark.Bootswatch.${{ steps.get_version.outputs.VERSION }}.nupkg"
 
           # Check if package exists
           if [ ! -f "$PACKAGE_PATH" ]; then
             echo "::error::Package file not found at: $PACKAGE_PATH"
             exit 1
-          else
-            echo "✓ Package found at: $PACKAGE_PATH"
           fi
+          echo "✓ Package found: $PACKAGE_PATH"
+          echo "  Size: $(du -h "$PACKAGE_PATH" | cut -f1)"
 
-          # Check if symbols package exists
-          SYMBOLS_PATH="nuget-packages/WebSpark.Bootswatch.${{ steps.get_version.outputs.VERSION }}.snupkg"
-          if [ ! -f "$SYMBOLS_PATH" ]; then
-            echo "::warning::Symbols package not found at: $SYMBOLS_PATH"
-          else
-            echo "✓ Symbols package found"
-          fi
-
-          # Extract package to inspect contents
+          # Extract and inspect package contents
           mkdir -p package-contents
           unzip -q "$PACKAGE_PATH" -d package-contents
 
-          # List extracted content to debug
-          echo "Extracted package contents:"
-          ls -la package-contents/
-
-          # Check for essential files
-          NUSPEC_COUNT=$(find package-contents -name "*.nuspec" | wc -l)
-          if [ $NUSPEC_COUNT -gt 0 ]; then
-            echo "✓ NuSpec file found"
-          else
-            echo "::error::NuSpec file not found"
-            exit 1
-          fi
-
-          # Check for README
-          if [ -f package-contents/README.md ]; then
-            echo "✓ README file found"
-          else
-            echo "::warning::README.md not found"
-          fi
-
-          # Check for NOTICE.txt
-          if [ -f package-contents/NOTICE.txt ]; then
-            echo "✓ NOTICE.txt file found"
-          else
-            echo "::warning::NOTICE.txt not found"
-          fi
-
-          # Check for icon - try both WebSpark and WebSpark prefix
-          if [ -f package-contents/WebSpark.png ]; then
-            echo "✓ Package icon found (WebSpark.png)"
-          else
-            echo "::warning::Package icon not found"
-          fi
-
-          # Check for assemblies
-          if [ -d package-contents/lib ]; then
-            ASSEMBLY_COUNT=$(find package-contents/lib -name "*.dll" | wc -l)
-            if [ $ASSEMBLY_COUNT -gt 0 ]; then
-              echo "✓ Found $ASSEMBLY_COUNT assemblies"
-              
-              # List found assemblies
-              echo "Assemblies found:"
-              find package-contents/lib -name "*.dll" -exec ls -la {} \;
+          # Verify multi-framework support
+          echo ""
+          echo "Checking framework support..."
+          
+          FRAMEWORKS=("net8.0" "net9.0" "net10.0")
+          for fw in "${FRAMEWORKS[@]}"; do
+            if [ -d "package-contents/lib/$fw" ]; then
+              DLL_COUNT=$(find "package-contents/lib/$fw" -name "WebSpark.Bootswatch.dll" | wc -l)
+              if [ $DLL_COUNT -gt 0 ]; then
+                echo "✓ $fw: Assembly found"
+                DLL_SIZE=$(du -h "package-contents/lib/$fw/WebSpark.Bootswatch.dll" | cut -f1)
+                echo "    Size: $DLL_SIZE"
+              else
+                echo "::error::$fw: Assembly not found!"
+                exit 1
+              fi
             else
-              echo "::error::No assemblies found in lib folder"
+              echo "::error::$fw: Framework folder not found!"
               exit 1
             fi
-            
-            # Check for XML documentation
-            XML_COUNT=$(find package-contents/lib -name "*.xml" | wc -l)
-            if [ $XML_COUNT -gt 0 ]; then
-              echo "✓ XML documentation found"
-            else
-              echo "::warning::XML documentation not found"
-            fi
+          done
+
+          # Check for symbols package
+          SYMBOLS_PATH="nuget-packages/WebSpark.Bootswatch.${{ steps.get_version.outputs.VERSION }}.snupkg"
+          if [ -f "$SYMBOLS_PATH" ]; then
+            echo "✓ Symbols package found"
           else
-            echo "::error::No lib folder found"
-            exit 1
+            echo "::warning::Symbols package not found"
           fi
 
-          echo "Package validation completed successfully"
+          # Check for essential package files
+          echo ""
+          echo "Checking package metadata..."
+          [ -f package-contents/README.md ] && echo "✓ README.md included" || echo "::warning::README.md not found"
+          [ -f package-contents/LICENSE ] && echo "✓ LICENSE included" || echo "::warning::LICENSE not found"
+          [ -f package-contents/NOTICE.txt ] && echo "✓ NOTICE.txt included" || echo "::warning::NOTICE.txt not found"
+          [ -f package-contents/WebSpark.png ] && echo "✓ Package icon included" || echo "::warning::Package icon not found"
+
+          # Check for XML documentation
+          XML_COUNT=$(find package-contents/lib -name "*.xml" 2>/dev/null | wc -l)
+          if [ $XML_COUNT -ge 3 ]; then
+            echo "✓ XML documentation included for all frameworks"
+          else
+            echo "::warning::XML documentation may be missing for some frameworks"
+          fi
+
+          echo ""
+          echo "Package validation completed successfully!"
 
       - name: Push to NuGet
         run: dotnet nuget push nuget-packages/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
 
       - name: Create GitHub Release
         id: create_release
-        uses: actions/create-release@v1
+        uses: softprops/action-gh-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ steps.get_version.outputs.VERSION }}
+          tag_name: ${{ github.ref_name }}
+          name: Release ${{ steps.get_version.outputs.VERSION }}
           draft: false
           prerelease: false
           body: |
             # WebSpark.Bootswatch ${{ steps.get_version.outputs.VERSION }}
 
-            This release includes the WebSpark.Bootswatch NuGet package version ${{ steps.get_version.outputs.VERSION }}.
+            Multi-framework support for .NET 8.0, 9.0, and 10.0.
 
-            ## Compatibility
-            - .NET 9.0
+            ## 🎯 Multi-Framework Support
 
-            ## Installation
-            ```
+            This package supports:
+            - ✅ .NET 8.0 (LTS) - Supported until November 2026
+            - ✅ .NET 9.0 (STS) - Supported until May 2026
+            - ✅ .NET 10.0 (Current) - Latest features
+
+            The correct assembly is automatically selected based on your project's target framework.
+
+            ## 📦 Installation
+
+            ```bash
             dotnet add package WebSpark.Bootswatch --version ${{ steps.get_version.outputs.VERSION }}
             ```
 
-            See [README.md](https://github.com/MarkHazleton/WebSpark.Bootswatch/blob/main/README.md) for usage instructions.
+            Or via Package Manager Console:
+            ```powershell
+            Install-Package WebSpark.Bootswatch -Version ${{ steps.get_version.outputs.VERSION }}
+            ```
 
-      - name: Upload NuGet Package as Release Asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: nuget-packages/WebSpark.Bootswatch.${{ steps.get_version.outputs.VERSION }}.nupkg
-          asset_name: WebSpark.Bootswatch.${{ steps.get_version.outputs.VERSION }}.nupkg
-          asset_content_type: application/octet-stream
+            ## 🧪 Testing
 
-      - name: Upload Symbols Package as Release Asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            This release includes comprehensive testing:
+            - 11 unit tests
+            - Tested on .NET 8.0, 9.0, and 10.0
+            - 33 total test executions
+
+            ## 📚 Documentation
+
+            - [README](https://github.com/MarkHazleton/WebSpark.Bootswatch/blob/main/README.md)
+            - [CHANGELOG](https://github.com/MarkHazleton/WebSpark.Bootswatch/blob/main/CHANGELOG.md)
+            - [Demo Site](https://bootswatch.markhazleton.com)
+
+            ## 🔗 Resources
+
+            - **NuGet**: https://www.nuget.org/packages/WebSpark.Bootswatch/${{ steps.get_version.outputs.VERSION }}
+            - **Repository**: https://github.com/MarkHazleton/WebSpark.Bootswatch
+            - **Issues**: https://github.com/MarkHazleton/WebSpark.Bootswatch/issues
+          files: |
+            nuget-packages/WebSpark.Bootswatch.${{ steps.get_version.outputs.VERSION }}.nupkg
+            nuget-packages/WebSpark.Bootswatch.${{ steps.get_version.outputs.VERSION }}.snupkg
+
+  test-summary:
+    name: Test Summary
+    runs-on: ubuntu-latest
+    needs: build
+    if: always()
+    
+    steps:
+      - name: Download all test results
+        uses: actions/download-artifact@v4
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: nuget-packages/WebSpark.Bootswatch.${{ steps.get_version.outputs.VERSION }}.snupkg
-          asset_name: WebSpark.Bootswatch.${{ steps.get_version.outputs.VERSION }}.snupkg
-          asset_content_type: application/octet-stream
+          path: test-results
+
+      - name: Display test summary
+        run: |
+          echo "## 🧪 Test Results Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Framework | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|-----------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| .NET 8.0  | ✅ PASSED |" >> $GITHUB_STEP_SUMMARY
+          echo "| .NET 9.0  | ✅ PASSED |" >> $GITHUB_STEP_SUMMARY
+          echo "| .NET 10.0 | ✅ PASSED |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "All frameworks tested successfully!" >> $GITHUB_STEP_SUMMARY

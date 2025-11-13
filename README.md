@@ -1,11 +1,14 @@
 # WebSpark.Bootswatch
 
-A .NET 9 Razor Class Library that provides seamless integration of [Bootswatch](https://bootswatch.com/) themes into ASP.NET Core applications. Built on Bootstrap 5, this library offers modern, responsive theming with dynamic theme switching, light/dark mode support, and comprehensive caching mechanisms.
+A .NET Razor Class Library that provides seamless integration of [Bootswatch](https://bootswatch.com/) themes into ASP.NET Core applications. Built on Bootstrap 5, this library offers modern, responsive theming with dynamic theme switching, light/dark mode support, and comprehensive caching mechanisms.
+
+**Multi-Framework Support**: Targets .NET 8.0 (LTS), .NET 9.0 (STS), and .NET 10.0 for maximum compatibility.
 
 [![NuGet Version](https://img.shields.io/nuget/v/WebSpark.Bootswatch.svg)](https://www.nuget.org/packages/WebSpark.Bootswatch/)
 [![NuGet Downloads](https://img.shields.io/nuget/dt/WebSpark.Bootswatch.svg)](https://www.nuget.org/packages/WebSpark.Bootswatch/)
 [![GitHub License](https://img.shields.io/github/license/MarkHazleton/WebSpark.Bootswatch)](https://github.com/MarkHazleton/WebSpark.Bootswatch/blob/main/LICENSE)
 [![.NET](https://github.com/MarkHazleton/WebSpark.Bootswatch/actions/workflows/dotnet.yml/badge.svg)](https://github.com/MarkHazleton/WebSpark.Bootswatch/actions/workflows/dotnet.yml)
+[![Multi-Framework Tests](https://github.com/MarkHazleton/WebSpark.Bootswatch/actions/workflows/multi-framework-tests.yml/badge.svg)](https://github.com/MarkHazleton/WebSpark.Bootswatch/actions/workflows/multi-framework-tests.yml)
 [![GitHub Stars](https://img.shields.io/github/stars/MarkHazleton/WebSpark.Bootswatch)](https://github.com/MarkHazleton/WebSpark.Bootswatch/stargazers)
 
 ## 🚀 Quick Links
@@ -25,14 +28,27 @@ A .NET 9 Razor Class Library that provides seamless integration of [Bootswatch](
 - **🎯 Tag Helper Support**: `<bootswatch-theme-switcher />` for easy UI integration
 - **🔒 Production Ready**: Comprehensive error handling and fallback mechanisms
 - **📖 Full Documentation**: IntelliSense support and XML documentation
+- **🎁 Multi-Framework**: Supports .NET 8.0 (LTS), 9.0 (STS), and 10.0
 
 ## 📋 Prerequisites
+
+### Framework Support
+
+The library supports multiple .NET versions:
+
+| Framework | Status | Support Level |
+|-----------|--------|---------------|
+| .NET 8.0 | ✅ Supported | LTS (Long Term Support) |
+| .NET 9.0 | ✅ Supported | STS (Standard Term Support) |
+| .NET 10.0 | ✅ Supported | Current Release |
+
+Your project can target any of these frameworks and will receive the appropriate version of the library.
 
 ### Required Dependencies
 
 ```xml
-<PackageReference Include="WebSpark.Bootswatch" Version="1.30.0" />
-<PackageReference Include="WebSpark.HttpClientUtility" Version="1.2.0" />
+<PackageReference Include="WebSpark.Bootswatch" Version="1.31.0" />
+<PackageReference Include="WebSpark.HttpClientUtility" Version="2.1.1" />
 ```
 
 ### Configuration Requirements
@@ -67,9 +83,11 @@ dotnet add package WebSpark.HttpClientUtility
 
 ### PackageReference
 ```xml
-<PackageReference Include="WebSpark.Bootswatch" Version="1.30.0" />
-<PackageReference Include="WebSpark.HttpClientUtility" Version="1.2.0" />
+<PackageReference Include="WebSpark.Bootswatch" Version="1.31.0" />
+<PackageReference Include="WebSpark.HttpClientUtility" Version="2.1.1" />
 ```
+
+The NuGet package automatically selects the correct assembly based on your project's target framework.
 
 ## ⚡ Quick Start
 
@@ -206,7 +224,9 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-## 🧪 Demo Project
+## 🧪 Testing & Demo
+
+### Demo Project
 
 Explore the complete implementation in our demo project:
 
@@ -222,6 +242,25 @@ The demo showcases:
 - ✅ Responsive design patterns
 - ✅ Integration examples
 - ✅ Performance optimizations
+
+### Multi-Framework Testing
+
+The library includes comprehensive tests that run on all supported frameworks:
+
+```bash
+# Test all frameworks
+dotnet test
+
+# Test specific framework
+dotnet test --framework net8.0
+dotnet test --framework net9.0
+dotnet test --framework net10.0
+
+# Use PowerShell script for detailed output
+.\run-multi-framework-tests.ps1
+```
+
+Our CI/CD pipeline runs separate test jobs for each framework, ensuring compatibility across all supported .NET versions.
 
 ## 🏗️ Architecture
 
@@ -243,6 +282,23 @@ app.UseBootswatchStaticFiles(); // 1. Bootswatch static files
 app.UseStaticFiles();           // 2. Application static files  
 app.UseRouting();               // 3. Routing
 ```
+
+### Multi-Framework Package Structure
+
+The NuGet package contains separate assemblies for each target framework:
+
+```
+WebSpark.Bootswatch.1.31.0.nupkg
+├── lib/
+│   ├── net8.0/
+│   │   └── WebSpark.Bootswatch.dll
+│   ├── net9.0/
+│   │   └── WebSpark.Bootswatch.dll
+│   └── net10.0/
+│       └── WebSpark.Bootswatch.dll
+```
+
+Each assembly is compiled with framework-specific optimizations and references the appropriate version of dependencies.
 
 ## 🔧 Configuration Options
 
@@ -281,6 +337,12 @@ services.AddBootswatchThemeSwitcher(options =>
 - **JavaScript**: Lightweight theme switcher (~2KB)
 - **Icons**: Optimized SVG assets
 
+### Framework-Specific Optimizations
+Each target framework receives optimized builds:
+- **.NET 8.0**: LTS-optimized with proven stability
+- **.NET 9.0**: Enhanced performance features
+- **.NET 10.0**: Latest runtime optimizations
+
 ## 🔒 Security
 
 - ✅ **Input Validation**: Theme names sanitized and validated
@@ -299,6 +361,7 @@ services.AddBootswatchThemeSwitcher(options =>
 | Theme switcher not visible | Ensure `@addTagHelper *, WebSpark.Bootswatch` in `_ViewImports.cshtml` |
 | Missing dependencies | Install `WebSpark.HttpClientUtility` package |
 | Configuration errors | Add required `appsettings.json` configuration |
+| Wrong framework version | NuGet automatically selects correct version based on your target framework |
 
 ### Debug Mode
 
@@ -336,14 +399,23 @@ cd WebSpark.Bootswatch
 # Restore dependencies
 dotnet restore
 
-# Build solution
+# Build solution (builds for all target frameworks)
 dotnet build
 
-# Run tests
+# Run tests (tests all frameworks)
 dotnet test
 
 # Run demo
 dotnet run --project WebSpark.Bootswatch.Demo
+```
+
+### Testing Contributions
+
+When contributing, ensure your changes work across all target frameworks:
+
+```bash
+# Run comprehensive multi-framework tests
+.\run-multi-framework-tests.ps1 -Configuration Release
 ```
 
 ### Contribution Areas
@@ -353,10 +425,18 @@ dotnet run --project WebSpark.Bootswatch.Demo
 - 🎨 New theme contributions
 - 🧪 Test coverage expansion
 - 🚀 Performance optimizations
+- 🎯 Framework-specific optimizations
 
 ## 📝 Changelog
 
-### [1.20.0] - 2025-01-07
+### [1.31.0] - 2025-01-13
+- ✅ **Multi-Framework Support**: Added .NET 8.0, 9.0, and 10.0 targeting
+- ✅ **Updated Dependencies**: Framework-specific package versions
+- ✅ **Comprehensive Testing**: Multi-framework test suite with CI/CD
+- ✅ **Removed Legacy Code**: Eliminated System.Text.RegularExpressions (now in BCL)
+- ✅ **No Breaking Changes**: Fully backward compatible
+
+### [1.30.0] - 2025-01-07
 - ✅ Updated all NuGet dependencies to latest versions
 - ✅ Enhanced security with latest dependency versions
 - ✅ No breaking changes
@@ -388,6 +468,7 @@ See [NOTICE.txt](./NOTICE.txt) for complete attribution.
 
 - **Bootstrap Team** - For the amazing Bootstrap framework
 - **Thomas Park** - Creator of Bootswatch themes
+- **.NET Team** - For excellent multi-targeting support
 - **Contributors** - Everyone who has contributed to this project
 
 ## 📞 Support

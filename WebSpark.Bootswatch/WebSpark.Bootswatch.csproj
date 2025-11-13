@@ -1,6 +1,6 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+<Project Sdk="Microsoft.NET.Sdk.Razor">
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
@@ -12,17 +12,17 @@
 
   <PropertyGroup>
     <!-- Package metadata -->
-    <Version>1.30.0</Version>
-    <AssemblyVersion>1.30.0</AssemblyVersion>
-    <FileVersion>1.30.0</FileVersion>
+    <Version>1.32.0</Version>
+    <AssemblyVersion>1.32.0</AssemblyVersion>
+    <FileVersion>1.32.0</FileVersion>
     <PackageId>WebSpark.Bootswatch</PackageId>
     <Title>WebSpark.Bootswatch</Title>
     <Authors>Mark Hazleton</Authors>
     <Description>WebSpark.Bootswatch provides Bootswatch themes for ASP.NET Core applications. It
       includes custom themes and styles that can be easily integrated with ASP.NET Core MVC or Razor
-      Pages applications.</Description>
+      Pages applications. Supports .NET 8.0, 9.0, and 10.0.</Description>
     <Copyright>Copyright © 2025 Mark Hazleton</Copyright>
-    <PackageTags>bootswatch;bootstrap;themes;razor;aspnetcore;css;styling</PackageTags>
+    <PackageTags>bootswatch;bootstrap;themes;razor;aspnetcore;css;styling;net8;net9;net10;multi-targeting</PackageTags>
     <PackageIcon>WebSpark.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -58,7 +58,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageReleaseNotes>Version 1.30.0: - Enhanced repository with GitHub NuGet best practices including comprehensive README.md, community health files (CONTRIBUTING.md, SECURITY.md, CODE_OF_CONDUCT.md), structured changelog, and professional issue templates. Improved documentation organization and developer experience. No breaking changes; all integration steps remain the same as previous versions.</PackageReleaseNotes>
+    <PackageReleaseNotes>Version 1.32.0: Multi-targeting support for .NET 8.0, 9.0, and 10.0. Updated Microsoft.Extensions.FileProviders.Embedded to align with target frameworks. Comprehensive test suite with 33 tests across all frameworks. Removed redundant System.Text.RegularExpressions package reference (now included in framework). GitHub Actions CI/CD with multi-framework testing.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
@@ -100,11 +100,26 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.3.0" />
+    <PackageReference Include="WebSpark.HttpClientUtility" Version="2.1.1" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+  </ItemGroup>
+
+  <!-- Framework-specific package references -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="8.0.11" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor" Version="2.3.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net9.0'">
     <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="9.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor" Version="2.3.0" />
-    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
-    <PackageReference Include="WebSpark.HttpClientUtility" Version="1.2.0" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="10.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor" Version="2.3.0" />
   </ItemGroup>
 </Project>

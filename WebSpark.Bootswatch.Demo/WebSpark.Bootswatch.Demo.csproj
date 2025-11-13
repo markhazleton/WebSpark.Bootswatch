@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="WebSpark.HttpClientUtility" Version="1.2.0" />
+    <PackageReference Include="WebSpark.HttpClientUtility" Version="2.1.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WebSpark.Bootswatch\WebSpark.Bootswatch.csproj" />

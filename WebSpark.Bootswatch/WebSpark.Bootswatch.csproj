@@ -12,17 +12,28 @@
 
   <PropertyGroup>
     <!-- Package metadata -->
-    <Version>1.32.0</Version>
-    <AssemblyVersion>1.32.0</AssemblyVersion>
-    <FileVersion>1.32.0</FileVersion>
+    <Version>1.34.0</Version>
+    <AssemblyVersion>1.34.0</AssemblyVersion>
+    <FileVersion>1.34.0</FileVersion>
     <PackageId>WebSpark.Bootswatch</PackageId>
     <Title>WebSpark.Bootswatch</Title>
     <Authors>Mark Hazleton</Authors>
     <Description>WebSpark.Bootswatch provides Bootswatch themes for ASP.NET Core applications. It
       includes custom themes and styles that can be easily integrated with ASP.NET Core MVC or Razor
-      Pages applications. Supports .NET 8.0, 9.0, and 10.0.</Description>
+      Pages applications. Supports .NET 8.0, 9.0, and 10.0.
+
+      ⚠️ IMPORTANT: This package requires WebSpark.HttpClientUtility to be installed and registered
+      separately.
+
+      SETUP:
+      1. Install: dotnet add package WebSpark.HttpClientUtility
+      2. Register: builder.Services.AddHttpClientUtility(); (BEFORE AddBootswatchThemeSwitcher)
+      3. Configure appsettings.json with HttpRequestResultPollyOptions section
+
+      See package README for complete setup guide.</Description>
     <Copyright>Copyright © 2025 Mark Hazleton</Copyright>
-    <PackageTags>bootswatch;bootstrap;themes;razor;aspnetcore;css;styling;net8;net9;net10;multi-targeting</PackageTags>
+    <PackageTags>
+      bootswatch;bootstrap;bootstrap5;themes;razor;aspnetcore;css;styling;theme-switcher;net8;net9;net10;multi-targeting;dark-mode;light-mode</PackageTags>
     <PackageIcon>WebSpark.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -58,7 +69,30 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageReleaseNotes>Version 1.32.0: Multi-targeting support for .NET 8.0, 9.0, and 10.0. Updated Microsoft.Extensions.FileProviders.Embedded to align with target frameworks. Comprehensive test suite with 33 tests across all frameworks. Removed redundant System.Text.RegularExpressions package reference (now included in framework). GitHub Actions CI/CD with multi-framework testing.</PackageReleaseNotes>
+    <PackageReleaseNotes>Version 1.34.0: Demo site UI improvements
+
+      DEMO SITE ENHANCEMENTS:
+      - 🎨 Improved hero section visibility across all 28 themes
+      - 🎨 Enhanced text contrast with shadow effects and explicit color classes
+      - 🎨 Better visual hierarchy with improved typography weights
+      - 🎨 Ensures readability in both light and dark mode themes
+
+      LIBRARY CHANGES: None - This is a demo-only release
+      BREAKING CHANGES: None - Fully backward compatible
+
+      Previous version 1.33.0: Enhanced developer experience with dependency validation,
+      configuration validation service, comprehensive XML documentation, and improved error
+      messages.
+      Complete README rewrite with step-by-step setup guide and troubleshooting section.
+
+      SETUP REQUIREMENTS:
+      1. Install: dotnet add package WebSpark.HttpClientUtility
+      2. Register: builder.Services.AddHttpClientUtility(); (BEFORE AddBootswatchThemeSwitcher)
+      3. Add HttpRequestResultPollyOptions to appsettings.json
+      4. Use UseBootswatchAll() BEFORE UseStaticFiles()
+
+      For complete setup guide, see:
+      https://github.com/MarkHazleton/WebSpark.Bootswatch/wiki/Getting-Started</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
@@ -95,7 +129,8 @@
     <None Include="..\LICENSE" Pack="true" PackagePath="\" />
     <None Include="..\NOTICE.txt" Pack="true" PackagePath="\" />
     <!-- Sample layout file for easy integration -->
-    <None Include="..\Samples\BootswatchLayout.cshtml" Pack="true" PackagePath="contentFiles\any\any\" />
+    <None Include="..\Samples\BootswatchLayout.cshtml" Pack="true"
+      PackagePath="contentFiles\any\any\" />
   </ItemGroup>
 
   <ItemGroup>

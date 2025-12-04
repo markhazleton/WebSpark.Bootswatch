@@ -11,6 +11,8 @@ A .NET Razor Class Library that provides seamless integration of [Bootswatch](ht
 [![Multi-Framework Tests](https://github.com/MarkHazleton/WebSpark.Bootswatch/actions/workflows/multi-framework-tests.yml/badge.svg)](https://github.com/MarkHazleton/WebSpark.Bootswatch/actions/workflows/multi-framework-tests.yml)
 [![GitHub Stars](https://img.shields.io/github/stars/MarkHazleton/WebSpark.Bootswatch)](https://github.com/MarkHazleton/WebSpark.Bootswatch/stargazers)
 
+> **Latest Release**: v1.34.0 - Demo site UI improvements for better theme visibility
+
 ## 🚀 Quick Links
 
 - **📦 NuGet Package**: [WebSpark.Bootswatch](https://www.nuget.org/packages/WebSpark.Bootswatch)
@@ -30,6 +32,36 @@ A .NET Razor Class Library that provides seamless integration of [Bootswatch](ht
 - **📖 Full Documentation**: IntelliSense support and XML documentation
 - **🎁 Multi-Framework**: Supports .NET 8.0 (LTS), 9.0 (STS), and 10.0
 
+## ⚠️ IMPORTANT: Required Dependencies
+
+**WebSpark.Bootswatch requires WebSpark.HttpClientUtility to be installed AND registered separately.**
+
+### ✅ Quick Setup Checklist
+
+Before starting, ensure you complete ALL of these steps:
+
+- [ ] Install **both** packages: `WebSpark.Bootswatch` AND `WebSpark.HttpClientUtility`
+- [ ] Add both using statements to `Program.cs`
+- [ ] Register `AddHttpClientUtility()` **BEFORE** `AddBootswatchThemeSwitcher()`
+- [ ] Add required configuration to `appsettings.json`
+- [ ] Use `UseBootswatchAll()` **BEFORE** `UseStaticFiles()` in middleware pipeline
+
+**Missing any of these steps will cause runtime errors!**
+
+### Common Setup Mistake
+
+```csharp
+// ❌ WRONG - Missing HttpClientUtility registration
+builder.Services.AddBootswatchThemeSwitcher();
+
+// ✅ CORRECT - HttpClientUtility registered first
+using WebSpark.Bootswatch;
+using WebSpark.HttpClientUtility;
+
+builder.Services.AddHttpClientUtility();      // Must be FIRST
+builder.Services.AddBootswatchThemeSwitcher(); // Then this
+```
+
 ## 📋 Prerequisites
 
 ### Framework Support
@@ -47,7 +79,7 @@ Your project can target any of these frameworks and will receive the appropriate
 ### Required Dependencies
 
 ```xml
-<PackageReference Include="WebSpark.Bootswatch" Version="1.31.0" />
+<PackageReference Include="WebSpark.Bootswatch" Version="1.34.0" />
 <PackageReference Include="WebSpark.HttpClientUtility" Version="2.1.1" />
 ```
 
@@ -70,20 +102,23 @@ Add to your `appsettings.json` for dynamic theme fetching:
 ## 🛠️ Installation
 
 ### Package Manager Console
+
 ```powershell
 Install-Package WebSpark.Bootswatch
 Install-Package WebSpark.HttpClientUtility
 ```
 
 ### .NET CLI
+
 ```bash
 dotnet add package WebSpark.Bootswatch
 dotnet add package WebSpark.HttpClientUtility
 ```
 
 ### PackageReference
+
 ```xml
-<PackageReference Include="WebSpark.Bootswatch" Version="1.31.0" />
+<PackageReference Include="WebSpark.Bootswatch" Version="1.34.0" />
 <PackageReference Include="WebSpark.HttpClientUtility" Version="2.1.1" />
 ```
 
@@ -91,7 +126,55 @@ The NuGet package automatically selects the correct assembly based on your proje
 
 ## ⚡ Quick Start
 
-### 1. Configure Services (`Program.cs`)
+### Step 1: Install BOTH Required Packages
+
+```bash
+# Install WebSpark.Bootswatch
+dotnet add package WebSpark.Bootswatch
+
+# Install REQUIRED dependency (NOT automatically installed)
+dotnet add package WebSpark.HttpClientUtility
+```
+
+**Verify Installation:**
+Your `.csproj` should now include BOTH packages:
+
+```xml
+<PackageReference Include="WebSpark.Bootswatch" Version="1.34.0" />
+<PackageReference Include="WebSpark.HttpClientUtility" Version="2.1.1" />
+```
+
+### Step 2: Add Required Configuration
+
+Create or update `appsettings.json`:
+
+```json
+{
+  "CsvOutputFolder": "c:\\temp\\WebSpark\\CsvOutput",
+  "HttpRequestResultPollyOptions": {
+    "MaxRetryAttempts": 3,
+    "RetryDelaySeconds": 1,
+    "CircuitBreakerThreshold": 3,
+    "CircuitBreakerDurationSeconds": 10
+  },
+  "BootswatchOptions": {
+    "DefaultTheme": "yeti",
+    "EnableCaching": true,
+    "CacheDurationMinutes": 60
+  }
+}
+```
+
+### Step 3: Configure Services in Program.cs
+
+Add using statements at the top:
+
+```csharp
+using WebSpark.Bootswatch;
+using WebSpark.HttpClientUtility;
+```
+
+Register services in the **correct order**:
 
 ```csharp
 var builder = WebApplication.CreateBuilder(args);
@@ -99,11 +182,16 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services
 builder.Services.AddRazorPages();
 builder.Services.AddHttpContextAccessor();
+
+// ⚠️ CRITICAL: Register HttpClientUtility FIRST
+builder.Services.AddHttpClientUtility();
+
+// Then register Bootswatch theme switcher
 builder.Services.AddBootswatchThemeSwitcher();
 
 var app = builder.Build();
 
-// Configure pipeline
+// Configure middleware pipeline
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
@@ -111,20 +199,38 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseBootswatchAll(); // Must be before UseStaticFiles()
+
+// ⚠️ CRITICAL: UseBootswatchAll() must come BEFORE UseStaticFiles()
+app.UseBootswatchAll();
 app.UseStaticFiles();
+
 app.UseRouting();
+app.UseAuthorization();
 app.MapRazorPages();
 
 app.Run();
 ```
 
-### 2. Update Layout (`_Layout.cshtml`)
+### Step 4: Update _ViewImports.cshtml
 
-```html
+```csharp
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, WebSpark.Bootswatch
+```
+
+### Step 5: Update _Layout.cshtml
+
+Add required using statements and inject StyleCache:
+
+```csharp
 @using WebSpark.Bootswatch.Services
 @using WebSpark.Bootswatch.Helpers
 @inject StyleCache StyleCache
+```
+
+Update the HTML structure:
+
+```html
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="@(BootswatchThemeHelper.GetCurrentColorMode(Context))">
 <head>
@@ -137,16 +243,20 @@ app.Run();
     }
     <link id="bootswatch-theme-stylesheet" rel="stylesheet" href="@themeUrl" />
     <script src="/_content/WebSpark.Bootswatch/js/bootswatch-theme-switcher.js"></script>
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
 </head>
 <body>
     <nav class="navbar navbar-expand-lg">
         <div class="container">
-            <!-- Your navigation items -->
-            <ul class="navbar-nav flex-grow-1">
-                <!-- Nav items here -->
+            <a class="navbar-brand" href="/">My App</a>
+            <ul class="navbar-nav ms-auto">
+                <!-- Your navigation items -->
+                
+                <!-- Theme Switcher Tag Helper -->
+                <bootswatch-theme-switcher />
             </ul>
-            <!-- Theme switcher -->
-            <bootswatch-theme-switcher />
         </div>
     </nav>
     
@@ -154,17 +264,114 @@ app.Run();
         @RenderBody()
     </main>
     
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
 ```
 
-### 3. Register Tag Helper (`_ViewImports.cshtml`)
+### Step 6: Verify Setup
+
+Build and run your application:
+
+```bash
+dotnet build
+dotnet run
+```
+
+**Expected Results:**
+
+- ✅ Application starts without errors
+- ✅ Theme switcher appears in navigation
+- ✅ Default theme is applied
+- ✅ Theme switching works
+- ✅ Light/dark mode toggle functions
+
+---
+
+## ⚠️ Common Errors & Solutions
+
+### Error: "Unable to resolve service for type 'IHttpRequestResultService'"
+
+**Full Error Message:**
+
+```
+System.AggregateException: Some services are not able to be constructed 
+(Error while validating the service descriptor 'ServiceType: WebSpark.Bootswatch.Model.IStyleProvider 
+Lifetime: Scoped ImplementationType: WebSpark.Bootswatch.Provider.BootswatchStyleProvider': 
+Unable to resolve service for type 'WebSpark.HttpClientUtility.RequestResult.IHttpRequestResultService'
+```
+
+**Cause:** `WebSpark.HttpClientUtility` services are not registered.
+
+**Solution:**
+
+1. Verify package is installed: `dotnet list package | findstr HttpClientUtility`
+2. Add using statement: `using WebSpark.HttpClientUtility;`
+3. Register services BEFORE Bootswatch:
+
+```csharp
+using WebSpark.Bootswatch;
+using WebSpark.HttpClientUtility;
+
+builder.Services.AddHttpClientUtility();      // ✅ Must be FIRST
+builder.Services.AddBootswatchThemeSwitcher(); // ✅ Then this
+```
+
+---
+
+### Error: "Themes not loading" or "404 errors for theme files"
+
+**Cause:** Middleware is in wrong order.
+
+**Solution:**
+Ensure `UseBootswatchAll()` comes BEFORE `UseStaticFiles()`:
+
+```csharp
+// ✅ CORRECT ORDER
+app.UseBootswatchAll();    // First
+app.UseStaticFiles();      // Then this
+
+// ❌ WRONG ORDER (will fail)
+app.UseStaticFiles();
+app.UseBootswatchAll();
+```
+
+---
+
+### Error: "Configuration section not found"
+
+**Cause:** Missing or incorrect `appsettings.json` configuration.
+
+**Solution:**
+Ensure ALL required sections are present in `appsettings.json`:
+
+```json
+{
+  "CsvOutputFolder": "c:\\temp\\WebSpark\\CsvOutput",
+  "HttpRequestResultPollyOptions": {
+    "MaxRetryAttempts": 3,
+    "RetryDelaySeconds": 1,
+    "CircuitBreakerThreshold": 3,
+    "CircuitBreakerDurationSeconds": 10
+  }
+}
+```
+
+---
+
+### Error: Theme switcher not visible
+
+**Cause:** Tag helper not registered in `_ViewImports.cshtml`.
+
+**Solution:**
+Add to `_ViewImports.cshtml`:
 
 ```csharp
 @addTagHelper *, WebSpark.Bootswatch
 ```
+
+---
 
 ## 🎯 Advanced Usage
 
@@ -237,6 +444,7 @@ dotnet run --project WebSpark.Bootswatch.Demo
 ```
 
 The demo showcases:
+
 - ✅ All Bootswatch themes
 - ✅ Light/dark mode switching
 - ✅ Responsive design patterns
@@ -327,18 +535,22 @@ services.AddBootswatchThemeSwitcher(options =>
 ## 🚀 Performance
 
 ### Caching Strategy
+
 - **Theme Data**: Cached in `StyleCache` singleton
 - **HTTP Requests**: Resilient HTTP client with Polly
 - **Static Files**: Embedded resources with cache headers
 - **Background Loading**: Non-blocking theme initialization
 
 ### Bundle Optimization
+
 - **CSS**: Minified Bootswatch themes
 - **JavaScript**: Lightweight theme switcher (~2KB)
 - **Icons**: Optimized SVG assets
 
 ### Framework-Specific Optimizations
+
 Each target framework receives optimized builds:
+
 - **.NET 8.0**: LTS-optimized with proven stability
 - **.NET 9.0**: Enhanced performance features
 - **.NET 10.0**: Latest runtime optimizations
@@ -353,10 +565,13 @@ Each target framework receives optimized builds:
 
 ## 🛠️ Troubleshooting
 
-### Common Issues
+For detailed troubleshooting, see the [Common Errors & Solutions](#-common-errors--solutions) section above.
+
+### Quick Reference
 
 | Issue | Solution |
 |-------|----------|
+| Service resolution error | Register `AddHttpClientUtility()` before `AddBootswatchThemeSwitcher()` |
 | Themes not loading | Check middleware order: `UseBootswatchAll()` before `UseStaticFiles()` |
 | Theme switcher not visible | Ensure `@addTagHelper *, WebSpark.Bootswatch` in `_ViewImports.cshtml` |
 | Missing dependencies | Install `WebSpark.HttpClientUtility` package |
@@ -429,7 +644,25 @@ When contributing, ensure your changes work across all target frameworks:
 
 ## 📝 Changelog
 
+### [1.34.0] - 2025-12-03
+
+- 🎨 **Demo Site UI Improvements**: Enhanced hero section visibility across all themes
+- 🎨 **Better Contrast**: Added shadow effects and explicit color classes for readability
+- 🎨 **Typography Enhancements**: Improved visual hierarchy with better weights
+- ✅ **No Library Changes**: Demo-only improvements, library remains unchanged
+- ✅ **No Breaking Changes**: Fully backward compatible
+
+### [1.33.0] - 2025-12-03
+
+- ✅ **Dependency Validation**: Automatic detection of missing required services
+- ✅ **Configuration Validation**: Startup validation service with helpful warnings
+- ✅ **Enhanced XML Documentation**: Comprehensive IntelliSense with code examples
+- ✅ **Improved Error Messages**: Clear, actionable error messages with solutions
+- 📚 **README Rewrite**: Complete step-by-step setup guide with troubleshooting
+- ✅ **No Breaking Changes**: Fully backward compatible
+
 ### [1.31.0] - 2025-01-13
+
 - ✅ **Multi-Framework Support**: Added .NET 8.0, 9.0, and 10.0 targeting
 - ✅ **Updated Dependencies**: Framework-specific package versions
 - ✅ **Comprehensive Testing**: Multi-framework test suite with CI/CD
@@ -437,15 +670,18 @@ When contributing, ensure your changes work across all target frameworks:
 - ✅ **No Breaking Changes**: Fully backward compatible
 
 ### [1.30.0] - 2025-01-07
+
 - ✅ Updated all NuGet dependencies to latest versions
 - ✅ Enhanced security with latest dependency versions
 - ✅ No breaking changes
 
 ### [1.10.3] - 2025-05-20
+
 - ✅ Patch release with minor improvements
 - ✅ Enhanced logging and diagnostics
 
 ### [1.10.0] - 2025-05-15
+
 - ✅ Added Bootswatch Theme Switcher Tag Helper
 - ✅ Included sample layout file in NuGet package
 - ✅ Improved documentation and integration guides

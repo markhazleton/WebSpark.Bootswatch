@@ -5,9 +5,98 @@ All notable changes to WebSpark.Bootswatch will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.34.0] - 2025-12-03
+
+### Changed
+
+- **Demo Site UI Improvements**: Enhanced hero section visibility across all themes
+  - Added `shadow-lg` class for depth and visual prominence
+  - Added explicit `text-white` class to h1 for better contrast
+  - Added inline text-shadow style for improved readability: `text-shadow: 1px 1px 2px rgba(0,0,0,0.3)`
+  - Changed lead text to `fw-semibold` for better visual weight
+  - Enhanced link styling with `border-bottom border-2 border-white pb-1 text-decoration-none`
+  - Ensures hero text remains visible and readable across all 28 Bootswatch themes (26 official + 2 custom)
+
+### Developer Experience
+
+- No changes to library functionality - purely visual improvements to demo site
+- All improvements use Bootstrap 5 utility classes for consistency
+- Changes ensure accessibility and readability in both light and dark themes
+
+### Notes
+
+- **Backward Compatibility**: This release is fully backward compatible with 1.33.0
+- **Library Unchanged**: No changes to core library code - only demo site enhancements
+- **Focus**: Improved user experience when testing themes in demo application
+
+## [1.33.0] - 2025-12-03
+
+### Added
+
+- **Dependency Validation**: Automatic detection of missing WebSpark.HttpClientUtility registration
+  - Throws `InvalidOperationException` with comprehensive, actionable error message
+  - Includes step-by-step setup instructions in error message
+  - Prevents cryptic DI errors at runtime
+- **Configuration Validation Service**: New `BootswatchStartupValidation` hosted service
+  - Validates required configuration sections at startup
+  - Logs warnings for missing or incomplete configuration
+  - Provides recommended configuration values in log messages
+  - Automatically registered in `AddBootswatchThemeSwitcher()`
+- **Enhanced XML Documentation**: Comprehensive IntelliSense support
+  - Added `<example>` tags with code snippets to all extension methods
+  - Added `<remarks>` sections explaining critical requirements
+  - Documented `<exception>` conditions with helpful messages
+  - Added warnings about middleware order
+- **Common Errors & Solutions Section**: New README section with troubleshooting
+  - Error: "Unable to resolve service for type 'IHttpRequestResultService'"
+  - Error: "Themes not loading" or "404 errors for theme files"
+  - Error: "Configuration section not found"
+  - Error: "Theme switcher not visible"
+  - Each error includes full message, cause, and step-by-step solution
+
+### Changed
+
+- **README.md**: Complete rewrite of setup instructions
+  - Added prominent ⚠️ IMPORTANT: Required Dependencies section
+  - Added Quick Setup Checklist with checkboxes
+  - Rewrote Quick Start as step-by-step guide (Steps 1-6)
+  - Added verification steps with expected results
+  - Enhanced troubleshooting section with links to detailed errors
+- **Package Description**: Enhanced with dependency warning
+  - Added prominent notice about required WebSpark.HttpClientUtility package
+  - Included basic setup steps in description
+  - Added link to complete setup guide
+- **Package Tags**: Added `bootstrap5`, `theme-switcher`, `dark-mode`, `light-mode`
+- **Release Notes**: Comprehensive notes with feature categories
+  - NEW FEATURES section highlighting validation and documentation
+  - IMPROVEMENTS section with documentation enhancements
+  - BREAKING CHANGES: None (fully backward compatible)
+  - SETUP REQUIREMENTS with step-by-step instructions
+- **Version**: Bumped from 1.32.0 to 1.33.0
+
+### Fixed
+
+- None (no bug fixes in this release - focus on developer experience)
+
+### Developer Experience Improvements
+
+- **Prevents Common Mistakes**: Validation catches setup issues early
+- **Self-Service Troubleshooting**: Comprehensive error messages and documentation
+- **Better IntelliSense**: XML docs provide guidance directly in IDE
+- **Faster Onboarding**: Step-by-step setup guide reduces confusion
+- **Reduced Support Burden**: Clear documentation and error messages
+
+### Notes
+
+- **Backward Compatibility**: This release is fully backward compatible with 1.32.0
+- **No Migration Required**: Existing applications will continue to work without changes
+- **Benefits for Existing Users**: Better error messages and startup validation
+- **Based on Real Usage**: Improvements based on AsyncDemo.Web implementation feedback
+
 ## [1.32.0] - 2025-01-13
 
 ### Added
+
 - GitHub Actions workflow for automated NuGet publishing
 - Multi-framework build validation in CI/CD pipeline
 - Comprehensive package validation during build process
@@ -15,6 +104,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Test result summaries in GitHub Actions
 
 ### Changed
+
 - Updated package tags to include net8, net9, net10, multi-targeting
 - Enhanced package description to highlight multi-framework support
 - Improved GitHub Actions to setup all .NET versions (8.0, 9.0, 10.0)
@@ -22,6 +112,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Enhanced release notes template with framework-specific information
 
 ### Fixed
+
 - Package validation now checks all three target frameworks
 - Build process verifies assembly presence for each framework
 - Improved error messages during package validation
@@ -29,6 +120,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.31.0] - 2025-01-13
 
 ### Added
+
 - Multi-framework targeting support for .NET 8.0, 9.0, and 10.0
 - Comprehensive multi-framework test suite (WebSpark.Bootswatch.Tests)
 - GitHub Actions workflow for separate framework testing
@@ -38,6 +130,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Multi-framework testing summary documentation
 
 ### Changed
+
 - Updated `TargetFramework` to `TargetFrameworks` (net8.0;net9.0;net10.0)
 - Microsoft.Extensions.FileProviders.Embedded: 9.0.9 ? Framework-specific versions (8.0.11, 9.0.9, 10.0.0)
 - WebSpark.HttpClientUtility: 1.2.0 ? 2.1.1
@@ -46,16 +139,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Enhanced README.md with multi-framework documentation
 
 ### Removed
+
 - System.Text.RegularExpressions package reference (now included in framework)
 - Redundant package dependencies across all target frameworks
 
 ### Fixed
+
 - Package version conflicts across different target frameworks
 - Transitive dependency issues with multi-targeting
 
 ## [1.30.0] - 2025-01-07
 
 ### Changed
+
 - Updated all NuGet dependencies to latest stable versions
 - Enhanced repository with GitHub NuGet best practices
 - Added comprehensive README.md with badges and quick links
@@ -65,34 +161,40 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Improved documentation organization
 
 ### Security
+
 - Updated dependencies to address potential security vulnerabilities
 - Enhanced package metadata with security policies
 
 ## [1.20.0] - 2025-01-07
 
 ### Changed
+
 - Updated Microsoft.Extensions.FileProviders.Embedded to version 9.0.9
 - Updated WebSpark.HttpClientUtility to version 1.2.0
 - Refreshed package dependencies to latest compatible versions
 - Improved package stability and compatibility
 
 ### Security
+
 - Applied latest security patches through dependency updates
 
 ## [1.10.3] - 2025-05-20
 
 ### Fixed
+
 - Minor bug fixes and stability improvements
 - Enhanced error handling in theme loading
 - Improved logging and diagnostics
 
 ### Changed
+
 - Optimized StyleCache initialization performance
 - Enhanced HTTP client resilience with better retry policies
 
 ## [1.10.0] - 2025-05-15
 
 ### Added
+
 - **Bootswatch Theme Switcher Tag Helper** - New `<bootswatch-theme-switcher />` component
 - Sample layout file (BootswatchLayout.cshtml) included in NuGet package
 - Comprehensive integration documentation
@@ -101,11 +203,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Light/dark mode support with `data-bs-theme` attribute
 
 ### Changed
+
 - Improved documentation with step-by-step integration guide
 - Enhanced StyleCache with better initialization patterns
 - Updated demo application with theme switcher examples
 
 ### Fixed
+
 - Static file serving issues with embedded resources
 - Theme persistence across page navigations
 - JavaScript compatibility with Bootstrap 5
@@ -113,6 +217,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - Initial Release
 
 ### Added
+
 - Initial release of WebSpark.Bootswatch
 - Complete Bootswatch theme integration
 - StyleCache service for theme caching
@@ -126,6 +231,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Demo application showcasing all features
 
 ### Features
+
 - ?? All Bootswatch themes included
 - ? High-performance caching
 - ?? Easy integration with extension methods
@@ -143,13 +249,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 The 1.32.0 release includes enhanced CI/CD automation:
 
 #### What's New
+
 - Automated NuGet publishing via GitHub Actions
 - Enhanced package validation
 - Automatic GitHub release creation
 - No code changes required for consumers
 
 #### For Maintainers
+
 To publish a new version:
+
 1. Update version in `WebSpark.Bootswatch.csproj`
 2. Commit and push changes
 3. Create and push a git tag: `git tag v1.32.0 && git push origin v1.32.0`
@@ -160,23 +269,28 @@ To publish a new version:
 The 1.31.0 release is fully backward compatible. The main change is the addition of multi-framework support:
 
 #### What's New
+
 - Your project can now target .NET 8.0, 9.0, or 10.0
 - NuGet will automatically select the appropriate assembly version
 - No code changes required
 
 #### Recommendations
+
 1. Update to the latest version:
+
    ```bash
    dotnet add package WebSpark.Bootswatch --version 1.31.0
    ```
 
 2. Verify your application runs correctly:
+
    ```bash
    dotnet build
    dotnet run
    ```
 
 3. Run tests if you have them:
+
    ```bash
    dotnet test
    ```
@@ -195,16 +309,19 @@ dotnet add package WebSpark.HttpClientUtility --version 1.2.0
 The 1.10.0 release introduces the theme switcher tag helper:
 
 1. Add tag helper registration to `_ViewImports.cshtml`:
+
    ```csharp
    @addTagHelper *, WebSpark.Bootswatch
    ```
 
 2. Use the new theme switcher in your layout:
+
    ```html
    <bootswatch-theme-switcher />
    ```
 
 3. Update middleware configuration:
+
    ```csharp
    app.UseBootswatchAll(); // Simplified configuration
    ```
@@ -214,9 +331,10 @@ The 1.10.0 release introduces the theme switcher tag helper:
 ## Support
 
 For issues, questions, or contributions:
+
 - ?? **Bug Reports**: [GitHub Issues](https://github.com/MarkHazleton/WebSpark.Bootswatch/issues)
 - ?? **Discussions**: [GitHub Discussions](https://github.com/MarkHazleton/WebSpark.Bootswatch/discussions)
-- ?? **Email**: mark@markhazleton.com
+- ?? **Email**: <mark@markhazleton.com>
 
 ## Links
 

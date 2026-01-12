@@ -9,9 +9,9 @@ This guide provides comprehensive instructions for installing, configuring, and 
 [![NuGet](https://img.shields.io/nuget/v/WebSpark.Bootswatch.svg)](https://www.nuget.org/packages/WebSpark.Bootswatch/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**Last Updated:** July 1, 2025
+**Last Updated:** January 2025
 
-## Current version: 1.20.0
+## Current version: 2.0.0
 
 ## Important Links
 
@@ -34,9 +34,11 @@ This guide provides comprehensive instructions for installing, configuring, and 
 
 Before installing WebSpark.Bootswatch, ensure you have:
 
-- .NET SDK 8.0 or later
+- .NET SDK 10.0 or later
 - An ASP.NET Core web application (MVC or Razor Pages)
 - Basic understanding of Bootstrap framework
+
+> **Note**: Version 2.0+ requires .NET 10.0 exclusively. For .NET 8 or 9 support, use version 1.34.0.
 
 ## Installation
 

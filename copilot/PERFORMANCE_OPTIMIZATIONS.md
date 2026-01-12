@@ -1,7 +1,7 @@
 # WebSpark.Bootswatch Performance Optimizations
 
 ## Overview
-This document outlines the comprehensive performance optimizations applied to the WebSpark.Bootswatch library targeting .NET 9.
+This document outlines the comprehensive performance optimizations applied to the WebSpark.Bootswatch library targeting .NET 10.
 
 ## Key Optimizations Applied
 

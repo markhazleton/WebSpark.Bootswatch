@@ -14,9 +14,11 @@ This guide provides step-by-step instructions for implementing WebSpark.Bootswat
 
 ## Prerequisites
 
-- ASP.NET Core 6.0 or later
+- ASP.NET Core 10.0 or later
 - Visual Studio 2022 or VS Code
 - Basic understanding of ASP.NET Core MVC and dependency injection
+
+> **Note**: Version 2.0+ requires .NET 10.0 exclusively. For .NET 8 or 9 support, use version 1.34.0.
 
 ## Package Installation
 
@@ -25,22 +27,22 @@ This guide provides step-by-step instructions for implementing WebSpark.Bootswat
 Add the following packages to your project:
 
 ```xml
-<PackageReference Include="WebSpark.Bootswatch" Version="1.20.0" />
-<PackageReference Include="WebSpark.HttpClientUtility" Version="1.0.10" />
+<PackageReference Include="WebSpark.Bootswatch" Version="2.0.0" />
+<PackageReference Include="WebSpark.HttpClientUtility" Version="2.2.0" />
 ```
 
 #### Using Package Manager Console
 
 ```powershell
-Install-Package WebSpark.Bootswatch -Version 1.20.0
-Install-Package WebSpark.HttpClientUtility -Version 1.0.10
+Install-Package WebSpark.Bootswatch -Version 2.0.0
+Install-Package WebSpark.HttpClientUtility -Version 2.2.0
 ```
 
 #### Using .NET CLI
 
 ```bash
-dotnet add package WebSpark.Bootswatch --version 1.20.0
-dotnet add package WebSpark.HttpClientUtility --version 1.0.10
+dotnet add package WebSpark.Bootswatch --version 2.0.0
+dotnet add package WebSpark.HttpClientUtility --version 2.2.0
 ```
 
 ## Configuration Setup
@@ -376,4 +378,4 @@ To add custom CSS that works with theme switching:
 
 ## Version History
 
-- **v1.0** (Current): Initial implementation guide for WebSpark.Bootswatch v1.20.0
+- **v1.0**: Initial implementation guide for WebSpark.Bootswatch v1.20.0

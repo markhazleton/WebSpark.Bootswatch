@@ -235,18 +235,15 @@
                 <div id="collapse9" class="accordion-collapse collapse" aria-labelledby="heading9"
                     data-bs-parent="#nugetEssentialsAccordion">
                     <div class="accordion-body">
-                        <p>Define the .NET frameworks your package supports. For general-purpose libraries, consider
-                            including a <code>netstandard2.0</code> target to maximize compatibility across modern
-                            platforms.</p>
-                        <p>Example target framework moniker (TFM) combinations:</p>
+                        <p>Define the .NET frameworks your package supports. For .NET 10 exclusive packages, use a single target framework.</p>
+                        <p>Example target framework moniker (TFM) configurations:</p>
                         <ul>
-                            <li><code>netstandard2.0;netstandard2.1</code></li>
-                            <li><code>netstandard2.0;net6.0;net7.0;net8.0</code></li>
-                            <li><code>net6.0-windows;net7.0-windows</code> (for Windows-specific packages)</li>
+                            <li><code>net10.0</code> (single target for .NET 10 exclusive)</li>
+                            <li><code>netstandard2.0;netstandard2.1</code> (for maximum compatibility)</li>
+                            <li><code>net10.0-windows</code> (for Windows-specific packages)</li>
                         </ul>
                         <div class="alert alert-info">
-                            <strong>Note:</strong> Multi-targeting allows you to provide optimized assemblies for each
-                            framework while supporting a wide range of platforms.
+                            <strong>Note:</strong> Version 2.0+ of WebSpark.Bootswatch targets .NET 10.0 exclusively to access the latest NuGet packages and framework features.
                         </div>
                     </div>
                 </div>

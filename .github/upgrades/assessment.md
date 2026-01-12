@@ -1,6 +1,8 @@
 # Projects and dependencies analysis
 
-This document provides a comprehensive overview of the projects and their dependencies in the context of upgrading to .NET 9.0.
+This document provides a comprehensive overview of the projects and their dependencies after upgrading to .NET 10.0.
+
+> **Note**: This document reflects the .NET 10 upgrade completed in version 2.0.0.
 
 ## Table of Contents
 
@@ -20,8 +22,8 @@ Legend:
 
 ```mermaid
 flowchart LR
-    P1["<b>📦&nbsp;WebSpark.Bootswatch.csproj</b><br/><small>net9.0</small>"]
-    P2["<b>📦&nbsp;WebSpark.Bootswatch.Demo.csproj</b><br/><small>net9.0</small>"]
+    P1["<b>📦&nbsp;WebSpark.Bootswatch.csproj</b><br/><small>net10.0</small>"]
+    P2["<b>📦&nbsp;WebSpark.Bootswatch.Demo.csproj</b><br/><small>net10.0</small>"]
     P2 --> P1
     click P1 "#websparkbootswatchwebsparkbootswatchcsproj"
     click P2 "#websparkbootswatchdemowebsparkbootswatchdemocsproj"
@@ -35,8 +37,7 @@ flowchart LR
 
 #### Project Info
 
-- **Current Target Framework:** net9.0
-- **Proposed Target Framework:** net10.0
+- **Current Target Framework:** net10.0
 - **SDK-style**: True
 - **Project Kind:** AspNetCore
 - **Dependencies**: 1
@@ -53,11 +54,11 @@ Legend:
 ```mermaid
 flowchart TB
     subgraph current["WebSpark.Bootswatch.Demo.csproj"]
-        MAIN["<b>📦&nbsp;WebSpark.Bootswatch.Demo.csproj</b><br/><small>net9.0</small>"]
+        MAIN["<b>📦&nbsp;WebSpark.Bootswatch.Demo.csproj</b><br/><small>net10.0</small>"]
         click MAIN "#websparkbootswatchdemowebsparkbootswatchdemocsproj"
     end
     subgraph downstream["Dependencies (1"]
-        P1["<b>📦&nbsp;WebSpark.Bootswatch.csproj</b><br/><small>net9.0</small>"]
+        P1["<b>📦&nbsp;WebSpark.Bootswatch.csproj</b><br/><small>net10.0</small>"]
         click P1 "#websparkbootswatchwebsparkbootswatchcsproj"
     end
     MAIN --> P1
@@ -76,8 +77,7 @@ flowchart TB
 
 #### Project Info
 
-- **Current Target Framework:** net9.0
-- **Proposed Target Framework:** net10.0
+- **Current Target Framework:** net10.0
 - **SDK-style**: True
 - **Project Kind:** ClassLibrary
 - **Dependencies**: 0
@@ -94,11 +94,11 @@ Legend:
 ```mermaid
 flowchart TB
     subgraph upstream["Dependants (1)"]
-        P2["<b>📦&nbsp;WebSpark.Bootswatch.Demo.csproj</b><br/><small>net9.0</small>"]
+        P2["<b>📦&nbsp;WebSpark.Bootswatch.Demo.csproj</b><br/><small>net10.0</small>"]
         click P2 "#websparkbootswatchdemowebsparkbootswatchdemocsproj"
     end
     subgraph current["WebSpark.Bootswatch.csproj"]
-        MAIN["<b>📦&nbsp;WebSpark.Bootswatch.csproj</b><br/><small>net9.0</small>"]
+        MAIN["<b>📦&nbsp;WebSpark.Bootswatch.csproj</b><br/><small>net10.0</small>"]
         click MAIN "#websparkbootswatchwebsparkbootswatchcsproj"
     end
     P2 --> MAIN

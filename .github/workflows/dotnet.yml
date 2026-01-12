@@ -14,24 +14,10 @@ jobs:
     name: Build and Test
     runs-on: ubuntu-latest
     
-    strategy:
-      matrix:
-        framework: [net8.0, net9.0, net10.0]
-    
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: Setup .NET 8.0
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '8.0.x'
-
-      - name: Setup .NET 9.0
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '9.0.x'
 
       - name: Setup .NET 10.0
         uses: actions/setup-dotnet@v4
@@ -41,18 +27,18 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore
 
-      - name: Build for ${{ matrix.framework }}
-        run: dotnet build --configuration Release --framework ${{ matrix.framework }} --no-restore
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
 
-      - name: Test for ${{ matrix.framework }}
-        run: dotnet test --configuration Release --framework ${{ matrix.framework }} --no-build --verbosity normal --logger "trx;LogFileName=test-results-${{ matrix.framework }}.trx"
+      - name: Test
+        run: dotnet test --configuration Release --no-build --verbosity normal --logger "trx;LogFileName=test-results.trx"
 
-      - name: Upload test results for ${{ matrix.framework }}
+      - name: Upload test results
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: test-results-${{ matrix.framework }}
-          path: '**/test-results-${{ matrix.framework }}.trx'
+          name: test-results
+          path: '**/test-results.trx'
 
   publish:
     needs: build
@@ -63,16 +49,6 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: Setup .NET 8.0
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '8.0.x'
-
-      - name: Setup .NET 9.0
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '9.0.x'
 
       - name: Setup .NET 10.0
         uses: actions/setup-dotnet@v4
@@ -98,9 +74,9 @@ jobs:
       - name: Pack
         run: dotnet pack WebSpark.Bootswatch/WebSpark.Bootswatch.csproj --configuration Release --no-build --output ./nuget-packages
 
-      - name: Validate Multi-Framework Package
+      - name: Validate Package
         run: |
-          echo "Validating multi-framework NuGet package..."
+          echo "Validating .NET 10 NuGet package..."
 
           # Package path
           PACKAGE_PATH="nuget-packages/WebSpark.Bootswatch.${{ steps.get_version.outputs.VERSION }}.nupkg"
@@ -117,27 +93,24 @@ jobs:
           mkdir -p package-contents
           unzip -q "$PACKAGE_PATH" -d package-contents
 
-          # Verify multi-framework support
+          # Verify .NET 10 support
           echo ""
           echo "Checking framework support..."
           
-          FRAMEWORKS=("net8.0" "net9.0" "net10.0")
-          for fw in "${FRAMEWORKS[@]}"; do
-            if [ -d "package-contents/lib/$fw" ]; then
-              DLL_COUNT=$(find "package-contents/lib/$fw" -name "WebSpark.Bootswatch.dll" | wc -l)
-              if [ $DLL_COUNT -gt 0 ]; then
-                echo "✓ $fw: Assembly found"
-                DLL_SIZE=$(du -h "package-contents/lib/$fw/WebSpark.Bootswatch.dll" | cut -f1)
-                echo "    Size: $DLL_SIZE"
-              else
-                echo "::error::$fw: Assembly not found!"
-                exit 1
-              fi
+          if [ -d "package-contents/lib/net10.0" ]; then
+            DLL_COUNT=$(find "package-contents/lib/net10.0" -name "WebSpark.Bootswatch.dll" | wc -l)
+            if [ $DLL_COUNT -gt 0 ]; then
+              echo "✓ net10.0: Assembly found"
+              DLL_SIZE=$(du -h "package-contents/lib/net10.0/WebSpark.Bootswatch.dll" | cut -f1)
+              echo "    Size: $DLL_SIZE"
             else
-              echo "::error::$fw: Framework folder not found!"
+              echo "::error::net10.0: Assembly not found!"
               exit 1
             fi
-          done
+          else
+            echo "::error::net10.0: Framework folder not found!"
+            exit 1
+          fi
 
           # Check for symbols package
           SYMBOLS_PATH="nuget-packages/WebSpark.Bootswatch.${{ steps.get_version.outputs.VERSION }}.snupkg"
@@ -157,10 +130,10 @@ jobs:
 
           # Check for XML documentation
           XML_COUNT=$(find package-contents/lib -name "*.xml" 2>/dev/null | wc -l)
-          if [ $XML_COUNT -ge 3 ]; then
-            echo "✓ XML documentation included for all frameworks"
+          if [ $XML_COUNT -ge 1 ]; then
+            echo "✓ XML documentation included"
           else
-            echo "::warning::XML documentation may be missing for some frameworks"
+            echo "::warning::XML documentation may be missing"
           fi
 
           echo ""
@@ -182,16 +155,14 @@ jobs:
           body: |
             # WebSpark.Bootswatch ${{ steps.get_version.outputs.VERSION }}
 
-            Multi-framework support for .NET 8.0, 9.0, and 10.0.
+            .NET 10 exclusive release for access to latest features and packages.
 
-            ## 🎯 Multi-Framework Support
+            ## 🎯 Framework Support
 
-            This package supports:
-            - ✅ .NET 8.0 (LTS) - Supported until November 2026
-            - ✅ .NET 9.0 (STS) - Supported until May 2026
+            This package targets:
             - ✅ .NET 10.0 (Current) - Latest features
 
-            The correct assembly is automatically selected based on your project's target framework.
+            ⚠️ **Breaking Change**: Version 2.0+ targets .NET 10 exclusively. For .NET 8 or 9 support, use version 1.x.
 
             ## 📦 Installation
 
@@ -206,10 +177,7 @@ jobs:
 
             ## 🧪 Testing
 
-            This release includes comprehensive testing:
-            - 11 unit tests
-            - Tested on .NET 8.0, 9.0, and 10.0
-            - 33 total test executions
+            This release includes comprehensive testing on .NET 10.0.
 
             ## 📚 Documentation
 
@@ -244,8 +212,6 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "| Framework | Status |" >> $GITHUB_STEP_SUMMARY
           echo "|-----------|--------|" >> $GITHUB_STEP_SUMMARY
-          echo "| .NET 8.0  | ✅ PASSED |" >> $GITHUB_STEP_SUMMARY
-          echo "| .NET 9.0  | ✅ PASSED |" >> $GITHUB_STEP_SUMMARY
           echo "| .NET 10.0 | ✅ PASSED |" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "All frameworks tested successfully!" >> $GITHUB_STEP_SUMMARY

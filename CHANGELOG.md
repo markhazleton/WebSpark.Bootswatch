@@ -5,6 +5,90 @@ All notable changes to WebSpark.Bootswatch will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] - 2025-01-XX
+
+### 🚨 BREAKING CHANGES
+
+- **Dropped .NET 8.0 and .NET 9.0 Support**: This library now exclusively targets .NET 10.0
+- **Minimum Version Requirements**: 
+  - Requires .NET 10.0 SDK or later
+  - Requires WebSpark.HttpClientUtility 2.2.0 or later
+
+### Why .NET 10 Only?
+
+We made the strategic decision to prioritize **latest packages over broad framework compatibility**:
+
+#### ✅ Benefits
+- **Security & Performance**: Access to latest security patches and .NET 10 performance enhancements
+- **Modern Dependencies**: All Microsoft.Extensions.* packages updated to 10.0.1+
+- **Simplified Maintenance**: Single target framework reduces testing complexity and maintenance burden
+- **Future-Ready Architecture**: Leverages latest .NET features and capabilities
+- **Improved Developer Experience**: Better tooling support and IntelliSense in latest VS versions
+
+#### ⏰ Framework Lifecycle Considerations
+- **.NET 8.0**: Standard support ends November 2025 (approaching EOL)
+- **.NET 9.0**: STS (Standard Term Support) with shorter lifecycle
+- **.NET 10.0**: Current release with longest support timeline
+
+### Migration Guide
+
+#### For Existing Users (v1.x → v2.0)
+
+**1. Update Target Framework:**
+```xml
+<PropertyGroup>
+  <TargetFramework>net10.0</TargetFramework>
+</PropertyGroup>
+```
+
+**2. Update Package References:**
+```xml
+<PackageReference Include="WebSpark.Bootswatch" Version="2.0.0" />
+<PackageReference Include="WebSpark.HttpClientUtility" Version="2.2.0" />
+```
+
+**3. No Code Changes Required:**
+All public APIs remain backward compatible. Your existing code will continue to work without modifications.
+
+### Changed
+
+#### Package Dependencies
+- Updated `Microsoft.Extensions.FileProviders.Embedded` to 10.0.1
+- Updated `Microsoft.Extensions.DependencyInjection` to 10.0.1
+- Updated `Microsoft.Extensions.Logging` to 10.0.1
+- Updated `Microsoft.AspNetCore.Mvc.Testing` to 10.0.0 (Tests)
+- Updated `WebSpark.HttpClientUtility` requirement to 2.2.0+
+
+#### Project Configuration
+- Removed multi-targeting from all projects
+- Single `<TargetFramework>net10.0</TargetFramework>` across solution
+- Removed framework-specific conditional package references
+
+### Documentation
+
+#### Updated
+- README.md with breaking changes notice and migration guide
+- Package description with .NET 10 requirement
+- Release notes with detailed rationale
+- Copilot instructions to reflect .NET 10 architecture
+
+#### Added
+- Version support matrix table
+- Comprehensive migration instructions
+- Framework lifecycle information
+
+### Need .NET 8 or 9 Support?
+
+Continue using **WebSpark.Bootswatch 1.34.0** which supports:
+- ✅ .NET 8.0 (LTS)
+- ✅ .NET 9.0 (STS)  
+- ✅ .NET 10.0
+
+```bash
+dotnet add package WebSpark.Bootswatch --version 1.34.0
+dotnet add package WebSpark.HttpClientUtility --version 2.1.1
+```
+
 ## [1.34.0] - 2025-12-03
 
 ### Changed

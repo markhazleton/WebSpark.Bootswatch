@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
   <PropertyGroup>
-    <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
+    <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
@@ -12,16 +12,18 @@
 
   <PropertyGroup>
     <!-- Package metadata -->
-    <Version>1.34.0</Version>
-    <AssemblyVersion>1.34.0</AssemblyVersion>
-    <FileVersion>1.34.0</FileVersion>
+    <Version>2.0.0</Version>
+    <AssemblyVersion>2.0.0</AssemblyVersion>
+    <FileVersion>2.0.0</FileVersion>
     <PackageId>WebSpark.Bootswatch</PackageId>
     <Title>WebSpark.Bootswatch</Title>
     <Authors>Mark Hazleton</Authors>
     <Description>WebSpark.Bootswatch provides Bootswatch themes for ASP.NET Core applications. It
       includes custom themes and styles that can be easily integrated with ASP.NET Core MVC or Razor
-      Pages applications. Supports .NET 8.0, 9.0, and 10.0.
+      Pages applications. Requires .NET 10.0.
 
+      ⚠️ BREAKING CHANGE: Version 2.0+ targets .NET 10 exclusively for access to latest NuGet packages and features.
+      
       ⚠️ IMPORTANT: This package requires WebSpark.HttpClientUtility to be installed and registered
       separately.
 
@@ -33,7 +35,7 @@
       See package README for complete setup guide.</Description>
     <Copyright>Copyright © 2025 Mark Hazleton</Copyright>
     <PackageTags>
-      bootswatch;bootstrap;bootstrap5;themes;razor;aspnetcore;css;styling;theme-switcher;net8;net9;net10;multi-targeting;dark-mode;light-mode</PackageTags>
+      bootswatch;bootstrap;bootstrap5;themes;razor;aspnetcore;css;styling;theme-switcher;net10;dark-mode;light-mode</PackageTags>
     <PackageIcon>WebSpark.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -69,28 +71,40 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageReleaseNotes>Version 1.34.0: Demo site UI improvements
+    <PackageReleaseNotes>Version 2.0.0: Major Version - .NET 10 Exclusive Release
 
-      DEMO SITE ENHANCEMENTS:
-      - 🎨 Improved hero section visibility across all 28 themes
-      - 🎨 Enhanced text contrast with shadow effects and explicit color classes
-      - 🎨 Better visual hierarchy with improved typography weights
-      - 🎨 Ensures readability in both light and dark mode themes
-
-      LIBRARY CHANGES: None - This is a demo-only release
-      BREAKING CHANGES: None - Fully backward compatible
-
-      Previous version 1.33.0: Enhanced developer experience with dependency validation,
-      configuration validation service, comprehensive XML documentation, and improved error
-      messages.
-      Complete README rewrite with step-by-step setup guide and troubleshooting section.
-
-      SETUP REQUIREMENTS:
-      1. Install: dotnet add package WebSpark.HttpClientUtility
-      2. Register: builder.Services.AddHttpClientUtility(); (BEFORE AddBootswatchThemeSwitcher)
-      3. Add HttpRequestResultPollyOptions to appsettings.json
-      4. Use UseBootswatchAll() BEFORE UseStaticFiles()
-
+      🚨 BREAKING CHANGES:
+      - Dropped support for .NET 8.0 and .NET 9.0
+      - Now targets .NET 10.0 exclusively
+      - Requires WebSpark.HttpClientUtility 2.2.0+
+      
+      📋 RATIONALE:
+      We chose to support the latest NuGet packages and framework features over broad 
+      framework compatibility. This decision prioritizes:
+      
+      ✅ Access to latest security updates and features
+      ✅ Improved performance from .NET 10 enhancements
+      ✅ Simplified maintenance with single target framework
+      ✅ Future-ready architecture
+      
+      .NET 8 reaches end of standard support in November 2025, and .NET 9 has a shorter 
+      STS lifecycle. By focusing on .NET 10, we ensure the library remains current with 
+      the latest Microsoft ecosystem developments.
+      
+      🔄 MIGRATION GUIDE:
+      1. Update your project to target .NET 10: <TargetFramework>net10.0</TargetFramework>
+      2. Update WebSpark.HttpClientUtility to 2.2.0 or later
+      3. No code changes required - all APIs remain compatible
+      
+      💡 VERSION 1.x SUPPORT:
+      If you need .NET 8 or .NET 9 support, use WebSpark.Bootswatch 1.34.0
+      
+      📦 PACKAGE UPDATES:
+      - Microsoft.Extensions.FileProviders.Embedded: 10.0.1
+      - Microsoft.Extensions.DependencyInjection: 10.0.1
+      - Microsoft.Extensions.Logging: 10.0.1
+      - All ASP.NET Core packages updated to latest versions
+      
       For complete setup guide, see:
       https://github.com/MarkHazleton/WebSpark.Bootswatch/wiki/Getting-Started</PackageReleaseNotes>
   </PropertyGroup>
@@ -129,32 +143,15 @@
     <None Include="..\LICENSE" Pack="true" PackagePath="\" />
     <None Include="..\NOTICE.txt" Pack="true" PackagePath="\" />
     <!-- Sample layout file for easy integration -->
-    <None Include="..\Samples\BootswatchLayout.cshtml" Pack="true"
-      PackagePath="contentFiles\any\any\" />
+    <None Include="..\Samples\BootswatchLayout.cshtml" Pack="true" PackagePath="contentFiles\any\any\" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.3.0" />
-    <PackageReference Include="WebSpark.HttpClientUtility" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.3.9" />
+    <PackageReference Include="WebSpark.HttpClientUtility" Version="2.2.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
-  </ItemGroup>
-
-  <!-- Framework-specific package references -->
-  <ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
-    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="8.0.11" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.3.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor" Version="2.3.0" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'net9.0'">
-    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="9.0.9" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.3.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor" Version="2.3.0" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
-    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="10.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.3.0" />
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="10.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.3.9" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor" Version="2.3.0" />
   </ItemGroup>
 </Project>

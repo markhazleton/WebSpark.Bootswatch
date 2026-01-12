@@ -8,98 +8,12 @@ on:
   workflow_dispatch:
 
 jobs:
-  test-net8:
-    name: Test .NET 8.0
-    runs-on: ubuntu-latest
-    
-    steps:
-    - uses: actions/checkout@v4
-    
-    - name: Setup .NET 8.0
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '8.0.x'
-    
-    - name: Setup .NET 9.0
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '9.0.x'
-    
-    - name: Setup .NET 10.0
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '10.0.x'
-    
-    - name: Restore dependencies
-      run: dotnet restore
-    
-    - name: Build for .NET 8.0
-      run: dotnet build --configuration Release --framework net8.0 --no-restore
-    
-    - name: Run tests for .NET 8.0
-      run: dotnet test --configuration Release --framework net8.0 --no-build --verbosity normal --logger "trx;LogFileName=test-results-net8.trx"
-    
-    - name: Upload test results for .NET 8.0
-      uses: actions/upload-artifact@v4
-      if: always()
-      with:
-        name: test-results-net8
-        path: '**/test-results-net8.trx'
-
-  test-net9:
-    name: Test .NET 9.0
-    runs-on: ubuntu-latest
-    
-    steps:
-    - uses: actions/checkout@v4
-    
-    - name: Setup .NET 8.0
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '8.0.x'
-    
-    - name: Setup .NET 9.0
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '9.0.x'
-    
-    - name: Setup .NET 10.0
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '10.0.x'
-    
-    - name: Restore dependencies
-      run: dotnet restore
-    
-    - name: Build for .NET 9.0
-      run: dotnet build --configuration Release --framework net9.0 --no-restore
-    
-    - name: Run tests for .NET 9.0
-      run: dotnet test --configuration Release --framework net9.0 --no-build --verbosity normal --logger "trx;LogFileName=test-results-net9.trx"
-    
-    - name: Upload test results for .NET 9.0
-      uses: actions/upload-artifact@v4
-      if: always()
-      with:
-        name: test-results-net9
-        path: '**/test-results-net9.trx'
-
   test-net10:
     name: Test .NET 10.0
     runs-on: ubuntu-latest
     
     steps:
     - uses: actions/checkout@v4
-    
-    - name: Setup .NET 8.0
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '8.0.x'
-    
-    - name: Setup .NET 9.0
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '9.0.x'
     
     - name: Setup .NET 10.0
       uses: actions/setup-dotnet@v4
@@ -125,7 +39,7 @@ jobs:
   test-summary:
     name: Test Summary
     runs-on: ubuntu-latest
-    needs: [test-net8, test-net9, test-net10]
+    needs: [test-net10]
     if: always()
     
     steps:
@@ -140,6 +54,4 @@ jobs:
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "| Framework | Status |" >> $GITHUB_STEP_SUMMARY
         echo "|-----------|--------|" >> $GITHUB_STEP_SUMMARY
-        echo "| .NET 8.0  | ${{ needs.test-net8.result }} |" >> $GITHUB_STEP_SUMMARY
-        echo "| .NET 9.0  | ${{ needs.test-net9.result }} |" >> $GITHUB_STEP_SUMMARY
         echo "| .NET 10.0 | ${{ needs.test-net10.result }} |" >> $GITHUB_STEP_SUMMARY

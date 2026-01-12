@@ -24,7 +24,7 @@ jobs:
       run: dotnet restore
     
     - name: Build for .NET 10.0
-      run: dotnet build --configuration Release --framework net10.0 --no-restore
+      run: dotnet build --configuration Release --framework net10.0 --no-restore --disable-parallel
     
     - name: Run tests for .NET 10.0
       run: dotnet test --configuration Release --framework net10.0 --no-build --verbosity normal --logger "trx;LogFileName=test-results-net10.trx"

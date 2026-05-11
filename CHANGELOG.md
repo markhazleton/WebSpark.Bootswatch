@@ -424,5 +424,5 @@ For issues, questions, or contributions:
 
 - [NuGet Package](https://www.nuget.org/packages/WebSpark.Bootswatch/)
 - [GitHub Repository](https://github.com/MarkHazleton/WebSpark.Bootswatch)
-- [Demo Site](https://bootswatch.markhazleton.com/)
+- [Demo Site](https://bootswatch.makeboldspark.com/)
 - [Documentation](https://github.com/MarkHazleton/WebSpark.Bootswatch/wiki)

@@ -47,7 +47,7 @@
     <!-- Repository info -->
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/MarkHazleton/WebSpark.Bootswatch</RepositoryUrl>
-    <PackageProjectUrl>https://bootswatch.markhazleton.com/</PackageProjectUrl>
+    <PackageProjectUrl>https://bootswatch.makeboldspark.com/</PackageProjectUrl>
 
     <!-- Build settings -->
     <ApplicationIcon>favicon.ico</ApplicationIcon>

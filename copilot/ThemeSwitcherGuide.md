@@ -4,7 +4,7 @@ WebSpark.Bootswatch includes a built-in theme switcher and light/dark mode funct
 
 ## Important Links
 
-- **Demo Site**: [https://bootswatch.markhazleton.com/](https://bootswatch.markhazleton.com/)
+- **Demo Site**: [https://bootswatch.makeboldspark.com/](https://bootswatch.makeboldspark.com/)
 - **NuGet Package**: [https://www.nuget.org/packages/WebSpark.Bootswatch](https://www.nuget.org/packages/WebSpark.Bootswatch)
 - **GitHub Repository**: [https://github.com/MarkHazleton/WebSpark.Bootswatch](https://github.com/MarkHazleton/WebSpark.Bootswatch)
 

@@ -111,7 +111,7 @@ git push origin v1.32.0
    - ? Checkout and setup
    - ? Restore dependencies
    - ? Build for net8.0, net9.0, net10.0
-   - ? Run tests (11 tests × 3 frameworks = 33 executions)
+   - ? Run tests (11 tests ï¿½ 3 frameworks = 33 executions)
    - ? Package creation and validation
    - ? NuGet push
    - ? GitHub Release creation
@@ -281,7 +281,7 @@ git push origin v1.32.0
 After successful publication:
 
 1. **Announce Release**:
-   - [ ] Update demo site: https://bootswatch.markhazleton.com
+   - [ ] Update demo site: https://bootswatch.makeboldspark.com/
    - [ ] Create announcement in GitHub Discussions
    - [ ] Update any external documentation
 

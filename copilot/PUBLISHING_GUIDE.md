@@ -91,7 +91,7 @@ Before publishing, verify:
 
 - [x] **Version Updated**: Version is 1.31.0 in .csproj
 - [x] **Package Built**: Successfully built for all target frameworks
-- [x] **Tests Pass**: All 33 tests passing (11 tests × 3 frameworks)
+- [x] **Tests Pass**: All 33 tests passing (11 tests ï¿½ 3 frameworks)
 - [x] **Documentation Updated**: README, CHANGELOG, and guides updated
 - [x] **Release Notes**: Package release notes are accurate
 - [x] **Package Created**: .nupkg and .snupkg files exist in nupkgs/
@@ -156,7 +156,7 @@ Before publishing, verify:
    ```
 
 7. **Update Documentation Sites**
-   - Update demo site: https://bootswatch.markhazleton.com
+   - Update demo site: https://bootswatch.makeboldspark.com/
    - Update GitHub wiki if applicable
    - Update any external documentation
 

@@ -63,7 +63,7 @@ All tests passing across all frameworks:
 | .NET 9.0  | 11    | ? PASSED | 1.0s |
 | .NET 10.0 | 11    | ? PASSED | 0.9s |
 
-**Total**: 33 test executions (11 tests × 3 frameworks)
+**Total**: 33 test executions (11 tests ï¿½ 3 frameworks)
 
 ## ??? Package Structure
 
@@ -174,7 +174,7 @@ dotnet nuget push WebSpark.Bootswatch\bin\Release\WebSpark.Bootswatch.1.31.0.nup
 
 - **Repository**: https://github.com/MarkHazleton/WebSpark.Bootswatch
 - **NuGet Package**: https://www.nuget.org/packages/WebSpark.Bootswatch
-- **Demo Site**: https://bootswatch.markhazleton.com
+- **Demo Site**: https://bootswatch.makeboldspark.com/
 - **Documentation**: See README.md and MULTI_FRAMEWORK_TESTING_SUMMARY.md
 
 ## ?? Next Steps

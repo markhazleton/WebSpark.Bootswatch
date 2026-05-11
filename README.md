@@ -10,6 +10,15 @@ A .NET Razor Class Library that provides seamless integration of [Bootswatch](ht
 [![.NET](https://github.com/MarkHazleton/WebSpark.Bootswatch/actions/workflows/dotnet.yml/badge.svg)](https://github.com/MarkHazleton/WebSpark.Bootswatch/actions/workflows/dotnet.yml)
 [![GitHub Stars](https://img.shields.io/github/stars/MarkHazleton/WebSpark.Bootswatch)](https://github.com/MarkHazleton/WebSpark.Bootswatch/stargazers)
 
+**Live Site**: [https://bootswatch.makeboldspark.com/](https://bootswatch.makeboldspark.com/)
+
+## About
+
+WebSpark.Bootswatch is a .NET Razor Class Library that provides seamless integration of [Bootswatch](https://bootswatch.com/) themes into ASP.NET Core applications. See it live at [https://bootswatch.makeboldspark.com/](https://bootswatch.makeboldspark.com/).
+
+> Built by [Mark Hazleton](https://markhazleton.com) — Mark Hazleton, Solutions Architect
+> Bootswatch is part of the [Make Bold Spark](https://makeboldspark.com) portfolio of technical demonstrations.
+
 > **Latest Release**: v2.0.0 - .NET 10 Exclusive Release (Breaking Changes)
 
 ## 🚨 Version 2.0 Breaking Changes

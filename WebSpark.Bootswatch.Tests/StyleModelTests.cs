@@ -20,7 +20,7 @@ public class StyleModelTests
         styleModel.Should().NotBeNull();
     }
 
-    [DataTestMethod]
+    [TestMethod]
     [DataRow("cerulean", "Cerulean")]
     [DataRow("cosmo", "Cosmo")]
     [DataRow("darkly", "Darkly")]

@@ -9,7 +9,7 @@
 .PARAMETER ApiKey
     NuGet API key for authentication. If not provided, will look for NUGET_API_KEY environment variable.
 .PARAMETER Version
-    Package version to publish. Default is 1.31.0
+    Package version to publish. Default is 2.5.1
 .PARAMETER Source
     NuGet source URL. Default is https://api.nuget.org/v3/index.json
 .PARAMETER PackageDirectory
@@ -20,7 +20,7 @@
     If specified, shows what would be published without actually publishing
 .EXAMPLE
     .\publish-nuget-package.ps1 -ApiKey "your-api-key-here"
-    Publishes version 1.31.0 to NuGet.org
+    Publishes version 2.5.1 to NuGet.org
 .EXAMPLE
     .\publish-nuget-package.ps1 -ApiKey "your-api-key" -WhatIf
     Shows what would be published without actually publishing
@@ -31,7 +31,7 @@ param(
     [string]$ApiKey = $env:NUGET_API_KEY,
     
     [Parameter(Mandatory=$false)]
-    [string]$Version = "1.31.0",
+    [string]$Version = "2.5.1",
     
     [Parameter(Mandatory=$false)]
     [string]$Source = "https://api.nuget.org/v3/index.json",

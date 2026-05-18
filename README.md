@@ -19,7 +19,7 @@ WebSpark.Bootswatch is a .NET Razor Class Library that provides seamless integra
 > Built by [Mark Hazleton](https://markhazleton.com) — Mark Hazleton, Solutions Architect
 > BootswatchSpark is part of the [Make Bold Spark](https://makeboldspark.com) portfolio of technical demonstrations.
 
-**Latest Release**: v2.0.0 - .NET 10 Exclusive Release (Breaking Changes)
+**Latest Release**: v2.5.1 - Dependency Alignment Release
 
 ## 🚨 Version 2.0 Breaking Changes
 
@@ -45,8 +45,8 @@ We prioritized **latest packages over legacy support** for these reasons:
 </PropertyGroup>
 
 <!-- Update package versions -->
-<PackageReference Include="WebSpark.Bootswatch" Version="2.0.0" />
-<PackageReference Include="WebSpark.HttpClientUtility" Version="2.2.0" />
+<PackageReference Include="WebSpark.Bootswatch" Version="2.5.1" />
+<PackageReference Include="WebSpark.HttpClientUtility" Version="2.5.1" />
 ```
 
 **No code changes required** - All APIs remain backward compatible.
@@ -77,9 +77,9 @@ dotnet add package WebSpark.HttpClientUtility --version 2.1.1
 ### Required Dependencies
 
 ```xml
-<!-- Version 2.0+ (NET 10 only) -->
-<PackageReference Include="WebSpark.Bootswatch" Version="2.0.0" />
-<PackageReference Include="WebSpark.HttpClientUtility" Version="2.2.0" />
+<!-- Version 2.x (NET 10 only) -->
+<PackageReference Include="WebSpark.Bootswatch" Version="2.5.1" />
+<PackageReference Include="WebSpark.HttpClientUtility" Version="2.5.1" />
 
 <!-- Version 1.x (NET 8/9/10) -->
 <PackageReference Include="WebSpark.Bootswatch" Version="1.34.0" />
@@ -90,8 +90,8 @@ dotnet add package WebSpark.HttpClientUtility --version 2.1.1
 
 ```xml
 <!-- For .NET 10 projects -->
-<PackageReference Include="WebSpark.Bootswatch" Version="2.0.0" />
-<PackageReference Include="WebSpark.HttpClientUtility" Version="2.2.0" />
+<PackageReference Include="WebSpark.Bootswatch" Version="2.5.1" />
+<PackageReference Include="WebSpark.HttpClientUtility" Version="2.5.1" />
 ```
 
 **Note**: Version 2.0+ targets .NET 10.0 exclusively. The package will automatically use the correct assembly for your .NET 10 project.
@@ -112,5 +112,5 @@ dotnet add package WebSpark.HttpClientUtility --version 2.1.1
 Your `.csproj` should now include BOTH packages:
 
 ```xml
-<PackageReference Include="WebSpark.Bootswatch" Version="2.0.0" />
-<PackageReference Include="WebSpark.HttpClientUtility" Version="2.2.0" />
+<PackageReference Include="WebSpark.Bootswatch" Version="2.5.1" />
+<PackageReference Include="WebSpark.HttpClientUtility" Version="2.5.1" />

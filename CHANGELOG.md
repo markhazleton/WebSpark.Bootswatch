@@ -5,6 +5,20 @@ All notable changes to WebSpark.Bootswatch will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.5.1] - 2026-05-18
+
+### Changed
+
+- **Dependency Alignment**: Updated `WebSpark.HttpClientUtility` to 2.5.1 to align with the broader WebSpark ecosystem versioning
+- **Version Bump**: Aligned package version with other WebSpark NuGet packages for consistency
+
+### Notes
+
+- **Backward Compatibility**: Fully compatible with 2.0.0 — no code changes required
+- **Target Framework**: .NET 10.0 exclusively (unchanged)
+
+---
+
 ## [2.0.0] - 2025-01-XX
 
 ### 🚨 BREAKING CHANGES
@@ -43,8 +57,8 @@ We made the strategic decision to prioritize **latest packages over broad framew
 
 **2. Update Package References:**
 ```xml
-<PackageReference Include="WebSpark.Bootswatch" Version="2.0.0" />
-<PackageReference Include="WebSpark.HttpClientUtility" Version="2.2.0" />
+<PackageReference Include="WebSpark.Bootswatch" Version="2.5.1" />
+<PackageReference Include="WebSpark.HttpClientUtility" Version="2.5.1" />
 ```
 
 **3. No Code Changes Required:**

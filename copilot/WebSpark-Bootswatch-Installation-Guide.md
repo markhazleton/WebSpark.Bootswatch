@@ -27,22 +27,22 @@ This guide provides step-by-step instructions for implementing WebSpark.Bootswat
 Add the following packages to your project:
 
 ```xml
-<PackageReference Include="WebSpark.Bootswatch" Version="2.0.0" />
-<PackageReference Include="WebSpark.HttpClientUtility" Version="2.2.0" />
+<PackageReference Include="WebSpark.Bootswatch" Version="2.5.1" />
+<PackageReference Include="WebSpark.HttpClientUtility" Version="2.5.1" />
 ```
 
 #### Using Package Manager Console
 
 ```powershell
-Install-Package WebSpark.Bootswatch -Version 2.0.0
-Install-Package WebSpark.HttpClientUtility -Version 2.2.0
+Install-Package WebSpark.Bootswatch -Version 2.5.1
+Install-Package WebSpark.HttpClientUtility -Version 2.5.1
 ```
 
 #### Using .NET CLI
 
 ```bash
-dotnet add package WebSpark.Bootswatch --version 2.0.0
-dotnet add package WebSpark.HttpClientUtility --version 2.2.0
+dotnet add package WebSpark.Bootswatch --version 2.5.1
+dotnet add package WebSpark.HttpClientUtility --version 2.5.1
 ```
 
 ## Configuration Setup
@@ -379,3 +379,5 @@ To add custom CSS that works with theme switching:
 ## Version History
 
 - **v1.0**: Initial implementation guide for WebSpark.Bootswatch v1.20.0
+- **v2.0**: Updated for .NET 10 exclusive targeting (v2.0.0)
+- **v2.5**: Updated for dependency alignment release (v2.5.1)

@@ -1,15 +1,16 @@
 using FluentAssertions;
 using WebSpark.Bootswatch.Model;
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace WebSpark.Bootswatch.Tests;
 
 /// <summary>
 /// Tests for StyleModel functionality across all target frameworks
 /// </summary>
+[TestClass]
 public class StyleModelTests
 {
-    [Fact]
+    [TestMethod]
     public void StyleModel_ShouldInitialize_WithDefaultValues()
     {
         // Act
@@ -19,11 +20,11 @@ public class StyleModelTests
         styleModel.Should().NotBeNull();
     }
 
-    [Theory]
-    [InlineData("cerulean", "Cerulean")]
-    [InlineData("cosmo", "Cosmo")]
-    [InlineData("darkly", "Darkly")]
-    [InlineData("flatly", "Flatly")]
+    [DataTestMethod]
+    [DataRow("cerulean", "Cerulean")]
+    [DataRow("cosmo", "Cosmo")]
+    [DataRow("darkly", "Darkly")]
+    [DataRow("flatly", "Flatly")]
     public void StyleModel_ShouldStore_ThemeNames(string themeName, string displayName)
     {
         // Arrange

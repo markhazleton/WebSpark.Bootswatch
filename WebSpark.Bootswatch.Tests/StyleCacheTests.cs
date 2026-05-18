@@ -1,16 +1,17 @@
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using WebSpark.Bootswatch.Services;
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace WebSpark.Bootswatch.Tests;
 
 /// <summary>
 /// Tests for StyleCache service across all target frameworks
 /// </summary>
+[TestClass]
 public class StyleCacheTests
 {
-    [Fact]
+    [TestMethod]
     public void StyleCache_ShouldInitialize()
     {
         // Arrange
@@ -23,7 +24,7 @@ public class StyleCacheTests
         styleCache.Should().NotBeNull();
     }
 
-    [Fact]
+    [TestMethod]
     public void GetAllStyles_ShouldReturnList()
     {
         // Arrange
@@ -38,7 +39,7 @@ public class StyleCacheTests
         styles.Should().BeOfType<List<Model.StyleModel>>();
     }
 
-    [Fact]
+    [TestMethod]
     public void GetStyle_WithNonExistentName_ShouldReturnEmptyModel()
     {
         // Arrange

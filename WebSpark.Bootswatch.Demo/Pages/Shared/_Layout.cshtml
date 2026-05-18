@@ -9,21 +9,31 @@
 
 <head>
     <meta charset="utf-8" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RY77Z11S9E"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-RY77Z11S9E');
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="WebSpark.Bootswatch Demo - Bootstrap themes for ASP.NET Core applications" />
     <meta name="author" content="Mark Hazleton" />
     <meta name="theme-color" content="#007bff" />
-    
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content="@ViewData["Title"] - WebSpark.Bootswatch.Demo" />
-    <meta property="og:description" content="WebSpark.Bootswatch Demo - Bootstrap themes for ASP.NET Core applications" />
-    
+    <meta property="og:description"
+          content="WebSpark.Bootswatch Demo - Bootstrap themes for ASP.NET Core applications" />
+
     <!-- Twitter -->
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="@ViewData["Title"] - WebSpark.Bootswatch.Demo" />
-    <meta name="twitter:description" content="WebSpark.Bootswatch Demo - Bootstrap themes for ASP.NET Core applications" />
-    
+    <meta name="twitter:description"
+          content="WebSpark.Bootswatch Demo - Bootstrap themes for ASP.NET Core applications" />
+
     <title>@ViewData["Title"] - WebSpark.Bootswatch.Demo</title>
 
     @{
@@ -33,20 +43,22 @@
 
     <!-- Preload critical resources -->
     <link rel="preload" href="@themeUrl" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="@themeUrl"></noscript>
-    
+    <noscript>
+        <link rel="stylesheet" href="@themeUrl">
+    </noscript>
+
     <!-- Fallback for theme stylesheet -->
     <link id="bootswatch-theme-stylesheet" rel="stylesheet" href="@themeUrl" />
-    
+
     <!-- Custom site styles -->
     <link rel="stylesheet" href="~/css/site.css" />
-    
+
     <!-- DNS prefetch for external resources -->
     <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
-    
+
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="~/favicon.ico" />
-    
+
     <!-- Theme switcher script - load early but defer execution -->
     <script src="/_content/WebSpark.Bootswatch/js/bootswatch-theme-switcher.js" defer></script>
 </head>
@@ -54,96 +66,102 @@
 <body>
     <!-- Skip navigation link for accessibility -->
     <a href="#main-content" class="visually-hidden-focusable">Skip to main content</a>
-    
+
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3" role="navigation" aria-label="Main navigation">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
+             role="navigation" aria-label="Main navigation">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index" aria-label="WebSpark.Bootswatch home">WebSpark.Bootswatch</a>
+                <a class="navbar-brand" asp-area="" asp-page="/Index"
+                   aria-label="WebSpark.Bootswatch home">WebSpark.Bootswatch</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between" id="navbarSupportedContent">
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between"
+                     id="navbarSupportedContent">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index" aria-current="@(ViewContext.RouteData.Values["page"]?.ToString() == "/Index" ? "page" : null)">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Index"
+                               aria-current="@(ViewContext.RouteData.Values["page"]?.ToString() == "/Index" ? "page" : null)">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/WebSparkBootswatch" aria-current="@(ViewContext.RouteData.Values["page"]?.ToString() == "/WebSparkBootswatch" ? "page" : null)">WebSpark.Bootswatch</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/WebSparkBootswatch"
+                               aria-current="@(ViewContext.RouteData.Values["page"]?.ToString() == "/WebSparkBootswatch" ? "page" : null)">WebSpark.Bootswatch</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/ThemeSwitcherExample" aria-current="@(ViewContext.RouteData.Values["page"]?.ToString() == "/ThemeSwitcherExample" ? "page" : null)">Theme Switcher</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">
-                                Bootstrap
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" asp-area="" asp-page="/Components">Components</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-page="/Accordion">Accordion</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-page="/GridSystem">Grid System</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-page="/CardLayout">Cards & Layout</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-page="/FormsControls">Forms & Controls</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy" aria-current="@(ViewContext.RouteData.Values["page"]?.ToString() == "/Privacy" ? "page" : null)">Privacy</a>
-                        </li>
-                    </ul>
-                    <!-- Preferred: Use the Tag Helper for the theme switcher -->
-                    <bootswatch-theme-switcher />
+                            <a class="nav-link text-dark" asp-area="" asp-page="/ThemeSwitcherExample"
+                               aria-current="@(ViewContext.RouteData.Values["page"]?.ToString() == "/ThemeSwitcherExample" ? "page" : null)">Theme
+                                Switcher</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button"
+                                   data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">
+                                    Bootstrap
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/Components">Components</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/Accordion">Accordion</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/GridSystem">Grid System</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/CardLayout">Cards & Layout</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/FormsControls">Forms & Controls</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Privacy"
+                                   aria-current="@(ViewContext.RouteData.Values["page"]?.ToString() == "/Privacy" ? "page" : null)">Privacy</a>
+                            </li>
+                        </ul>
+                        <!-- Preferred: Use the Tag Helper for the theme switcher -->
+                        <bootswatch-theme-switcher />
+                    </div>
                 </div>
-            </div>
-        </nav>
-    </header>
-    
-    <div class="container">
-        <main role="main" class="pb-3" id="main-content">
-            @RenderBody()
-        </main>
-    </div>
+            </nav>
+        </header>
 
-    <footer class="border-top footer text-muted py-3" role="contentinfo">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-6">
-                    <span>&copy; @DateTime.Now.Year - WebSpark.Bootswatch.Demo</span>
-                    <span class="mx-2">|</span>
-                    <a asp-area="" asp-page="/Privacy" class="text-decoration-none">Privacy</a>
+            <main role="main" class="pb-3" id="main-content">
+                @RenderBody()
+            </main>
+        </div>
+
+        <footer class="border-top footer text-muted py-3" role="contentinfo">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <span>&copy; @DateTime.Now.Year - WebSpark.Bootswatch.Demo</span>
+                        <span class="mx-2">|</span>
+                        <a asp-area="" asp-page="/Privacy" class="text-decoration-none">Privacy</a>
+                    </div>
+                    <div class="col-md-6 text-md-end text-start mt-2 mt-md-0">
+                        <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-end">
+                            <span class="me-md-3 mb-1 mb-md-0">
+                                📦 <a href="@VersionService.NuGetPackageUrl" target="_blank" rel="noopener noreferrer"
+                                      class="text-decoration-none" title="View on NuGet">v@(VersionService.ShortVersion)</a>
+                            </span>
+                            <small class="text-muted">
+                                🗓️ Built: @(VersionService.FormattedBuildDate)
+                            </small>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-6 text-md-end text-start mt-2 mt-md-0">
-                    <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-end">
-                        <span class="me-md-3 mb-1 mb-md-0">
-                            📦 <a href="@VersionService.NuGetPackageUrl" 
-                                  target="_blank" 
-                                  rel="noopener noreferrer" 
-                                  class="text-decoration-none"
-                                  title="View on NuGet">v@(VersionService.ShortVersion)</a>
-                        </span>
-                        <small class="text-muted">
-                            🗓️ Built: @(VersionService.FormattedBuildDate)
-                        </small>
+                <div class="row mt-2 border-top pt-2">
+                    <div class="col-12 text-center">
+                        <p>
+                            <a href="https://bootswatch.makeboldspark.com">BootswatchSpark</a> —
+                            built by <a href="https://markhazleton.com">Mark Hazleton</a> ·
+                            <a href="https://makeboldsolutions.com">Make Bold Solutions</a>
+                        </p>
                     </div>
                 </div>
             </div>
-            <div class="row mt-2 border-top pt-2">
-                <div class="col-12 text-center">
-                    <small>
-                        <a href="https://bootswatch.makeboldspark.com/">Bootswatch</a> —
-                        built by <a href="https://markhazleton.com">Mark Hazleton</a> ·
-                        <a href="https://makeboldsolutions.com">Make Bold Solutions</a>
-                    </small>
-                </div>
-            </div>
-        </div>
-    </footer>
+        </footer>
 
-    <!-- Load scripts at the end for better performance -->
-    <script src="~/lib/jquery/dist/jquery.min.js" defer></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" defer></script>
+        <!-- Load scripts at the end for better performance -->
+        <script src="~/lib/jquery/dist/jquery.min.js" defer></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" defer></script>
 
-    @await RenderSectionAsync("Scripts", required: false)
-</body>
+        @await RenderSectionAsync("Scripts", required: false)
+    </body>
 
 </html>

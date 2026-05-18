@@ -22,8 +22,9 @@
       includes custom themes and styles that can be easily integrated with ASP.NET Core MVC or Razor
       Pages applications. Requires .NET 10.0.
 
-      ⚠️ BREAKING CHANGE: Version 2.0+ targets .NET 10 exclusively for access to latest NuGet packages and features.
-      
+      ⚠️ BREAKING CHANGE: Version 2.0+ targets .NET 10 exclusively for access to latest NuGet
+      packages and features.
+
       ⚠️ IMPORTANT: This package requires WebSpark.HttpClientUtility to be installed and registered
       separately.
 
@@ -71,41 +72,21 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageReleaseNotes>Version 2.0.0: Major Version - .NET 10 Exclusive Release
-
-      🚨 BREAKING CHANGES:
-      - Dropped support for .NET 8.0 and .NET 9.0
-      - Now targets .NET 10.0 exclusively
-      - Requires WebSpark.HttpClientUtility 2.2.0+
-      
-      📋 RATIONALE:
-      We chose to support the latest NuGet packages and framework features over broad 
-      framework compatibility. This decision prioritizes:
-      
-      ✅ Access to latest security updates and features
-      ✅ Improved performance from .NET 10 enhancements
-      ✅ Simplified maintenance with single target framework
-      ✅ Future-ready architecture
-      
-      .NET 8 reaches end of standard support in November 2025, and .NET 9 has a shorter 
-      STS lifecycle. By focusing on .NET 10, we ensure the library remains current with 
-      the latest Microsoft ecosystem developments.
-      
-      🔄 MIGRATION GUIDE:
-      1. Update your project to target .NET 10: <TargetFramework>net10.0</TargetFramework>
-      2. Update WebSpark.HttpClientUtility to 2.2.0 or later
-      3. No code changes required - all APIs remain compatible
-      
-      💡 VERSION 1.x SUPPORT:
-      If you need .NET 8 or .NET 9 support, use WebSpark.Bootswatch 1.34.0
-      
-      📦 PACKAGE UPDATES:
-      - Microsoft.Extensions.FileProviders.Embedded: 10.0.1
-      - Microsoft.Extensions.DependencyInjection: 10.0.1
-      - Microsoft.Extensions.Logging: 10.0.1
-      - All ASP.NET Core packages updated to latest versions
-      
-      For complete setup guide, see:
+    <PackageReleaseNotes>Version 2.0.0: Major Version - .NET 10 Exclusive Release 🚨 BREAKING
+      CHANGES: - Dropped support for .NET 8.0 and .NET 9.0 - Now targets .NET 10.0 exclusively -
+      Requires WebSpark.HttpClientUtility 2.2.0+ 📋 RATIONALE: We chose to support the latest NuGet
+      packages and framework features over broad framework compatibility. This decision prioritizes:
+      ✅ Access to latest security updates and features ✅ Improved performance from .NET 10
+      enhancements ✅ Simplified maintenance with single target framework ✅ Future-ready architecture
+      .NET 8 reaches end of standard support in November 2025, and .NET 9 has a shorter STS
+      lifecycle. By focusing on .NET 10, we ensure the library remains current with the latest
+      Microsoft ecosystem developments. 🔄 MIGRATION GUIDE: 1. Update your project to target .NET
+      10: <TargetFramework>net10.0</TargetFramework> 2. Update WebSpark.HttpClientUtility to 2.2.0
+      or later 3. No code changes required - all APIs remain compatible 💡 VERSION 1.x SUPPORT: If
+      you need .NET 8 or .NET 9 support, use WebSpark.Bootswatch 1.34.0 📦 PACKAGE UPDATES: -
+      Microsoft.Extensions.FileProviders.Embedded: 10.0.1 -
+      Microsoft.Extensions.DependencyInjection: 10.0.1 - Microsoft.Extensions.Logging: 10.0.1 - All
+      ASP.NET Core packages updated to latest versions For complete setup guide, see:
       https://github.com/MarkHazleton/WebSpark.Bootswatch/wiki/Getting-Started</PackageReleaseNotes>
   </PropertyGroup>
 
@@ -143,15 +124,13 @@
     <None Include="..\LICENSE" Pack="true" PackagePath="\" />
     <None Include="..\NOTICE.txt" Pack="true" PackagePath="\" />
     <!-- Sample layout file for easy integration -->
-    <None Include="..\Samples\BootswatchLayout.cshtml" Pack="true" PackagePath="contentFiles\any\any\" />
+    <None Include="..\Samples\BootswatchLayout.cshtml" Pack="true"
+      PackagePath="contentFiles\any\any\" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.3.9" />
-    <PackageReference Include="WebSpark.HttpClientUtility" Version="2.2.0" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="WebSpark.HttpClientUtility" Version="2.5.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="10.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.3.9" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor" Version="2.3.0" />
   </ItemGroup>
 </Project>
